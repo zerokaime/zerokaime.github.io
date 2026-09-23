@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0回目 — 場面1「歩道で」</title>
+<meta name="color-scheme" content="light">
+<style>
+  :root{
+    --paper:#EEF1F3;
+    --ink:#22272B;
+    --muted:#5A6470;
+    --blue:#1F5FA8;
+    --blue-deep:#164A85;
+    --blue-pale:#E3ECF6;
+    --card:#FFFFFF;
+    --line:#D7DCE1;
+    --amber:#8A5B00;
+    --amber-bg:#FBF0D5;
+    --radius:14px;
+    --mincho:"Hiragino Mincho ProN","Yu Mincho","YuMincho","MS PMincho",serif;
+    --gothic:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic",Meiryo,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{font-size:16px}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--gothic);
+    line-height:1.9;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:620px;margin:0 auto;padding:20px 16px 64px}
+  header.top{
+    display:flex;align-items:baseline;justify-content:space-between;
+    padding:6px 2px 18px;
+  }
+  .brand{font-family:var(--mincho);font-size:1.05rem;letter-spacing:.35em;color:var(--blue-deep)}
+  .brand b{font-size:1.3rem}
+  .toplink{background:none;border:none;font-family:var(--gothic);font-size:.8rem;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px}
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px 20px;
+    margin:0 0 14px;
+    box-shadow:0 2px 10px rgba(34,39,43,.05);
+  }
+  .narr{font-family:var(--mincho);font-size:1.02rem;line-height:2.1}
+  .narr + .narr{margin-top:10px}
+  .say{
+    border-left:4px solid var(--blue);
+    background:var(--blue-pale);
+    border-radius:8px;
+    padding:14px 16px;
+    margin:14px 0 6px;
+  }
+  .say .who{font-size:.75rem;color:var(--blue-deep);letter-spacing:.15em;margin-bottom:4px}
+  .say .line{font-family:var(--mincho);font-size:1.04rem}
+  .beat{color:var(--muted);font-family:var(--mincho);text-align:center;padding:10px 0;letter-spacing:.3em}
+  .qlabel{font-size:.8rem;color:var(--muted);letter-spacing:.2em;margin:20px 2px 10px}
+  button.choice{
+    display:block;width:100%;text-align:left;
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-radius:var(--radius);
+    padding:16px 18px;margin:0 0 10px;
+    font-family:var(--gothic);font-size:.98rem;line-height:1.8;color:var(--ink);
+    cursor:pointer;
+    transition:border-color .15s, background .15s;
+  }
+  button.choice:hover{border-color:var(--blue)}
+  button.choice:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+  button.choice .act{display:block;font-size:.78rem;color:var(--muted);margin-bottom:2px;letter-spacing:.08em}
+  .learn{
+    border:1.5px solid var(--blue);
+    border-radius:var(--radius);
+    background:var(--card);
+    padding:20px;margin:16px 0 14px;
+  }
+  .learn.kari{border-color:#D9B25E}
+  .learnhead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .learnhead .t{font-size:.82rem;letter-spacing:.25em;color:var(--blue-deep)}
+  .learn.kari .learnhead .t{color:var(--amber)}
+  .badge{
+    font-size:.7rem;letter-spacing:.1em;
+    padding:3px 9px;border-radius:99px;white-space:nowrap;
+  }
+  .badge.ok{background:var(--blue-pale);color:var(--blue-deep)}
+  .badge.kari{background:var(--amber-bg);color:var(--amber)}
+  .learn p{font-size:.95rem}
+  .learn p + p{margin-top:8px}
+  .fig{display:flex;justify-content:center;padding:8px 0 2px}
+  button.next{
+    display:block;width:100%;
+    background:var(--blue);color:#fff;
+    border:none;border-radius:var(--radius);
+    padding:16px 18px;margin:6px 0 10px;
+    font-family:var(--gothic);font-size:1rem;letter-spacing:.1em;
+    cursor:pointer;
+  }
+  button.next:hover{background:var(--blue-deep)}
+  button.next:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+  button.ghost{
+    display:block;width:100%;
+    background:none;border:1.5px solid var(--line);border-radius:var(--radius);
+    padding:13px 18px;margin:0 0 10px;
+    font-family:var(--gothic);font-size:.9rem;color:var(--muted);cursor:pointer;
+  }
+  button.ghost:hover{border-color:var(--muted)}
+  button.ghost:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+  .hero{
+    text-align:center;padding:38px 8px 30px;
+  }
+  .hero .eyebrow{font-size:.8rem;letter-spacing:.4em;color:var(--muted);margin-bottom:18px}
+  .hero h1{
+    font-family:var(--mincho);font-weight:600;
+    font-size:3.4rem;letter-spacing:.12em;color:var(--blue-deep);
+    line-height:1.2;
+  }
+  .hero .sub{margin-top:20px;font-size:.95rem;color:var(--ink);text-align:left}
+  .scenebox{border-top:3px solid var(--blue)}
+  .scenebox .sn{font-size:.75rem;letter-spacing:.3em;color:var(--blue-deep);margin-bottom:6px}
+  .scenebox h2{font-family:var(--mincho);font-size:1.3rem;font-weight:600;margin-bottom:6px}
+  .scenebox .meta{font-size:.82rem;color:var(--muted)}
+  .about h2{font-family:var(--mincho);font-size:1.15rem;margin-bottom:10px;color:var(--blue-deep)}
+  .about p{font-size:.93rem;margin-bottom:10px}
+  .about ul{padding-left:1.2em;font-size:.93rem;margin-bottom:10px}
+  .about li{margin-bottom:6px}
+  .grad{
+    text-align:center;font-family:var(--mincho);
+    padding:26px 10px;color:var(--blue-deep);letter-spacing:.15em;font-size:1.05rem;
+  }
+  footer{
+    margin-top:36px;text-align:center;
+    font-size:.72rem;color:var(--muted);letter-spacing:.15em;line-height:2;
+  }
+  .dock{margin-top:2px}
+  @media (min-width: 920px){
+    html{font-size:15px}
+    .wrap{max-width:660px;padding-top:12px}
+    .card,.learn{padding:18px 20px}
+    .narr{line-height:1.95}
+    .hero{padding:26px 8px 20px}
+    .dock{position:sticky;bottom:0;padding:14px 0 10px;background:linear-gradient(to top, var(--paper) 72%, rgba(238,241,243,0))}
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .card,.learn,.say{animation:rise .35s ease both}
+    @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  }
+  /* ---------- α1 読みやすさ層（v0.10・共通CSS層＝以後の全箱に継承） ---------- */
+  :root{color-scheme:light}
+  header.top{flex-wrap:wrap;gap:2px 8px;align-items:center}
+  .toplink{min-height:44px;padding:10px 8px}
+  .toplink:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+  button.choice,button.next,button.ghost{min-height:48px}
+  .learn.kari{border-color:#A87D1C}
+  #ttsbtn[aria-pressed="true"]{color:var(--blue-deep);font-weight:600}
+  #verstamp{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+  @media (prefers-contrast: more){
+    .card{border-width:2px}
+    button.choice,button.ghost,.learn{border-width:2.5px}
+  }
+  @media (max-height:520px){
+    .dock{position:static;background:none;padding:0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><b>0</b>回目</div>
+    <div>
+      <button class="toplink" id="ttsbtn" aria-pressed="false" aria-label="この画面を読み上げる">🔊 読み上げ</button>
+      <button class="toplink" id="quitlink" onclick="quitPressed()">終了する</button>
+      <button class="toplink" onclick="go('about')">この人物について</button>
+    </div>
+  </header>
+  <main id="stage" aria-live="polite"></main>
+  <footer><span id="verstamp">0回目 v0.23</span> ｜ 場面1「歩道で」・場面2「会場の受付」（第一部・第二部）<br>あなたの選択は、どこにも送信されません。</footer>
+</div>
+
+<script>
+"use strict";
+
+/* ---------- 状態（メモリ内のみ・保存なし） ---------- */
+let playCount = 0;
+let S = {};
+
+const ITEMS = [
+  {name:"スマートフォン", counter:"スマホ"},
+  {name:"手帳", counter:"手帳"},
+  {name:"ボールペン", counter:"ペン"},
+  {name:"一枚の紙", counter:"紙"}
+];
+
+let approachCount = 0;
+
+function newRun(){
+  playCount++;
+  S = {
+    item: ITEMS[Math.floor(Math.random()*ITEMS.length)],
+    world: null,
+    lost: false
+  };
+}
+
+function decideWorld(){
+  approachCount++;
+  const r = Math.random();
+  S.world = (r < 0.35) ? "drop" : (r < 0.55) ? "dansa" : (r < 0.75) ? "door" : (r < 0.85) ? "taka" : "phone";
+  // 序盤保証: 近づいた1〜3回目は必ず「困っている」版。断られ・空振りは4回目以降にしか出ない
+  S.lost = (approachCount <= 3) ? true : (Math.random() < 0.5);
+}
+
+/* ---------- 部品 ---------- */
+const stage = document.getElementById("stage");
+
+function render(html){
+  ttsStop();
+  stage.innerHTML = html;
+  const kids = Array.from(stage.children);
+  let i = kids.length - 1;
+  const grab = [];
+  while(i >= 0 && kids[i].tagName === "BUTTON"){ grab.unshift(kids[i]); i--; }
+  if(grab.length){
+    const dock = document.createElement("div");
+    dock.className = "dock";
+    grab.forEach(b => dock.appendChild(b));
+    stage.appendChild(dock);
+  }
+  window.scrollTo({top:0, behavior:"auto"});
+  const f = stage.querySelector("h1,h2,.card,.learn");
+  if(f){ f.setAttribute("tabindex","-1"); f.focus({preventScroll:true}); }
+}
+
+function badge(ok){
+  return ok
+    ? '<span class="badge ok">監修済</span>'
+    : '<span class="badge kari">仮・要検収</span>';
+}
+
+function learn(title, body, ok=true){
+  return `<div class="learn ${ok?"":"kari"}">
+    <div class="learnhead"><span class="t">${title}</span>${badge(ok)}</div>
+    ${body}
+  </div>`;
+}
+
+function say(line){
+  return `<div class="say"><div class="who">車椅子の男性</div><div class="line">${line}</div></div>`;
+}
+
+const FIG160 = `
+<div class="fig" role="img" aria-label="車椅子からの視野と立ち位置の図。腰の高さから前方およそ160度だけが見えており、その後ろは見えない。近づくなら、やや斜め前（左右どちらでも）がいちばん良い。真後ろの至近距離は、車椅子が動くと危ない。">
+<svg width="240" height="150" viewBox="0 0 240 150" xmlns="http://www.w3.org/2000/svg">
+  <path d="M120 120 L18 74 A110 110 0 0 1 222 74 Z" fill="#E3ECF6" stroke="#1F5FA8" stroke-width="2"/>
+  <circle cx="120" cy="120" r="7" fill="#1F5FA8"/>
+  <circle cx="78" cy="76" r="7" fill="none" stroke="#1F5FA8" stroke-width="2.5"/>
+  <circle cx="162" cy="76" r="7" fill="none" stroke="#1F5FA8" stroke-width="2.5"/>
+  <text x="120" y="99" text-anchor="middle" font-size="11" fill="#164A85" font-family="sans-serif">◎ やや斜め前が、いちばん</text>
+  <line x1="8" y1="120" x2="232" y2="120" stroke="#D7DCE1" stroke-width="2" stroke-dasharray="4 5"/>
+  <text x="120" y="52" text-anchor="middle" font-size="13" fill="#164A85" font-family="sans-serif">前方 約160°</text>
+  <text x="120" y="143" text-anchor="middle" font-size="11" fill="#5A6470" font-family="sans-serif">視点の高さ＝立っている人の腰のあたり</text>
+  <text x="34" y="112" font-size="11" fill="#5A6470" font-family="sans-serif">ここより後ろは</text>
+  <text x="34" y="126" font-size="11" fill="#5A6470" font-family="sans-serif">「存在しない」</text>
+  <text x="204" y="112" text-anchor="middle" font-size="11" fill="#8A5B00" font-family="sans-serif">△ 真後ろ至近は</text>
+  <text x="204" y="126" text-anchor="middle" font-size="11" fill="#8A5B00" font-family="sans-serif">動くと危ない</text>
+</svg>
+</div>`;
+
+function helloCard(){
+  return learn("「こんにちは」について", `
+    <p>挨拶は、<b>コミュニケーションの意図</b>のいちばん簡単な宣言です。それが伝われば、困っている人は続きを話せるし、困っていない人は挨拶を返して、それでおしまい。</p>
+    <p>本人いわく——もしかしたら「大丈夫ですか？」より良い言葉かもしれない。</p>
+  `, true);
+}
+
+/* ---------- 画面 ---------- */
+const V = {};
+
+V.home = () => `
+  <div class="hero">
+    <div class="eyebrow">初対面の、そのまえに。</div>
+    <h1>0回目</h1>
+    <p class="sub">障害のある人と街で出会う「はじめて」を、失敗しても誰も傷つかない場所で練習する。<br>
+    ここでの失敗は、誰のことも傷つけません。何度でもやり直せます。</p>
+  </div>
+  <div class="card scenebox">
+    <div class="sn">場面 1</div>
+    <h2>歩道で</h2>
+    <div class="meta">所要 2〜3分 ｜ 選択肢式 ｜ 何が起きているかは、歩いてみるまで分かりません</div>
+  </div>
+  <button class="next" onclick="start()">歩き出す</button>
+  <div class="card">
+    <p class="eyebrow">場面 2</p>
+    <h2>会場の受付・案内（第一部）</h2>
+    <p class="sn">所要 3〜4分 ｜ 選択肢式 ｜ 今日のあなたは、この会場の受付・案内スタッフです</p>
+  </div>
+  <button class="next" onclick="b2Start()">出勤する</button>
+  <div class="card">
+    <p class="eyebrow">場面 2</p>
+    <h2>会場の受付・案内（第二部）</h2>
+    <p class="sn">所要 3〜4分 ｜ 今度のあなたは、車椅子の来場者です ｜ 第一部のあとがおすすめ（順番は自由）</p>
+  </div>
+  <button class="next" onclick="b2p2Start()">開場を待つ</button>
+  <button class="ghost" onclick="go('about')">この人物について ／ これは何？</button>
+`;
+
+V.exitlite = () => `
+  <div class="card">
+    <p class="narr">ここで閉じて、大丈夫です。</p>
+    <p class="narr">このアプリは何も保存せず、何も送信しません。いつ閉じても、いつ戻ってきても、また同じように始まります。</p>
+  </div>
+  <button class="ghost" onclick="go('home')">ホームに戻る</button>
+`;
+
+V.open = () => `
+  <div class="card">
+    <p class="narr">歩道に、背中の曲がった車椅子の男性が止まっている。</p>
+  </div>
+  <div class="qlabel">どうしますか</div>
+  <button class="choice" onclick="goNear()"><span class="act">すこし</span>近づいてみる</button>
+  <button class="choice" onclick="go('farpass')"><span class="act">遠まきに</span>通り過ぎる</button>
+`;
+
+V.farpass = () => `
+  <div class="card">
+    <p class="narr">遠まきに、通り過ぎた。彼のことは、何も分からないまま。</p>
+  </div>
+  ${learn("それも、ふつうの距離です", `
+    <p>遠くからでは、困っているのかどうかさえ分かりません。分からないまま行き過ぎる——街では、それがいちばん多いすれちがい方です。</p>
+    <p>気になったら、近づいてみる。分かるのは、いつもそこからです。</p>
+  `, true)}
+  <button class="next" onclick="start()">もう一周してみる</button>
+  <button class="ghost" onclick="go('home')">最初の画面へ</button>
+  <button class="ghost" onclick="go('backstage')">終了する</button>
+`;
+
+V.near = () => {
+  if(S.world === "drop"){
+    return `
+  <div class="card">
+    <p class="narr">近づく。よく見ると、車輪のななめ前——手の届かないところに、${S.item.name}が落ちている。彼はそれを、じっと見ている。</p>
+  </div>
+  <div class="qlabel">どうしますか</div>
+  <button class="choice" onclick="pick1('hello')"><span class="act">やや斜め前から</span>「こんにちは」と声をかける</button>
+  <button class="choice" onclick="pick1('back')"><span class="act">うしろから</span>「あの、落としましたよ」と声をかける</button>
+  <button class="choice" onclick="pick1('front')"><span class="act">やや斜め前にまわりこんで</span>目が合ってから、声をかける</button>
+  <button class="choice" onclick="pick1('silent')"><span class="act">何も言わずに</span>${S.item.counter}を拾って、渡す</button>
+  <button class="choice" onclick="pick1('pass')"><span class="act">今日は</span>通り過ぎる</button>
+`;
+  }
+  if(S.world === "dansa"){
+    return `
+  <div class="card">
+    <p class="narr">近づく。歩道の先に、数センチの段差がある。彼はその手前で止まって、あたりをゆっくり見回している。人通りは、わりとある。</p>
+  </div>
+  <div class="qlabel">どうしますか</div>
+  <button class="choice" onclick="pickDansa('eye')"><span class="act">視界に入って</span>立ち止まり、目を合わせる</button>
+  <button class="choice" onclick="pickDansa('open')"><span class="act">やや斜め前から</span>「何かお手伝いできることありますか？」</button>
+  <button class="choice" onclick="pickDansa('push')"><span class="act">何も言わずに</span>うしろから車椅子を押して上げようとする</button>
+  <button class="choice" onclick="pickDansa('pass')"><span class="act">今日は</span>通り過ぎる</button>
+`;
+  }
+  if(S.world === "door"){
+    return `
+  <div class="card">
+    <p class="narr">近づく。建物の入り口——引いて開けるタイプの扉の前で、彼は止まっている。あたりに、ほかの人影はない。</p>
+    <p class="narr">彼がこちらに気づいた。</p>
+  </div>
+  ${say("あのー、あのー、すいません。")}
+  <div class="qlabel">どうしますか</div>
+  <button class="choice" onclick="pickDoor('respond')"><span class="act">立ち止まって</span>「はい、どうしました？」</button>
+  <button class="choice" onclick="pickDoor('hello')"><span class="act">目を合わせて</span>「こんにちは。どうされました？」</button>
+  <button class="choice" onclick="pickDoor('ignore')"><span class="act">聞こえなかったことにして</span>通り過ぎる</button>
+`;
+  }
+  if(S.world === "taka"){
+    return `
+  <div class="card">
+    <p class="narr">近づく。自動販売機の前で、彼は上の段を見上げたまま止まっている。</p>
+  </div>
+  <div class="qlabel">どうしますか</div>
+  <button class="choice" onclick="pickTaka('hello')"><span class="act">やや斜め前から</span>「こんにちは」と声をかける</button>
+  <button class="choice" onclick="pickTaka('open')"><span class="act">やや斜め前から</span>「何かお手伝いできることありますか？」</button>
+  <button class="choice" onclick="pickTaka('vague')"><span class="act">ひとこと</span>「大丈夫ですか？」</button>
+  <button class="choice" onclick="pickTaka('pass')"><span class="act">今日は</span>通り過ぎる</button>
+`;
+  }
+  return `
+  <div class="card">
+    <p class="narr">近づく。彼は、スマートフォンをスクロールしたり、辺りを見渡したりしている。困っているのか、いないのか——まだ分からない。</p>
+  </div>
+  <div class="qlabel">どうしますか</div>
+  <button class="choice" onclick="pickPhone('hello')"><span class="act">やや斜め前から</span>「こんにちは」と声をかける</button>
+  <button class="choice" onclick="pickPhone('open')"><span class="act">やや斜め前にまわりこんで</span>「何かお手伝いできることありますか？」</button>
+  <button class="choice" onclick="pickPhone('vague')"><span class="act">ひとこと</span>「大丈夫ですか？」</button>
+  <button class="choice" onclick="pickPhone('pass')"><span class="act">そのまま</span>通り過ぎる</button>
+`;
+};
+
+V.noreact = () => `
+  <div class="card">
+    <p class="narr">「あの——落としましたよ」</p>
+    <p class="narr">……返事がない。彼は${S.item.name}を見つめたまま、あなたに気づく様子がない。</p>
+  </div>
+  ${learn("なにが起きたのか", `
+    <p>彼の視点は、立っている人の<b>腰のあたりの高さ</b>にある。見えているのは前方およそ160度——<b>その後ろの世界は、存在しないに等しい</b>。うしろからの声は、届かない。</p>
+    ${FIG160}
+    <p>近づくなら、<b>やや斜め前</b>——右でも左でもいい。車椅子は前後に動く可能性が常にあって、真後ろの至近距離に立つと、轢かれることすらあり得ます。でも、左右に急に動くことは絶対にない。だから斜め前がいちばん安心です（絶対の義務では、全然ないけれど）。</p>
+    <p>そしてここが大事なところ——気づかないことに、<b>無視も悪気もない</b>。視界に入って、目が合ったら。そこからがコミュニケーションのスタートです。</p>
+  `, true)}
+  <button class="next" onclick="go('front')">斜め前にまわりこむ</button>
+`;
+
+V.helloDrop = () => `
+  ${say("こんにちは。……あ、すいません、そこの" + S.item.counter + "、取っていただけるとありがたいんですが。")}
+  <div class="card">
+    <p class="narr">${S.item.name}を拾って、渡す。</p>
+  </div>
+  ${say("ご親切に、本当にありがとうございます。")}
+  ${helloCard()}
+  <button class="next" onclick="go('debrief')">つづける</button>
+`;
+
+V.front = () => `
+  <div class="card">
+    <p class="narr">やや斜め前にまわりこむ。視界に入ると、彼がこちらに気づいて、目が合った。</p>
+  </div>
+  <div class="qlabel">なんて言いますか</div>
+  <button class="choice" onclick="pick2('open')">「何かお手伝いできることありますか？」</button>
+  <button class="choice" onclick="pick2('direct')">「それ、拾いましょうか？」</button>
+  <button class="choice" onclick="pick2('vague')">「大丈夫ですか？」</button>
+`;
+
+V.accept = (variant) => {
+  let reply, note, noteOk;
+  if(variant === "open"){
+    reply = `あ——ご親切にありがとうございます。すいません、そこの${S.item.counter}、取っていただけるとありがたいんですが。`;
+    note = `<p>「<b>何かお手伝いできることありますか？</b>」は、開かれた申し出。何をどうしてほしいかは、本人がいちばんよく知っています。だから聞けば、本人が教えてくれる。相手の状況について得られる情報がいちばん多い聞き方でもあります——このアプリ全体で、いちばん持ち帰ってほしい型です。</p>`;
+    noteOk = true;
+  } else if(variant === "direct"){
+    reply = `ご親切にありがとうございます。……はい、すいません、お願いします。`;
+    note = `<p>用件がはっきり見えているときは、具体的な申し出もまっすぐ届きます。ちなみに「落ちた物が拾えない」理由は、外から見ても直感的には分かりにくい——かがんで拾える車椅子ユーザーもいるからです。<b>見た目で分からないからこそ、聞く・申し出ることに意味がある</b>。</p>`;
+    noteOk = true;
+  } else {
+    reply = `あ——ありがとうございます。すいません、そこの${S.item.counter}だけ、拾っていただけますか。`;
+    note = `<p>この場面では、まったく問題ありません——困っていることが目に見えているからです。ただし、障害のある人が外にいるとき＝いつも困っている、ではない。特に困っていない人に、急に近くで大きな声の「大丈夫ですか？」は、マイナスに働くこともあります。<b>「何かお手伝いできることありますか？」のほうが、相手の状況について得られる情報が多い聞き方</b>——相手が誰でも通用する型です。</p>`;
+    noteOk = true;
+  }
+  return `
+  ${say(reply)}
+  <div class="card">
+    <p class="narr">${S.item.name}を拾って、渡す。手もとで受けとって、彼はもういちど頭をさげた。</p>
+  </div>
+  ${say("ご親切に、本当にありがとうございます。")}
+  ${learn("ここでのこと", note, noteOk)}
+  <button class="next" onclick="go('debrief')">つづける</button>
+`;};
+
+function dansaAssist(intro){
+  return `
+  ${intro}
+  ${say("すいません、この段差なんですが——前の小さい車輪を、すこし浮かせていただけますか。")}
+  <div class="card">
+    <p class="narr">言われたとおり、前輪を持ち上げようとする。……一回目は、うまく浮かない。</p>
+  </div>
+  ${say("あ、大丈夫です。すいません、もう一回だけ——そう、それでお願いします。")}
+  <div class="card">
+    <p class="narr">二回目。前輪が段に乗り、車椅子が段差を越えた。</p>
+  </div>
+  ${say("ご親切に、本当にありがとうございます。")}
+  ${learn("一回でうまくいかなくて、ふつう", `
+    <p>段差の介助は、やる側もけっこう大変な作業です。<b>一回で成功しないことのほうが多い</b>——だから、失敗はあなたのせいではありません。彼のほうも、それを知っています。</p>
+    <p>そして、やり方は<b>本人がいちばん知っている</b>。前輪を浮かせるのか、うしろから押すのか——聞けば、指示が来ます。方法を知らないことは、声をかけない理由になりません。</p>
+  `, true)}
+  <button class="next" onclick="go('debrief')">つづける</button>`;
+}
+
+V.resDansa = (c) => {
+  if(c === "eye"){
+    return dansaAssist(`
+  <div class="card"><p class="narr">視界に入って立ち止まると、目が合った。</p></div>
+  ${say("あのー、すいません。ちょっと手伝っていただけるとありがたいんですが、よろしいでしょうか？")}
+  ${learn("さっき、見回していたのは", `
+    <p>段差のある場所は人通りが多い。だから彼は、こちらから頼みに行くより、<b>目の合った人に頼む「待ちの姿勢」</b>をとることが多いそうです——「こちらから頼むのは、ものすごくしんどい」から。</p>
+    <p>つまり、立ち止まって目を合わせること自体が、もう申し出なんです。</p>
+  `, true)}`);
+  }
+  if(c === "open"){
+    return dansaAssist(`
+  ${say("あ——ご親切にありがとうございます。すいません、ちょっと手伝っていただけるとありがたいんですが、よろしいでしょうか？")}`);
+  }
+  if(c === "push"){
+    return `
+  <div class="card">
+    <p class="narr">声をかけずに、うしろからハンドルをつかんで押し上げようとする。車椅子が、がくんと揺れた。</p>
+  </div>
+  ${say("わっ——。……あ、すいません、ありがとうございます。でも、びっくりしました。")}
+  ${learn("先に、ひとことだけ", `
+    <p>承諾なしに車椅子を動かすのは、はっきりした地雷です。車椅子は<b>体の延長</b>——突然動くと、単純にこわい。もっとも、実際にやってしまう人は稀だと彼は言います。</p>
+    <p>直し方はかんたんで、動かす前にひとこと。「押しましょうか？」から始めれば、同じ善意がそのまま届きます。</p>
+  `, true)}
+  <button class="next" onclick="pickDansa('open')">声をかけ直す</button>
+  <button class="ghost" onclick="go('debrief')">つづける</button>`;
+  }
+  return `
+  <div class="card">
+    <p class="narr">今日は、通り過ぎた。彼はまだ、段差の手前であたりを見回している。</p>
+  </div>
+  ${learn("それも、ふつうのことです", `
+    <p>責められることではありません。ひとつだけ事実を置いておくと——あの数センチは、彼一人ではどれだけ時間をかけても越えられません。手を貸せば、1〜2分です。</p>
+  `, true)}
+  <button class="next" onclick="start()">もう一周してみる</button>
+  <button class="ghost" onclick="go('home')">最初の画面へ</button>
+  <button class="ghost" onclick="go('backstage')">終了する</button>`;
+};
+
+V.resDoor = (c) => {
+  if(c === "respond" || c === "hello"){
+    const opener = (c === "hello")
+      ? say("こんにちは。あ——すいません、そこの扉、引いて開けていただけますか。")
+      : say("あ、ありがとうございます。すいません、そこの扉、引いて開けていただけますか。");
+    return `
+  ${opener}
+  <div class="card">
+    <p class="narr">扉を引いて、開けたまま支える。彼が通り抜けて、こちらを振り返った。</p>
+  </div>
+  ${say("ご親切に、本当にありがとうございます。")}
+  ${learn("十秒の中身", `
+    <p>引く方向の開き戸は、彼がいちばん困る扉です。手伝う側にとっては<b>十秒</b>で、難しさもない。ただ——この場所には、人が少ない。</p>
+    <p>「あのー、あのー、すいません」は、通りかかる一人ひとりに向かって言って、<b>大概、一回ではつかまらない</b>そうです。素通りされると、次の人が来るのは何十分後かもしれない。あなたが立ち止まった時点で、今日はもう、良い日でした。</p>
+  `, true)}
+  <button class="next" onclick="go('debrief')">つづける</button>`;
+  }
+  return `
+  <div class="card">
+    <p class="narr">聞こえなかったことにして、通り過ぎた。うしろで、もういちど「すいません」と聞こえた気がした。</p>
+  </div>
+  ${learn("この場所の事実", `
+    <p>立ち止まらないのも、ふつうの自由です。責める話ではありません。</p>
+    <p>ただ、事実だけ置いておきます。この扉は十秒で開きます。そして人通りの少ないこの場所では、次の通行人まで<b>何十分</b>ということがあります。だから、あの呼びかけは切実です。</p>
+  `, true)}
+  <button class="next" onclick="start()">もう一周してみる</button>
+  <button class="ghost" onclick="go('home')">最初の画面へ</button>
+  <button class="ghost" onclick="go('backstage')">終了する</button>`;
+};
+
+V.resTaka = (c) => {
+  if(c === "pass"){
+    return `
+  <div class="card">
+    <p class="narr">今日は、通り過ぎた。彼はまだ、上の段を見上げている。</p>
+  </div>
+  ${learn("それも、ふつうのことです", `
+    <p>責められることではありません。ちなみに、高い所の物は<b>十秒</b>で済む頼みごとで、必要も見た目で分かりやすい——彼にとっては、頼みやすい部類だそうです。</p>
+  `, true)}
+  <button class="next" onclick="start()">もう一周してみる</button>
+  <button class="ghost" onclick="go('home')">最初の画面へ</button>
+  <button class="ghost" onclick="go('backstage')">終了する</button>`;
+  }
+  const opener = (c === "hello") ? "こんにちは。あ——" : (c === "vague") ? "え？……あ、" : "あ——ご親切にありがとうございます。";
+  return `
+  ${say(opener + "すいません、上の段のボタンに手が届かなくて。押していただけますか。")}
+  <div class="card">
+    <p class="narr">言われたボタンを押す。ガコン、と音。——見ると、取り出し口はずいぶん低い位置にあって、手前の蓋を押し開けて、奥から取り出す作りだ。</p>
+    <p class="narr">「取りますね」と声をかけて、かがんで蓋を開け、飲みものを取り出して、手渡す。</p>
+  </div>
+  ${say("ご親切に、本当にありがとうございます。")}
+  ${learn("渡すところまで", `
+    <p>ボタンの先に、もう一難あります。取り出し口は低く、機械によっては蓋を押し開けて奥から取る作りで、飲みものを取ること自体が、めちゃくちゃ大変なことがある。</p>
+    <p>だから、手に渡すところまでやっていい。<b>「それでやり過ぎということは、絶対ない」</b>——本人の言葉です。途中で止める遠慮のほうが、もったいない。</p>
+  `, true)}
+  ${learn("見た目で分かる困りごと", `
+    <p>高い所（と、低い所）の物は、頼む理由が見た目で伝わりやすい——だから彼にとっても、<b>頼みやすい部類</b>の困りごとだそうです。</p>
+  `, true)}
+  <button class="next" onclick="go('debrief')">つづける</button>`;
+};
+
+V.resPhone = (c) => {
+  if(c === "hello"){
+    if(S.lost){
+      const ask = (Math.random() < 0.5)
+        ? "すいません、ちょっと道が分からなくなってしまって。この先の駅、どっちか分かりますか？"
+        : "すいません、車椅子のうしろに掛けてあるかばんから、飲みものを取っていただけますか。";
+      return `
+  ${say("こんにちは。……あ、" + ask)}
+  <div class="card"><p class="narr">聞いてみたら、困っていた。外からは、スマートフォンを見ているようにしか見えなかったのに。</p></div>
+  ${helloCard()}
+  ${learn("見えなかった困りごと", `
+    <p>スマートフォンを見ている＝困っていない、とは限りません。スマホを使うと<b>手がふさがる</b>人もいる。道に迷っていても、外からは分からない。</p>
+    <p>分からないから、声をかける。かければ、本人が続きを教えてくれる。それだけのことです。</p>
+  `, true)}
+  <button class="next" onclick="go('debrief')">つづける</button>`;
+    }
+    return `
+  ${say("こんにちは。")}
+  <div class="card"><p class="narr">挨拶が、かえってくる。それだけの、ふつうのやりとり。彼は困っていなかった——今日のところは。</p></div>
+  ${helloCard()}
+  ${learn("それだけで、いいのです", `
+    <p>断られてすら、いません。挨拶は申し出ではないから、断る必要がそもそもない。<b>いちばん軽い接点</b>です。</p>
+    <p>もし困っていたなら、この挨拶のあとに、頼みごとが続いていたはずです。</p>
+  `, true)}
+  <button class="next" onclick="go('debrief')">つづける</button>`;
+  }
+  if(c === "open" || c === "vague"){
+    if(S.lost){
+      const ask = (Math.random() < 0.5)
+        ? "すいません、ちょっと道が分からなくなってしまって。この先の駅、どっちか分かりますか？"
+        : "すいません、車椅子のうしろに掛けてあるかばんから、飲みものを取っていただけますか。";
+      const opener = (c === "vague") ? "え？……あ、" : "あ——";
+      return `
+  ${say(opener + "ご親切にありがとうございます。" + ask)}
+  <div class="card"><p class="narr">聞いてみたら、困っていた。外からは、スマートフォンを見ているようにしか見えなかったのに。</p></div>
+  ${learn("見えなかった困りごと", `
+    <p>スマートフォンを見ている＝困っていない、とは限りません。スマホを使うと<b>手がふさがる</b>人もいる。道に迷っていても、外からは分からない。</p>
+    <p>分からないから、聞く。聞けば、本人が教えてくれる。それだけのことです。</p>
+  `, true)}
+  <button class="next" onclick="go('debrief')">つづける</button>`;
+    }
+    if(c === "open"){
+      return `
+  ${say("あ、すいません、今は大丈夫です。連れを待っているだけなので——ご親切に、ありがとうございます。")}
+  ${learn("断られました", `
+    <p>外にいる＝いつも困っている、ではありません。今日は、待ち合わせだっただけ。</p>
+    <p>それでも、あなたは何もまちがっていない。声をかけた時点で良いことをしている。<b>落ち込む必要は、まったくない</b>。丁重に断って、それでおしまい——それがふつうです。</p>
+  `, true)}
+  <button class="next" onclick="go('debrief')">つづける</button>`;
+    }
+    return `
+  ${say("え、何がですか？")}
+  ${learn("通じませんでした", `
+    <p>悪いことは、何も起きていません。ただ——通じない。「大丈夫ですか？」は<b>情報の少ない聞き方</b>なので、困っていない人には、きょとんとされます。</p>
+    <p>聞くなら、開かれた形——「何かお手伝いできることありますか？」。あるいは、もっと軽く——「こんにちは」。</p>
+  `, true)}
+  <button class="next" onclick="go('debrief')">つづける</button>`;
+  }
+  return `
+  <div class="card">
+    <p class="narr">そのまま、通り過ぎた。彼が困っていたのかどうかは——今日は、分からないまま。</p>
+  </div>
+  ${learn("それも、ふつうのことです", `
+    <p>責められることではありません。</p>
+    <p>ただ、分からないままは、すこし気になる——気になったら、声をかけるという手がいつでもあります。「こんにちは」のひとことなら、困っていてもいなくても、ちゃんと着地します。</p>
+  `, true)}
+  <button class="next" onclick="start()">もう一周してみる</button>
+  <button class="ghost" onclick="go('home')">最初の画面へ</button>
+  <button class="ghost" onclick="go('backstage')">終了する</button>`;
+};
+
+V.silent = () => `
+  <div class="card">
+    <p class="narr">何も言わずに${S.item.name}を拾い、さしだす。彼は軽く会釈して、受けとった。</p>
+  </div>
+  ${say("……ご親切に、ありがとうございます。")}
+  ${learn("この選択について", `
+    <p><b>最善とは言えない。でも、十分ありがたい</b>——それが本人の答えです。声を出さない親切を、ここでは排除しません。拾ってくれる人が、話すことが難しい人かもしれない。日本語の話者でないかもしれない。それでも善意は善意です。</p>
+    <p>ただ、物によって「手渡しがいい」ときと「膝の上に置いてほしい」ときが分かれます。だから、できるなら一言——コミュニケーションがあったほうが効果的で、<b>あなたの善意が、より無駄なく届きます</b>。迷ったら「どこに置きましょうか？」で、ぜんぶ解決します。</p>
+  `, true)}
+  <button class="next" onclick="go('debrief')">つづける</button>
+`;
+
+V.pass = () => `
+  <div class="card">
+    <p class="narr">今日は、通り過ぎた。ふつうの午後が、そのまま続いていく。</p>
+  </div>
+  ${learn("それも、ふつうのことです", `
+    <p>責められることではありません。ただ、ひとつだけ事実を置いておきます。</p>
+    <p>車椅子から落としものを拾うのは、<b>何時間かけてもできない</b>ことがある。あなたなら、十秒です。</p>
+    <p>そして——「こちらから頼むのは、ものすごくしんどい」と彼は言います。だから、先に気づいた人の一声は、かける側が思うよりずっと重い。</p>
+  `, true)}
+  <button class="next" onclick="start()">もう一周、歩いてみる</button>
+  <button class="ghost" onclick="go('home')">最初の画面へ</button>
+  <button class="ghost" onclick="go('backstage')">終了する</button>
+`;
+
+V.debrief = () => `
+  ${learn("きょうの持ち帰り", `
+    <p>迷ったら——<b>「何かお手伝いできることありますか？」</b></p>
+    <p>もっと迷ったら——<b>「こんにちは」</b>だけでもいい。挨拶は、通じます。</p>
+    <p>あとは、本人が教えてくれます。障害も、性格も、やり方も人それぞれだから、正解の暗記はいらない。<b>聞けばいい</b>。それだけ持って帰ってください。</p>
+  `, true)}
+  ${learn("もし断られても", `
+    <p>タイミングや内容が合わなくて断られることはあります。それでも、声をかけた時点で良いことをしている。<b>落ち込む必要は、まったくない</b>。</p>
+  `, true)}
+  <div class="grad">ここまでが、0回目。<br>ここでは、何度でも練習できます。</div>
+  <button class="next" onclick="start()">もう一周（すこし状況が変わります）</button>
+  <button class="ghost" onclick="go('about')">この人物について ／ これは何？</button>
+  <button class="ghost" onclick="go('home')">最初の画面へ</button>
+  <button class="ghost" onclick="go('backstage')">終了する</button>
+`;
+
+V.backstage = () => `
+  <div class="card">
+    <p class="narr">ここまで歩いてくれて、ありがとうございました。</p>
+    <p class="narr">最後にひとつだけ。このアプリであなたが体験したことは、すべて、原型になった<b>一人の人</b>への聞き書きから作られています。置き土産に、その全てを短くまとめておきます。</p>
+  </div>
+  ${learn("彼について", `
+    <p>歩くことができず、右手が使えない、背中の曲がった車椅子の男性。一人でいるときは「常に何か困っていると言っても過言ではない」——でも今は、声をかける人のほうが少ない、と彼は言います。</p>
+  `, true)}
+  ${learn("よくある困りごと", `
+    <p>いちばん多いのは<b>落としもの</b>。あなたなら10秒、自力では何時間かけても無理なことがある。紙がいちばん厄介。ほかに、高い所の物（10秒）。段差（1〜2分。頼む側も「ものすごくしんどい」）。引く方向の開き戸（簡単だけど、人通りが少なくて切実）。</p>
+  `, true)}
+  ${learn("体のこと", `
+    <p>視点は、立っている人の腰の高さ。見えるのは前方およそ160度で、うしろからの声はほぼ届きません。無視ではなく、届かない。近づくなら<b>やや斜め前</b>（車椅子は前後には動くけれど、左右に急に動くことは絶対にない）。腰をかがめて目線を合わせるのは、最強の信頼シグナル。</p>
+  `, true)}
+  ${learn("声のかけ方", `
+    <p><b>「こんにちは」</b>——いちばん軽い。挨拶は申し出ではないから、断りが発生しません。<b>「何かお手伝いできることありますか？」</b>——いちばん情報の多い聞き方。<b>「大丈夫ですか？」</b>——困りごとが見えているときは全く問題なし。見えないときは「え、何がですか？」。黙って拾って渡すのも十分ありがたい——一言あると、善意がより無駄なく届きます。</p>
+  `, true)}
+  ${learn("断られたら", `
+    <p>落としもの拾いを断ることは、まずありません。断りが出るのは、困っていないときだけ——「あ、すいません、今は大丈夫です」。それで終わり。落ち込む必要は、まったくない。</p>
+  `, true)}
+  ${learn("この場面のからくり", `
+    <p>歩道の彼は、いちばん多くは落としものを見つめています。段差の前で人を待つ日も、開かない扉の前で呼びかける日も、自動販売機を見上げる日も、ただスマートフォンを見ている日もある。スマホのとき、半分は道に迷っています。そして——最初の三周、あなたは必ず誰かの役に立つようにできています。助けたい気持ちが萎えないように、と本人が決めたからです。</p>
+  `, true)}
+  ${learn("会場の案内について", `
+    <p>箱2の原型の人は、会場の案内を、これまで一度も断れたことがありません。理由は第二部のS2'でそのまま開示しています——エレベーターと案内が事実上束ねられた構造と、撤回のきかない空気。だから第一部の例示は、断り方ではなく<b>断ってもコストが生じない差し出し方</b>を指しています。</p>
+  `, true)}
+  ${learn("帰りの無視について", `
+    <p>第二部の帰りに再生した出来事は、実際にあったものです。本文には言動だけを書き、「無視かどうか」の判断は書いていません。その場に居あわせた3人は、意図的な無視だったと一致して判断しています——うち1人は、離れた場所からの独立した目撃でした。事実と解釈を分けるための、書き方の処理です。</p>
+  `, true)}
+  <div class="card">
+    <p class="narr">ただし——本物の人に、この表はありません。障害も、性格も、やり方も、人それぞれ。だから、迷ったら本人に聞く。それが、このノートのたったひとつの結論です。</p>
+  </div>
+  <div class="grad">ここまでが、0回目。<br>ここから先は、本物の人と。</div>
+  <button class="next" onclick="start()">もう一周だけ、歩いてみる</button>
+  <button class="ghost" onclick="go('home')">最初の画面へ</button>
+`;
+
+V.about = () => `
+  <div class="card about">
+    <h2>この人物について</h2>
+    <p>この相手役は、<b>ひとりの人</b>——歩くことができず、右手が使えない、背中の曲がった車椅子の男性——を原型にした人物です。</p>
+    <p><b>障害のある人の「代表」ではありません。</b>障害も、性格も、価値観も、人それぞれです。だからこそ、接し方の正解はひとつではなく——迷ったら、目の前の本人に聞くのがいちばんです。このアプリは、その「聞ける状態」まであなたを運ぶための練習場所です。</p>
+    <h2>セリフと知識の出どころ</h2>
+    <p>この場面のセリフと解説は、原型となった本人への聞き書きにもとづき、本人の監修を受けています。<span class="badge kari">仮・要検収</span> の札がついた部分は、まだ監修が終わっていない箇所です。正直に札をつけて公開し、監修が済みしだい直します。</p>
+    <h2>これは何？ 何ではない？</h2>
+    <ul>
+      <li>これは<b>0回目</b>——本物の初対面（1回目）の前の、安全な練習です。</li>
+      <li>ここでの失敗は、誰のことも傷つけません。あなたの選択は、<b>どこにも送信されません</b>。</li>
+      <li>これは、あらゆる障害への対応マニュアル<b>ではありません</b>。マナー試験でも、本物の出会いの代わりでもありません。</li>
+    </ul>
+  </div>
+  <button class="next" onclick="go('home')">もどる</button>
+`;
+
+/* ---------- α1 読み上げ（v0.10・ブラウザ内蔵TTS／資材ゼロ） ---------- */
+const TTS_SUPPORTED = (typeof speechSynthesis !== "undefined") && (typeof SpeechSynthesisUtterance !== "undefined");
+let ttsOn = false, ttsList = [], ttsIdx = 0, ttsVoice = null;
+
+/* 読み仮名辞書（共通層）: 表示は変えず、読み上げ直前にのみ置換。誤読が見つかったらここに追加すると全箱に恒久継承される */
+const TTS_DICT = [
+  ["あ——すいません", "あー、すいません"],  /* [仮] 耳判断待ち */
+  ["3階に降ります", "3階におります"]  /* 読み指定（2026-08-21 SR検収11: 「ふります」誤読の修正） */,
+  ["」には", "」、には"]  /* 2026-08-25 SR検収1: 引用の閉じ「」」と後続助詞の間に一拍 */,
+  ["箱2", "はこに"]  /* 2026-08-25 SR検収2: 「ばこ」誤読の修正 */,
+  ["4階・お席", "4階、おせき"]  /* 2026-08-25 SR検収3: 中黒の間と「お席」のイントネーション */,
+  ["ならんで残る", "並んで残る"]  /* 2026-08-25 SR検収4: 「ならんで」のイントネーション */
+];
+const TTS_PAUSE_MS = 600;  /* 「——」に割り当てる無音の長さ */
+function ttsApplyDict(t){
+  for(const pair of TTS_DICT){ t = t.split(pair[0]).join(pair[1]); }
+  /* シーン番号の読み（2026-08-21 SR検収2・3）: 番号のあとに間を置き、第二部の「'」を「ダッシュ」と発音 */
+  t = t.replace(/S(\d)' /g, "エス$1ダッシュ。 ");
+  t = t.replace(/S(\d) /g, "エス$1。 ");
+  t = t.replace(/S(\d)'/g, "エス$1ダッシュ");
+  t = t.replace(/S(\d)/g, "エス$1");
+  t = t.split("」と").join("」、と");  /* 引用の閉じと地の文の間に一拍（表示不変） */
+  return t;
+}
+
+function ttsPickVoice(){
+  if(!TTS_SUPPORTED) return;
+  const ja = speechSynthesis.getVoices().filter(function(v){ return (v.lang || "").toLowerCase().indexOf("ja") === 0; });
+  ttsVoice = ja.find(function(v){ return /google/i.test(v.name); }) || ja[0] || null;
+}
+
+function ttsParts(){
+  const clone = stage.cloneNode(true);
+  clone.querySelectorAll('[role="img"]').forEach(function(el){
+    const p = document.createElement("p");
+    p.className = "narr";
+    p.textContent = "図の説明。" + (el.getAttribute("aria-label") || "");
+    el.parentNode.replaceChild(p, el);
+  });
+  const parts = [];
+  clone.querySelectorAll(".eyebrow,h1,h2,.sub,.sn,.meta,.narr,.say .who,.say .line,.qlabel,.learnhead .t,.learn p,.grad,.beat,.about p,.about li,button").forEach(function(el){
+    const t = el.textContent.replace(/\s+/g, " ").trim();
+    if(t) parts.push(t);
+  });
+  if(!parts.length) parts.push(clone.textContent.replace(/\s+/g, " ").trim());
+  return parts;
+}
+
+function ttsText(){
+  return ttsParts().join("。 ").replace(/。{2,}/g, "。");
+}
+
+function ttsChunks(text){
+  const out = [];
+  let buf = "";
+  for(const ch of text){
+    if(ch === "—"){
+      if(buf.trim()) out.push(buf.trim());
+      if(out[out.length - 1] !== "\u0000") out.push("\u0000");  /* 実無音マーカー */
+      buf = "";
+      continue;
+    }
+    buf += ch;
+    if(ch === "。" || ch === "！" || ch === "？"){
+      if(buf.trim()) out.push(buf.trim());
+      buf = "";
+    } else if(buf.length >= 90){
+      const cut = buf.lastIndexOf("、");
+      if(cut > 30){ out.push(buf.slice(0, cut + 1).trim()); buf = buf.slice(cut + 1); }
+      else { out.push(buf.trim()); buf = ""; }
+    }
+  }
+  if(buf.trim()) out.push(buf.trim());
+  return out;
+}
+
+function ttsSetOn(on){
+  ttsOn = on;
+  const b = document.getElementById("ttsbtn");
+  if(!b) return;
+  b.setAttribute("aria-pressed", on ? "true" : "false");
+  b.textContent = on ? "⏹ 停止" : "🔊 読み上げ";
+  b.setAttribute("aria-label", on ? "読み上げを停止する" : "この画面を読み上げる");
+}
+
+function ttsSpeakNext(){
+  if(!ttsOn || ttsIdx >= ttsList.length){ ttsSetOn(false); return; }
+  const piece = ttsList[ttsIdx++];
+  if(piece === "\u0000"){ setTimeout(ttsSpeakNext, TTS_PAUSE_MS); return; }
+  const u = new SpeechSynthesisUtterance(piece);
+  u.lang = "ja-JP";
+  if(ttsVoice) u.voice = ttsVoice;
+  u.rate = 1;
+  u.onend = ttsSpeakNext;
+  u.onerror = function(){ ttsSetOn(false); };
+  speechSynthesis.speak(u);
+}
+
+function ttsStart(){
+  if(!TTS_SUPPORTED) return;
+  ttsList = ttsChunks(ttsApplyDict(ttsText()));
+  ttsIdx = 0;
+  if(!ttsList.length) return;
+  speechSynthesis.cancel();
+  ttsSetOn(true);
+  setTimeout(ttsSpeakNext, 60);
+}
+
+function ttsStop(){
+  if(!TTS_SUPPORTED){ return; }
+  ttsOn = false;
+  speechSynthesis.cancel();
+  ttsSetOn(false);
+}
+
+(function(){
+  const b = document.getElementById("ttsbtn");
+  if(!b) return;
+  if(!TTS_SUPPORTED){ b.style.display = "none"; return; }
+  b.addEventListener("click", function(){ if(ttsOn){ ttsStop(); } else { ttsStart(); } });
+  ttsPickVoice();
+  if(speechSynthesis.onvoiceschanged !== undefined){
+    speechSynthesis.addEventListener("voiceschanged", ttsPickVoice);
+  }
+})();
+
+/* ---------- 遷移 ---------- */
+function go(v){ render(V[v]()); }
+
+function quitPressed(){ go((approachCount > 0 || b2Played || b2p2Played) ? "backstage" : "exitlite"); }
+function start(){ newRun(); render(V.open()); }
+function goNear(){ decideWorld(); render(V.near()); }
+
+function pick1(c){
+  if(c === "hello"){ render(V.helloDrop()); }
+  else if(c === "back"){ render(V.noreact()); }
+  else if(c === "front"){ render(V.front()); }
+  else if(c === "silent"){ render(V.silent()); }
+  else { render(V.pass()); }
+}
+
+function pick2(variant){ render(V.accept(variant)); }
+
+function pickPhone(c){ render(V.resPhone(c)); }
+function pickDansa(c){ render(V.resDansa(c)); }
+function pickDoor(c){ render(V.resDoor(c)); }
+function pickTaka(c){ render(V.resTaka(c)); }
+
+/* ---------- 箱2「会場の受付・案内」第一部（スタッフ役）v0.12 全文[仮]・検収待ち ---------- */
+let B2 = {};
+let b2Played = false;
+function b2Start(){ B2 = {}; b2Played = true; render(V.b2s1()); }
+
+function b2Manual(t){
+  return `<p class="sn" style="border:1px dashed var(--muted);padding:8px 10px;border-radius:8px">研修マニュアル: ${t}</p>`;
+}
+
+V.b2s1 = () => `
+  <div class="scenebox"><p class="eyebrow">受付ゲート・開場直後</p>
+  <h2>S1 受付係</h2></div>
+  ${b2Manual("チケットを確認し、入場口へご案内する。")}
+  <p class="narr">列の先に、車椅子の男性と、その横に立っている連れの人。二人連れらしい——今わかるのは、それだけ。</p>
+  <p class="narr">順番が来た。車椅子の男性が、こちらを見て口を開く。</p>
+  <div class="say"><span class="who">車椅子の男性</span><span class="line">車椅子席、合計2枚。僕本人と、こちらの介助者のぶんです。</span></div>
+  <p class="narr">席種の申告だ。連れの人は、介助者——チケットの言葉が、そのまま呼び名になる。</p>
+  <p class="qlabel">どうしますか</p>
+  <button class="choice" onclick="b2s1('tsure')">介助者の方に「チケットお願いします」と言う</button>
+  <button class="choice" onclick="b2s1('tachi')">立ったまま、男性に「チケット拝見します」と言う</button>
+  <button class="choice" onclick="b2s1('kagamu')">かがんで目線を合わせ、男性に「チケットを拝見してもいいですか」と言う</button>
+  <button class="choice" onclick="b2s1('kami')">男性に「チケットは紙ですかね？」と聞く</button>
+`;
+
+function b2s1(c){
+  B2.s1 = c;
+  let head = "";
+  if(c === "tsure"){
+    head = `<div class="say"><span class="who">介助者の方</span><span class="line">私は介助者なので、ご本人に話してください。</span></div>
+    <p class="narr">はっきりした、慣れた声だった。男性がうなずいて、自分のスマホを取り出す。</p>
+    <div class="learn"><div class="learnhead"><span class="t">最初の一瞥</span><span class="badge ok">監修済</span></div>
+    <p>連れにまず目が行くのは、誰にでも起きる。本人が申告した直後でも、だ。この場面の原型になった一日でも、良い対応をしたスタッフを含む全員が、最初の一瞬は連れの方を見た。試されるのは一瞥そのものではなく——本人が話し出したとき、<b>向き直ることを厭わないか</b>。</p></div>`;
+  } else if(c === "tachi"){
+    head = `<p class="narr">男性がスマホの画面を差し出す。あなたの位置からは、少し遠い。彼は腕を伸ばしている。</p>`;
+  } else if(c === "kagamu"){
+    head = `<div class="say"><span class="who">車椅子の男性</span><span class="line">はい——これでお願いします。</span></div>
+    <p class="narr">スマホがすっと差し出される。目が合う高さだと、確認は一往復で終わる。</p>
+    <div class="learn"><div class="learnhead"><span class="t">かがむ、という一手</span><span class="badge ok">監修済</span></div>
+    <p>この「（かがんで）拝見してもいいですか」は、原型人物がスタッフ側のモデルセリフとして挙げた実在の一手。目線の高さを合わせることは、性根ではなく<b>数秒でできる所作</b>だ。外形的に見えて、実はとても本質的で意義深い行為。</p></div>`;
+  } else {
+    head = `<div class="say"><span class="who">車椅子の男性</span><span class="line">いえ、電子です。</span></div>
+    <div class="learn"><div class="learnhead"><span class="t">かたちの決めつけ</span><span class="badge ok">監修済</span></div>
+    <p>「車椅子のお客様は紙・当日・窓口だろう」という前提は、専用導線の設計にも埋まっていることがある。処理の前に<b>「チケットはどのような形でお持ちですか」</b>と本人に聞けば、決めつけごと消える。</p></div>`;
+  }
+  render(head + `
+  <p class="narr">スマホを受け取って、必要な確認は終わった。</p>
+  <p class="qlabel">手の中のスマホを</p>
+  <button class="choice" onclick="b2s1b('return')">「お返しします」と、すぐ本人の手に返す</button>
+  <button class="choice" onclick="b2s1b('keep')">スマホを預かったまま、こちら側の入場処理もまとめて済ませてしまう</button>
+  `);
+}
+
+function b2s1b(c){
+  B2.s1b = c;
+  let head = "";
+  if(c === "return"){
+    head = `<p class="narr">スマホは彼の手に戻った。彼はそれをポシェットに押し込んで、前を向いた。</p>`;
+  } else {
+    head = `<p class="narr">処理のあいだ——ふと目を上げると、彼が首をねじり、ガラス越しに伸び上がるようにして、あなたの手元へ視線を送ろうとしているのに気づく。</p>
+    <div class="learn"><div class="learnhead"><span class="t">預かったものの重さ</span><span class="badge ok">監修済</span></div>
+    <p>原型になった一日、彼はスマホを預けたまま列を先へ進むよう言われ、進んだ先のかどで長さの分からない待機をした。彼はこの状況をとても不安に感じるそうだ（理由は第二部で）。確認が済んだら、まず返す。それだけで消える不安がある。</p></div>`;
+  }
+  render(head + `
+  <p class="narr">ゲートを抜けた。ここでは、案内係も体験して頂く。</p>
+  <button class="next" onclick="render(V.b2s2())">案内につく</button>
+  `);
+}
+
+V.b2s2 = () => `
+  <div class="scenebox"><p class="eyebrow">ゲートの内側</p><h2>S2 案内のはじまり</h2></div>
+  ${b2Manual("車椅子のお客様は、お席までご案内する。")}
+  <p class="qlabel">最初の一言は</p>
+  <button class="choice" onclick="b2s2('sengen')">「お席までご案内いたします」と歩き出す</button>
+  <button class="choice" onclick="b2s2('yohi')">「ご案内、ご一緒してもよろしいですか？」と聞く</button>
+`;
+
+function b2s2(c){
+  B2.s2 = c;
+  if(c === "sengen"){
+    render(`
+    <p class="narr">歩き出そうとしたとき、男性が口を開いた。</p>
+    <div class="say"><span class="who">車椅子の男性</span><span class="line">あ、すいません——先に、お弁当の受け取りに寄ってから席へお願いできますか。</span></div>
+    <p class="qlabel">どうしますか</p>
+    <button class="choice" onclick="b2s2b('matte')">「少々お待ちください」と、無線で確認する</button>
+    <button class="choice" onclick="b2s2b('fukusho')">「受け取り場所を経由して、お席へ行きますね」と復唱する</button>
+    <button class="choice" onclick="b2s2b('manual')">「お席までのご案内と決まっておりまして……」と説明する</button>
+    `);
+  } else {
+    render(`
+    <div class="say"><span class="who">車椅子の男性</span><span class="line">助かります。先に、予約した弁当の受け取りだけ寄りたくて。</span></div>
+    <div class="learn"><div class="learnhead"><span class="t">質問が、隙間を作る</span><span class="badge ok">監修済</span></div>
+    <p>原型になった一日、要否を聞かれる場面は一度もなく、流れが速すぎて要望を言う暇すらなかった。「ご一緒してもよろしいですか？」という問いは、案内の要否を本人に返すと同時に、<b>相手の要望が出てくる隙間</b>を作る。聞かれた瞬間、初めて言えることがある。</p></div>
+    <button class="next" onclick="b2s2b('fukusho')">「受け取り場所を経由して、お席へ行きますね」</button>
+    `);
+  }
+}
+
+function b2s2b(c){
+  B2.s2b = c;
+  let head = "";
+  if(c === "matte"){
+    head = `<p class="narr">「少々お待ちください」。あなたは無線に向かって小声で確認を始める。男性と介助者の方は、通路の脇で待っている。どれくらい待つのか、あなたもまだ言っていない。</p>
+    <div class="learn"><div class="learnhead"><span class="t">待たせ方の作法</span><span class="badge ok">監修済</span></div>
+    <p>確認が要ること自体は、責められない。ただ「少々」の長さを知らされない待機は、待つ側では別の重さになる。<b>「2〜3分いただきます。終わったらこちらから伺います」</b>——長さと再開の約束を先に渡すだけで、同じ待機の質が変わる。</p></div>`;
+  } else if(c === "fukusho"){
+    head = `<div class="say"><span class="who">車椅子の男性</span><span class="line">ありがとうございます。</span></div>
+    <div class="learn"><div class="learnhead"><span class="t">復唱は受領証</span><span class="badge ok">監修済</span></div>
+    <p>要望をそのまま口に出して返す。それだけで「聞こえています、消えません」の証明になる。原型の一日でこれをやった案内人は、受け取りを一度も落とさなかった。</p></div>`;
+  } else {
+    head = `<p class="narr">説明の途中で、男性が静かに言った。</p>
+    <div class="say"><span class="who">車椅子の男性</span><span class="line">……途中に、受取所があるんです。</span></div>
+    <div class="learn"><div class="learnhead"><span class="t">マニュアルの外の一歩</span><span class="badge ok">監修済</span></div>
+    <p>マニュアルは「席まで届けること」しか見ていない。悪意ではなく、目的関数が単線なだけ。だからこそ、経由地を足すという小さな逸脱が、マニュアルより先に相手を見た証明になる。</p></div>`;
+  }
+  render(head + `
+  <button class="next" onclick="render(V.b2s3())">受け取りを経由して、席へ向かう</button>
+  `);
+}
+
+V.b2s3 = () => `
+  <div class="scenebox"><p class="eyebrow">受取所を過ぎて・連絡通路</p><h2>S3 引き継ぎ</h2></div>
+  <p class="narr">イヤーインカムが鳴る。「——対応が長くなっているようだが、大丈夫か？ 厄介案件なら、交代で対応に入ってもいいが」。</p>
+  <p class="qlabel">どうしますか</p>
+  <button class="choice" onclick="b2s3('marunage')">「代わってもらいます」——来た後任に「あと、お願いします」とだけ伝える</button>
+  <button class="choice" onclick="b2s3('hikitsugi')">後任に「◯◯番のお席まで。お弁当は受け取り済みです。ご要望はご本人に伺ってください」と伝えて交代する</button>
+  <button class="choice" onclick="b2s3('ikki')">無線に「いえ、大丈夫です。このままご案内を終えます」と返す</button>
+`;
+
+function b2s3(c){
+  B2.s3 = c;
+  let head = "";
+  if(c === "marunage"){
+    head = `<p class="narr">後任のスタッフが駆けてくる。そして、介助者の方を向いて言った——「どちらのお席ですか？」。男性が、さっき言ったことを、もう一度最初から説明し直している。</p>
+    <div class="learn"><div class="learnhead"><span class="t">引き継ぎのリセット</span><span class="badge ok">監修済</span></div>
+    <p>担当が替わるたび、情報が消え、視線の宛先が連れに戻り、本人が同じ説明を繰り返す——この「再説明の労働」は、いつも本人に回る。原型の一日の記録では、悪癖の多くはこの<b>リレー構造という一つの根</b>から生えていた。</p></div>`;
+  } else if(c === "hikitsugi"){
+    head = `<p class="narr">後任は頷いて、男性の方へかがんだ。「伺っています。お席までご一緒します」。説明のやり直しは、起きなかった。</p>
+    <div class="learn"><div class="learnhead"><span class="t">引き継ぎ一文</span><span class="badge ok">監修済</span></div>
+    <p>行き先・済んだこと・「ご本人に伺って」——三つを一文で渡すだけで、リセットは起きない。リレーが避けられない日の、確かな次善策。</p></div>`;
+  } else {
+    head = `<p class="narr">「いえ、大丈夫です。このままご案内を終えます」。無線の向こうが一瞬黙って、「了解」と返ってきた。</p>
+    <div class="learn"><div class="learnhead"><span class="t">一気通貫</span><span class="badge ok">監修済</span></div>
+    <p>原型になった一日、ゲートから席まで一人で通した案内人がいた。その瞬間、誤った列への誘導も、弁当受け取りの漏れも、再説明の労働も——<b>全部が同時に消えた</b>。もし引き継がなくても、一人が文脈を保ったまま一気通貫で柔軟に対応できるなら、それに勝るものは無い。</p></div>`;
+  }
+  render(head + `<button class="next" onclick="render(V.b2s4())">お席へ</button>`);
+}
+
+V.b2s4 = () => `
+  <div class="scenebox"><p class="eyebrow">4階・お席</p><h2>S4 締めの一言</h2></div>
+  <p class="narr">席に着いた。介助者の方がパイプ椅子を広げている。あなたは持ち場に戻る前に、最後の一言を選ぶ。</p>
+  <p class="qlabel">最後にかける言葉は</p>
+  <button class="choice" onclick="b2s4('sakura')">「では、ごゆっくりどうぞ」</button>
+  <button class="choice" onclick="b2s4('kuukyo')">「お帰りの際は、お近くのスタッフにお声がけください」</button>
+  <button class="choice" onclick="b2s4('souten')">「お帰りの時間帯には4階にスタッフを立たせますので、エレベーターの案内が必要なら、その者にお声がけください。ゲートのスタッフにも伝えておきます」</button>
+  <button class="choice" onclick="b2s4('shikaku')">「この位置、柱で見えづらければ、見やすいところへ多少ずらしていただいて大丈夫ですよ」</button>
+`;
+
+function b2s4(c){
+  B2.s4 = c;
+  let head = "";
+  if(c === "sakura"){
+    head = `<p class="narr">男性は「どうも」と応えた。帰り道のことは、まだ誰も知らない。</p>`;
+  } else if(c === "kuukyo"){
+    head = `<div class="learn"><div class="learnhead"><span class="t">同じ骨格、空の中身</span><span class="badge ok">監修済</span></div>
+    <p>「お近くのスタッフに」には、誰が、どこに、いつ居るのかが無い。同じ骨格に、こう装填した言い方がある。「お帰りの時間帯には4階にスタッフを立たせますので、エレベーターの案内が必要なら、その者にお声がけください」。<b>骨格はほとんど同じ。違うのは、中身</b>。</p></div>`;
+  } else if(c === "souten"){
+    head = `<div class="say"><span class="who">車椅子の男性</span><span class="line">具体的に教えてもらえて、すごく助かりました。色々ときめ細かなご配慮、本当にありがとうございます。</span></div>
+    <div class="learn"><div class="learnhead"><span class="t">装填された約束</span><span class="badge ok">監修済</span></div>
+    <p>これは原型の一日に実在した言葉、ほぼそのまま。時間帯・場所・目的・引き継ぎの予告——空の骨格に四つが装填されている。ここまで言えるスタッフは稀で、だからこそ、この約束は<b>組織が支えるべき約束</b>でもある。約束の先で誰かが無視すれば、結果としてこのスタッフまで嘘つきにしてしまうからだ。</p></div>`;
+  } else {
+    head = `<div class="learn"><div class="learnhead"><span class="t">暗黙の裁量を、言葉で渡す</span><span class="badge ok">監修済</span></div>
+    <p>柱の死角は公式も認めている。そして周囲の迷惑にならない範囲で少し位置をずらしても、実は誰にも咎められない——なのに、その裁量が言葉にされないせいで、案内に忠実な人ほど柱を見て帰る。<b>許されていることを許されていると伝える</b>。それだけで、正直者が損をしなくなる。</p></div>`;
+  }
+  render(head + `
+  <p class="grad">ここまでが、スタッフとしての一日。</p>
+  <p class="narr">同じ一日を、こんど、車椅子の側から。</p>
+  <button class="next" onclick="b2p2Start()">同じ行程を、車椅子側から</button>
+  <button class="ghost" onclick="b2Start()">第一部をもう一周</button>
+  <button class="ghost" onclick="go('home')">ホームに戻る</button>
+  `);
+}
+
+
+/* ---------- 箱2「会場の受付・案内」第二部（車椅子側）全文[仮]・検収待ち ----------
+   ミラー機構: 第一部の選択ログB2を各ビートで再生。未プレイ・リロード時は原型実測の現実既定ルート。
+   ランダム性なし（検収裁定2026-08-18: 第二部は固定再生を基本とする）。 */
+let b2p2Played = false;
+
+function sayAs(who, line){
+  return `<div class="say"><div class="who">${who}</div><div class="line">${line}</div></div>`;
+}
+function p2mirror(t){
+  return `<p class="sn" style="border:1px dashed var(--muted);padding:8px 10px;border-radius:8px">第一部の、あなたの一手 — ${t}</p>`;
+}
+function b2p2Start(){ b2p2Played = true; render(V.p2s1()); }
+
+V.p2s1 = () => {
+  let first = "";
+  if(B2.s1 === "tsure"){
+    first = p2mirror("介助者の方に「チケットお願いします」と言う") +
+      sayAs("受付係","チケットお願いします。") +
+      `<p class="narr">声の宛先は、あなたの横——立っているヘルパーさんだ。ヘルパーさんが半歩さがって、あなたを手のひらで示す。</p>` +
+      sayAs("ヘルパーさん","私は介助者なので、ご本人に話してください。") +
+      `<p class="narr">係の目が、こちらへ降りてくる。あなたはポシェットからスマホを出す。最初の一往復ぶん、遅れて始まる。</p>`;
+  } else if(B2.s1 === "tachi"){
+    first = p2mirror("立ったまま「チケット拝見します」と言う") +
+      sayAs("受付係","チケット拝見します。") +
+      `<p class="narr">声は、まっすぐあなたに来た。ただ、係は立ったままだ。あなたは腕をいっぱいに伸ばして、頭の上の方へスマホを差し出す。</p>`;
+  } else if(B2.s1 === "kagamu"){
+    first = p2mirror("かがんで「チケットを拝見してもいいですか」と言う") +
+      `<p class="narr">係が、すっとかがんだ。目が合う。</p>` +
+      sayAs("受付係","チケットを拝見してもいいですか。") +
+      `<p class="narr">スマホを、ふつうの距離で手渡せる。確認は一往復で終わった。——それだけのことが、それだけのこととして、ちゃんと軽い。</p>`;
+  } else if(B2.s1 === "kami"){
+    first = p2mirror("「チケットは紙ですかね？」と聞く") +
+      sayAs("受付係","チケットは紙ですかね？") +
+      sayAs("あなた","いえ、電子です。") +
+      `<p class="narr">スマホを出しながら、ふと思う。いま、紙だと思われたのは——たまたまだろうか。それでも、聞かれたぶんだけ、その場で直せた。</p>`;
+  } else {
+    first = sayAs("受付係","チケットお願いします。") +
+      `<p class="narr">声の宛先は、あなたの横——立っているヘルパーさんだ。ヘルパーさんが半歩さがって、あなたを手のひらで示す。係の目が、こちらへ降りてきて、あなたはポシェットからスマホを出す。</p>`;
+  }
+  let phone = "";
+  if(B2.s1b === "return"){
+    phone = p2mirror("「お返しします」と、すぐ本人の手に返す") +
+      sayAs("受付係","お返しします。") +
+      `<p class="narr">スマホは、すぐあなたの手に戻ってきた。ポシェットに押し込んで、前を向く。手の中に戻る——ただそれだけのことの、確かさ。</p>`;
+  } else {
+    phone = (B2.s1b === "keep" ? p2mirror("スマホを預かったまま、処理をまとめて済ませる") : "") +
+      `<p class="narr">スマホは、係の手の中にある。「先へお進みください」と言われて、あなたは列を離れ、通行のじゃまにならない曲がり角で止まる。</p>
+      <p class="narr">ガラスの向こうで、処理が続いている。あなたは首をねじり、伸び上がるようにして、係の手元へ視線を送る。あと何分なのか、何の処理なのかは、聞かされていない。目の前を、人の腹と鞄が流れていく。スマホを丸裸でずっと没収された状態なので、正直不安で仕方がない。手元で見えてさえいれば、まだ違う。完全に切り離されるから、不安になる。</p>`;
+  }
+  return `
+  <div class="scenebox"><p class="eyebrow">受付ゲート・開場直後</p><h2>S1' 入場</h2></div>
+  <p class="narr">日曜の昼。今日のあなたは、車椅子で、この会場に来ました。横に、ヘルパーさんがひとり。列がゲートへ流れていく。視点の高さは、立っている人の腰のあたり。順番が来て、あなたは言う。</p>
+  ${sayAs("あなた","車椅子席、合計2枚。僕本人と、こちらの介助者のぶんです。")}
+  ${sayAs("受付係","かしこまりました。こちらへ。")}
+  ${first}
+  ${phone}
+  <button class="next" onclick="render(V.p2s2())">ゲートの内側へ</button>
+  `;
+};
+
+V.p2s2 = () => {
+  if(B2.s2 === "yohi"){
+    return `
+    <div class="scenebox"><p class="eyebrow">ゲートの内側</p><h2>S2' 案内</h2></div>
+    ${p2mirror("「ご案内、ご一緒してもよろしいですか？」と聞く")}
+    ${sayAs("案内係","ご案内、ご一緒してもよろしいですか？")}
+    <p class="narr">要る・要らないを、あなたが決めていい問いだった。聞かれた瞬間、言おうと思っていたことが、そのまま口から出てくる。</p>
+    ${sayAs("あなた","助かります。先に、予約した弁当の受け取りだけ寄りたくて。")}
+    <button class="next" onclick="p2s2go('ok')">案内についていく</button>
+    `;
+  }
+  return `
+  <div class="scenebox"><p class="eyebrow">ゲートの内側</p><h2>S2' 案内</h2></div>
+  ${B2.s2 === "sengen" ? p2mirror("「お席までご案内いたします」と歩き出す") : ""}
+  ${sayAs("案内係","お席までご案内いたします。")}
+  <p class="narr">係は、もう半分うしろを向いて歩き出している。要るかどうかは、聞かれなかった。</p>
+  <p class="qlabel">どうしますか</p>
+  <button class="choice" onclick="p2s2go('follow')">ついて行く</button>
+  <button class="choice" onclick="p2s2go('refuse')">案内を断る</button>
+  `;
+};
+
+function p2s2go(c){
+  if(c === "refuse"){
+    render(`
+    <p class="narr" style="text-align:center;margin:2em 0">——言葉が、出ませんでした。</p>
+    <div class="learn"><div class="learnhead"><span class="t">断れない、ということ</span>${badge(true)}</div>
+      <p>いま、ボタンは押せたのに、断りは起きませんでした。意地悪ではなく、これが原型の実際です。</p>
+      <p>この場面の原型になった人は、この会場の案内を、これまで<b>一度も断れたことがありません</b>。半分は構造の話——観客席へは、エレベーターがほぼ唯一の動線です。案内を断ると、満員のエレベーターに延々と乗れないかもしれない。案内とエレベーターのアクセスが、事実上ひとつに束ねられている。もう半分は空気の話——「ほんまにええんやな……もうどうなっても知らんで」という圧のなかで、一度受けた流れを途中で断ち切るのは、さらに難しい。</p>
+      <p>だから、第一部の例示が指しているのは「上手な断り方」ではありません。<b>断ってもコストが生じない差し出し方</b>——案内する側の手の中にある方です。</p>
+    </div>
+    <p class="narr">あなたは黙って、案内の背中について行く。</p>
+    <button class="next" onclick="render(V.p2s3())">連絡通路へ</button>
+    `);
+  } else if(c === "follow"){
+    render(`
+    <p class="narr">歩幅は、係のものだ。「先に、お弁当の受け取りを」——言いかけたときには、背中はもう次の角を曲がりかけている。言葉は人混みと喧噪にまぎれた。</p>
+    <button class="next" onclick="render(V.p2s3())">連絡通路へ</button>
+    `);
+  } else {
+    render(`
+    <p class="narr">係が、あなたの速さに歩幅を合わせる。行き先と経由地が、いま、ふたりのあいだで共有されている。</p>
+    <button class="next" onclick="render(V.p2s3())">連絡通路へ</button>
+    `);
+  }
+}
+
+V.p2s3 = () => {
+  let relay = "";
+  if(B2.s3 === "hikitsugi"){
+    relay = p2mirror("行き先・済んだこと・「ご本人に」を一文で引き継ぐ") +
+      `<p class="narr">通路の途中で、係が入れ替わった。来た人が、あなたの方へかがむ。</p>` +
+      sayAs("後任の係","伺っています。お席まで、ご一緒します。ご要望があれば、そのままおっしゃってください。") +
+      `<p class="narr">さっき言ったことを、もう一度言う必要は——なかった。それだけで、通路がすこし短い。</p>`;
+  } else if(B2.s3 === "ikki"){
+    relay = p2mirror("「このままご案内を終えます」と、一人で通す") +
+      `<p class="narr">交代は、来なかった。同じ人が、同じ歩幅のまま隣にいる。一度伝えたことが、消えずにずっと生きている。</p>`;
+  } else {
+    relay = (B2.s3 === "marunage" ? p2mirror("「あと、お願いします」とだけ伝えて交代") : "") +
+      `<p class="narr">通路の途中で、係が入れ替わった。駆けてきた人が、あなたの横——ヘルパーさんの方を向く。</p>` +
+      sayAs("後任の係","どちらのお席ですか？") +
+      `<p class="narr">あなたは車椅子を半回転させて、さっきゲートで言ったことを、もう一度最初から説明する。席の番号。弁当の受け取り。降りる階のこと。</p>
+      <div class="learn"><div class="learnhead"><span class="t">再説明の労働</span>${badge(true)}</div>
+      <p>担当が替わるたびに、情報が消え、説明が最初からやり直しになる。やり直すのは、いつも本人だ。そして、担当が「切り替わった」ときの、あの一瞬の空気——この切り替えを、原型の人は人生で何度も体験してきた。「感じること自体が、結構しんどい」。</p>
+      </div>`;
+  }
+  return `
+  <div class="scenebox"><p class="eyebrow">連絡通路</p><h2>S3' 中継</h2></div>
+  ${relay}
+  <p class="narr">すこし進んだところで、スタッフが足を止め、あなたの頭ごしに、ヘルパーさんへ確認をはじめる。</p>
+  ${sayAs("スタッフ","お手洗いなどは、お済みですか？")}
+  <p class="qlabel">どうしますか</p>
+  <button class="choice" onclick="p2s3('self')">「僕が本人なので、こっちに話してください」と、自分で言う</button>
+  <button class="choice" onclick="p2s3('makase')">ヘルパーさんに、任せる</button>
+  `;
+};
+
+function p2s3(c){
+  let head = "";
+  if(c === "self"){
+    head = sayAs("あなた","あ——僕が本人なので、こっちに話してください。") +
+      `<p class="narr">一瞬、空気がピリッとした。スタッフも、ヘルパーさんも、言ったあなた自身も——その場の全員が、すこし気まずい。誰も、悪いことはしていないのに。</p>
+      <div class="learn"><div class="learnhead"><span class="t">自己主張のコスト</span>${badge(true)}</div>
+      <p>「こっちに話してください」——普通のことを言っただけなのに、独特の気まずさが全員に生まれる。この空気のぶんのコストを、いつも本人が払う。原型の人の実感です。</p>
+      <p>第一部にあった「ご要望はご本人に伺ってください」の引き継ぎ一文は、この一言を<b>本人に言わせずに済ませる</b>ための一文でもある。</p>
+      </div>`;
+  } else {
+    head = sayAs("ヘルパーさん","私は介助者なので、ご本人に話してください。") +
+      `<p class="narr">慣れた、はっきりした声だった。宛先が、あなたに戻ってくる。あなたは「大丈夫です」と答える。——言ってもらえた。だが多少その場が緊張しても、きちんと自分で言うべきだったかもしれない。慣れているとはいえ、ヘルパーさんにそれを言わせてしまったことも心苦しい。一抹の申し訳なさと自己嫌悪も残る。毎度のことながらメンタルを削られる。</p>`;
+  }
+  render(head + `<button class="next" onclick="render(V.p2s4())">受取所の方へ</button>`);
+}
+
+V.p2s4 = () => {
+  let bento = "";
+  if(B2.s3 === "hikitsugi" || B2.s3 === "ikki"){
+    bento = `<p class="narr">案内は、受取カウンターをまっすぐ経由した。予約番号を言うと、弁当屋さんが、カウンター越しにすこし身を乗り出して——</p>` +
+      sayAs("弁当屋さん","お膝の上に、お置きしましょうか？") +
+      `<p class="narr">聞かれてから、置かれる。あたたかい包みが、膝の上でちゃんと安定している。</p>`;
+  } else {
+    bento = `<p class="narr">受取カウンターの前を、案内はまっすぐ通り過ぎていく。数メートル過ぎてから、あなたは声を出す。</p>` +
+      sayAs("あなた","すいません、お弁当の受け取りが——") +
+      `<p class="narr">係が立ち止まる。すこし嫌そうな顔で、来た道を引き返した。</p>`;
+  }
+  let seat = "";
+  if(B2.s4 === "shikaku"){
+    seat = p2mirror("「見やすいところへ多少ずらして大丈夫」と伝える") +
+      `<p class="narr">席に着く。目の前に柱——でも、さっき言われている。「見やすいところへ多少ずらしていただいて大丈夫」。あなたは車椅子を半分ぶん動かして、グラウンドの見える角度をつくった。だれにも聞かずに、そうしていいと分かっていた。</p>`;
+  } else {
+    seat = `<p class="narr">席に着く。目の前に、柱。すこし横へ動けば見える気がする——ただ、動いていいのかは、だれにも言われていない。あなたは柱の縁ごしに、グラウンドをのぞく位置で止まった。</p>`;
+  }
+  let close = "";
+  if(B2.s4 === "souten"){
+    close = p2mirror("時間帯・場所・引き継ぎまで装填した、帰りの約束") +
+      sayAs("案内係","お帰りの時間帯には4階にスタッフを立たせますので、エレベーターの案内が必要なら、その者にお声がけください。ゲートのスタッフにも伝えておきます。") +
+      `<p class="narr">帰りのことを、先回りしてもらえた。約束が、手の中にひとつある。</p>`;
+  } else if(B2.s4 === "kuukyo"){
+    close = p2mirror("「お近くのスタッフにお声がけください」") +
+      sayAs("案内係","お帰りの際は、お近くのスタッフにお声がけください。") +
+      `<p class="narr">だれが・どこに・いつ——は、ないままの約束だった。</p>`;
+  } else {
+    close = `<p class="narr">係は一礼して、持ち場へ戻っていった。帰りのことは、まだだれも知らない。</p>`;
+  }
+  return `
+  <div class="scenebox"><p class="eyebrow">4階・お席</p><h2>S4' 受け取りと席</h2></div>
+  ${bento}
+  ${seat}
+  ${close}
+  <p class="narr">ブザーが鳴って、試合がはじまる。声援。打球音。ビジョンの光。——ここから先の数時間、スタッフとの関わりは、こちらから話しかけないかぎり、ほとんど発生しない。</p>
+  <button class="next" onclick="render(V.p2s5())">試合終了。帰る</button>
+  `;
+};
+
+V.p2s5 = () => {
+  let pact = "";
+  if(B2.s4 === "souten"){
+    pact = `<p class="narr">手の中には、まだ約束がある——「帰りの時間帯には、4階にスタッフを」。いま前に立っていたのが、その人だったのかは、分からない。約束と、いま起きたこと。ふたつが、ならんで残る。</p>`;
+  } else if(B2.s4 === "kuukyo"){
+    pact = `<p class="narr">「お近くのスタッフに」——さっき、たしかにそう言われていた。声は、かけた。</p>`;
+  }
+  return `
+  <div class="scenebox"><p class="eyebrow">試合終了・4階通路</p><h2>S5' 帰り</h2></div>
+  <p class="narr">人の流れが、いっせいにエレベーターへ向かっていく。通路の先に、スタッフがひとり立っている。あなたは車輪を進めて、近づく。</p>
+  ${sayAs("あなた","あ、すいません。3階に降ります。")}
+  <p class="narr">スタッフは、こちらへ一度視線をやった。それから、正面へ向き直った。</p>
+  ${sayAs("あなた","すいません。")}
+  <p class="narr">返事は、なかった。あなたは車輪を回して、エレベーターの列に入る。——すこし離れてから振り返ると、そのスタッフは、こちらを見ていた。</p>
+  <p class="sn">この帰りの出来事は、第一部でどの一手を選んだかに関係なく、同じ形で再生されます。あなたの選択のせいでは、ありません。実際にあった一日の、実際の順番です。</p>
+  ${pact}
+  <div class="learn"><div class="learnhead"><span class="t">約束の壊れ方</span>${badge(true)}</div>
+    <p>装填された約束をした人は、嘘をついていない。けれど約束は、した本人の手の外で壊れることがある。壊れたぶんの重さは、約束を信じた側に落ちる。</p>
+    <p>そして、良い一手ほど「そこまでやらなくていい」という周囲との水準あわせで、最小限の約束へ縮んでいきやすい——原型の人が、別の職場でも見てきた力学。</p>
+    <p>だからこの箱が指しているのは、ひとりの一手と、<b>引き継ぎが機能する組織</b>——その両方です。</p>
+  </div>
+  <p class="narr">エレベーターは、みんなと同じ共用だった。今日の混みかたでは、二度めの扉で乗れた。扉が閉まる。ドームの音が、遠くなる。</p>
+  <button class="next" onclick="render(V.p2s6())">外へ</button>
+  `;
+};
+
+V.p2s6 = () => {
+  const d = (v, map, dflt) => map[v] || dflt;
+  const rows = [
+    ["最初の声",
+     d(B2.s1, {tsure:"介助者の方へ「チケットお願いします」", tachi:"立ったまま「チケット拝見します」", kagamu:"かがんで「拝見してもいいですか」", kami:"「チケットは紙ですかね？」"}, "第一声はヘルパーさんへ（実測の既定）"),
+     d(B2.s1, {tsure:"宛先が横へ逸れる一拍から、始まった", tachi:"声はまっすぐ来た。腕は、いっぱいに伸ばした", kagamu:"目が合う高さで、一往復で終わった", kami:"聞かれたぶんだけ、その場で直せた"}, "宛先が横へ逸れる一拍から、始まった")],
+    ["スマホ",
+     d(B2.s1b, {return:"「お返しします」と、すぐ返した", keep:"預かったまま、処理をまとめた"}, "預かったまま先へ（実測の既定）"),
+     d(B2.s1b, {return:"手の中に戻る、その確かさ", keep:"曲がり角で、首をねじって手元を探した"}, "曲がり角で、首をねじって手元を探した")],
+    ["案内",
+     d(B2.s2, {yohi:"「ご一緒してもよろしいですか？」と聞いた", sengen:"「ご案内いたします」と歩き出した"}, "要否は聞かれなかった（実測の既定）"),
+     d(B2.s2, {yohi:"言いたいことが、聞かれた瞬間に言えた", sengen:"歩幅は係のもの。要望は人混みと喧噪にまぎれた"}, "歩幅は係のもの。要望は人混みと喧噪にまぎれた")],
+    ["引き継ぎ",
+     d(B2.s3, {hikitsugi:"行き先と「ご本人に」を一文で渡した", ikki:"一人で通した", marunage:"「あと、お願いします」"}, "引き継ぎなしの交代（実測の既定）"),
+     d(B2.s3, {hikitsugi:"同じ説明を、二度しなくてよかった", ikki:"一度伝えたことが、ずっと生きていた", marunage:"同じ説明を、最初からもう一度した"}, "同じ説明を、最初からもう一度した")]
+  ].map(r => `<p><span class="sn">${r[0]}</span><br>あなたの一手: ${r[1]}<br>届いた形: ${r[2]}</p>`).join("");
+  return `
+  <div class="scenebox"><p class="eyebrow">帰り道</p><h2>S6' 氷解</h2></div>
+  <p class="narr">昼さがりの風。ドームの屋根が、うしろで小さくなっていく。同じ一日を、両側から歩き終えました。</p>
+  <div class="card">${rows}</div>
+  <p class="narr">受付の人。案内の人。弁当屋さん。最後に立っていた人。——<b>どの人も、実際にいた人です。</b>とびきり良い一手も、返事のなかった背中も、同じ一日のなかに、ほんとうに並んでいました。</p>
+  <div class="grad">ここまでが、両側から見た一日。<br>迷ったら、本人に聞く。</div>
+  <button class="next" onclick="b2p2Start()">第二部をもう一周</button>
+  <button class="ghost" onclick="b2Start()">第一部へ</button>
+  <button class="ghost" onclick="go('home')">最初の画面へ</button>
+  <button class="ghost" onclick="go('backstage')">終了する</button>
+  `;
+};
+
+/* ---------- 検収モード（#kenshu）: 全文言の一括読み上げ点検。URL末尾に#kenshuを付けた時のみ起動、通常プレイヤーには不可視 ---------- */
+let KQ = null;
+
+function kenshuFlag(t){
+  return /[0-90-9A-Za-zA-Za-z%%##**→←〜※]/.test(t) || /その方|の方が|開い|開け|行って/.test(t);
+}
+
+function kenshuHarvest(seen, out){
+  ttsParts().forEach(function(t){
+    t = t.replace(/\s+/g, " ").trim();
+    if(t && !seen.has(t)){ seen.add(t); out.push(t); }
+  });
+}
+
+function kenshuCorpus(){
+  const seen = new Set(); const out = [];
+  const origRandom = Math.random;
+  const saveApproach = approachCount;
+  const saveB2 = B2, saveB2p = b2Played, saveP2 = b2p2Played;
+  try{
+    go("home"); kenshuHarvest(seen, out);
+    go("exitlite"); kenshuHarvest(seen, out);
+    start(); go("farpass"); kenshuHarvest(seen, out);
+    const plan = [
+      [0.1, "drop",  ["hello","back","front","silent","pass"]],
+      [0.4, "dansa", ["eye","open","push","pass"]],
+      [0.6, "door",  ["respond","hello","ignore"]],
+      [0.8, "taka",  ["hello","open","vague","pass"]],
+      [0.9, "phone", ["hello","open","vague","pass"]]
+    ];
+    for(const w of plan){
+      const rig = function(){ return w[0]; };
+      Math.random = rig; approachCount = 0;
+      start(); goNear(); kenshuHarvest(seen, out);
+      for(const c of w[2]){
+        Math.random = rig; approachCount = 0;
+        start(); goNear();
+        if(w[1] === "drop") pick1(c);
+        else if(w[1] === "dansa") pickDansa(c);
+        else if(w[1] === "door") pickDoor(c);
+        else if(w[1] === "taka") pickTaka(c);
+        else pickPhone(c);
+        kenshuHarvest(seen, out);
+      }
+      if(w[1] === "drop"){
+        for(const v of ["open","direct","vague"]){
+          Math.random = rig; approachCount = 0;
+          start(); goNear(); pick1("front"); pick2(v); kenshuHarvest(seen, out);
+        }
+      }
+      if(w[1] === "phone"){
+        for(const c of ["hello","open","vague"]){
+          Math.random = rig; approachCount = 10;
+          start(); goNear(); pickPhone(c); kenshuHarvest(seen, out);
+        }
+      }
+    }
+    b2Start(); kenshuHarvest(seen, out);
+    for(const c of ["tsure","tachi","kagamu","kami"]){ b2Start(); b2s1(c); kenshuHarvest(seen, out); }
+    b2Start(); b2s1("kagamu"); b2s1b("return"); kenshuHarvest(seen, out);
+    b2Start(); b2s1("kagamu"); b2s1b("keep"); kenshuHarvest(seen, out);
+    render(V.b2s2()); kenshuHarvest(seen, out);
+    b2s2("sengen"); kenshuHarvest(seen, out);
+    b2s2("yohi"); kenshuHarvest(seen, out);
+    for(const c of ["matte","fukusho","manual"]){ render(V.b2s2()); b2s2("sengen"); b2s2b(c); kenshuHarvest(seen, out); }
+    render(V.b2s3()); kenshuHarvest(seen, out);
+    for(const c of ["marunage","hikitsugi","ikki"]){ render(V.b2s3()); b2s3(c); kenshuHarvest(seen, out); }
+    render(V.b2s4()); kenshuHarvest(seen, out);
+    for(const c of ["sakura","kuukyo","souten","shikaku"]){ render(V.b2s4()); b2s4(c); kenshuHarvest(seen, out); }
+    /* 第二部: 既定ルート＋ミラー全変種を網羅する4セット */
+    const p2sets = [
+      {},
+      {s1:"tsure",  s1b:"return", s2:"yohi",   s2b:"fukusho", s3:"hikitsugi", s4:"souten"},
+      {s1:"kagamu", s1b:"keep",   s2:"sengen", s2b:"matte",   s3:"ikki",      s4:"shikaku"},
+      {s1:"tachi",                s2:"sengen", s2b:"manual",  s3:"marunage",  s4:"kuukyo"},
+      {s1:"kami",                                                             s4:"sakura"}
+    ];
+    for(const st of p2sets){
+      B2 = Object.assign({}, st);
+      render(V.p2s1()); kenshuHarvest(seen, out);
+      render(V.p2s2()); kenshuHarvest(seen, out);
+      if(B2.s2 === "yohi"){ p2s2go("ok"); kenshuHarvest(seen, out); }
+      else {
+        p2s2go("refuse"); kenshuHarvest(seen, out);
+        render(V.p2s2()); p2s2go("follow"); kenshuHarvest(seen, out);
+      }
+      render(V.p2s3()); kenshuHarvest(seen, out);
+      p2s3("self"); kenshuHarvest(seen, out);
+      render(V.p2s3()); p2s3("makase"); kenshuHarvest(seen, out);
+      render(V.p2s4()); kenshuHarvest(seen, out);
+      render(V.p2s5()); kenshuHarvest(seen, out);
+      render(V.p2s6()); kenshuHarvest(seen, out);
+    }
+    go("debrief"); kenshuHarvest(seen, out);
+    go("backstage"); kenshuHarvest(seen, out);
+    go("about"); kenshuHarvest(seen, out);
+  } finally {
+    Math.random = origRandom;
+    approachCount = saveApproach;
+    B2 = saveB2; b2Played = saveB2p; b2p2Played = saveP2;
+  }
+  return out;
+}
+
+function kenshuSpeakLine(t){
+  const chunks = ttsChunks(ttsApplyDict(t));
+  let ci = 0;
+  function nextChunk(){
+    if(!KQ || !KQ.playing) return;
+    if(ci >= chunks.length){ kenshuNext(); return; }
+    const piece = chunks[ci++];
+    if(piece === "\u0000"){ setTimeout(nextChunk, TTS_PAUSE_MS); return; }
+    const u = new SpeechSynthesisUtterance(piece);
+    u.lang = "ja-JP"; if(ttsVoice) u.voice = ttsVoice; u.rate = KQ.rate;
+    u.onend = nextChunk;
+    u.onerror = function(){ if(KQ) KQ.playing = false; };
+    speechSynthesis.speak(u);
+  }
+  nextChunk();
+}
+
+function kenshuNext(){
+  if(!KQ || !KQ.playing) return;
+  do { KQ.idx++; } while(KQ.idx < KQ.lines.length && KQ.onlyFlagged && !kenshuFlag(KQ.lines[KQ.idx]));
+  if(KQ.idx >= KQ.lines.length){
+    KQ.playing = false;
+    kenshuStatus("終わりです。下の疑義リストをコピーして送ってください（0件ならその旨だけで）。");
+    return;
+  }
+  const t = KQ.lines[KQ.idx];
+  const line = document.getElementById("kline");
+  const prog = document.getElementById("kprog");
+  if(line) line.textContent = t;
+  if(prog) prog.textContent = (KQ.idx + 1) + " / " + KQ.lines.length + (kenshuFlag(t) ? "　⚑要注意" : "");
+  kenshuSpeakLine(t);
+}
+
+function kenshuPlay(fromTop){
+  if(!KQ) return;
+  if(!TTS_SUPPORTED){ kenshuStatus("この環境は読み上げ非対応です。"); return; }
+  speechSynthesis.cancel();
+  if(fromTop) KQ.idx = -1;
+  KQ.playing = true;
+  setTimeout(kenshuNext, 60);
+}
+
+function kenshuPause(){
+  if(!KQ) return;
+  if(KQ.playing){
+    KQ.playing = false;
+    if(TTS_SUPPORTED) speechSynthesis.cancel();
+    kenshuStatus("一時停止中。");
+  } else {
+    KQ.idx--;
+    kenshuStatus("");
+    kenshuPlay(false);
+  }
+}
+
+function kenshuMark(){
+  if(!KQ || KQ.idx < 0 || KQ.idx >= KQ.lines.length) return;
+  const t = KQ.lines[KQ.idx];
+  if(KQ.marks.indexOf(t) === -1) KQ.marks.push(t);
+  const ta = document.getElementById("kmarks");
+  if(ta) ta.value = KQ.marks.map(function(m, i){ return (i + 1) + ". " + m; }).join("\n");
+  kenshuStatus("旗を立てました（" + KQ.marks.length + "件）。");
+}
+
+function kenshuRate(r){ if(KQ) KQ.rate = r; kenshuStatus("速さ " + r + " に変更。"); }
+
+function kenshuOnly(btn){
+  if(!KQ) return;
+  KQ.onlyFlagged = !KQ.onlyFlagged;
+  if(btn) btn.textContent = "⚑要注意のみ: " + (KQ.onlyFlagged ? "ON" : "OFF");
+}
+
+function kenshuCopy(){
+  const ta = document.getElementById("kmarks");
+  if(!ta) return;
+  ta.focus(); ta.select();
+  try { document.execCommand("copy"); kenshuStatus("コピーしました。そのままClaudeに貼ってください。"); }
+  catch(e){ kenshuStatus("選択済みです。手動でコピーしてください。"); }
+}
+
+function kenshuStatus(m){
+  const el = document.getElementById("kstat");
+  if(el) el.textContent = m;
+}
+
+function kenshuView(){
+  const total = KQ.lines.length;
+  let flagged = 0;
+  for(const t of KQ.lines){ if(kenshuFlag(t)) flagged++; }
+  const b = 'style="width:auto;display:inline-block;min-height:42px;padding:8px 12px;margin:2px 4px 2px 0"';
+  return `
+  <div class="card">
+    <p class="eyebrow">検収モード（開発用）</p>
+    <p class="narr">アプリ内の全文言 <b>${total}行</b>（うち ⚑要注意 <b>${flagged}行</b>）を上から順に読み上げます。変な読みが聞こえたら「⚠この行に旗」。最後にリストをコピーして送るだけで検収完了です。ここは通常のプレイヤーには見えません。</p>
+    <p>
+      <button class="ghost" ${b} onclick="kenshuPlay(true)">▶ 最初から再生</button>
+      <button class="ghost" ${b} onclick="kenshuPause()">⏯ 一時停止／再開</button>
+      <button class="ghost" ${b} onclick="kenshuMark()">⚠ この行に旗</button>
+    </p>
+    <p>
+      <button class="ghost" ${b} onclick="kenshuRate(1.0)">速さ1.0</button>
+      <button class="ghost" ${b} onclick="kenshuRate(1.3)">1.3</button>
+      <button class="ghost" ${b} onclick="kenshuRate(1.6)">1.6</button>
+      <button class="ghost" ${b} onclick="kenshuOnly(this)">⚑要注意のみ: OFF</button>
+    </p>
+    <p class="sn" id="kprog">未再生</p>
+    <p class="narr" id="kline" style="min-height:3em">—</p>
+    <p class="sn" id="kstat"></p>
+    <p class="sn">疑義リスト:　<button class="ghost" ${b} onclick="kenshuCopy()">リストをコピー</button></p>
+    <textarea id="kmarks" readonly style="width:100%;min-height:8em;font-size:.9rem;box-sizing:border-box"></textarea>
+  </div>
+  <button class="ghost" onclick="ttsStop(); go('home')">ホームに戻る</button>`;
+}
+
+function kenshuStart(){
+  KQ = { lines: kenshuCorpus(), idx: -1, playing: false, rate: 1.0, onlyFlagged: false, marks: [] };
+  render(kenshuView());
+}
+
+/* ---------- 隠し扉（v0.22で追加）: フッターの版番号を5回連続タップで検収モードへ ----------
+   Android等、アドレスバーに #kenshu を打ち込めない環境のための代替入口。
+   間隔が3秒空いたらカウントはリセット。通常プレイヤーには見えず、文言・見た目にも不干渉。 */
+const KENSHU_TAPS = 5;
+const KENSHU_TAP_GAP_MS = 3000;
+let kenshuTapCount = 0, kenshuTapLast = 0;
+(function(){
+  const el = document.getElementById("verstamp");
+  if(!el) return;
+  el.addEventListener("click", function(){
+    const now = Date.now();
+    kenshuTapCount = (now - kenshuTapLast > KENSHU_TAP_GAP_MS) ? 1 : (kenshuTapCount + 1);
+    kenshuTapLast = now;
+    if(kenshuTapCount >= KENSHU_TAPS){
+      kenshuTapCount = 0;
+      kenshuStart();
+    }
+  });
+})();
+
+window.addEventListener("hashchange", function(){ if(location.hash === "#kenshu"){ kenshuStart(); } });
+if(location.hash === "#kenshu"){ kenshuStart(); } else { go("home"); }
+</script>
+</body>
+</html>
