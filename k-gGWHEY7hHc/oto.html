@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>音の診断</title>
+<style>
+html{ -webkit-text-size-adjust:100%; }
+body{ margin:0; padding:8px 10px 28px; font:14px/1.45 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI",sans-serif; background:#fff; color:#111; }
+h1{ font-size:15px; margin:0 0 2px; }
+p{ margin:0 0 6px; font-size:12px; }
+.btns{ display:grid; grid-template-columns:repeat(5,1fr); gap:6px; margin:6px 0; }
+button{ font:inherit; padding:6px 0 5px; border:2px solid #111; border-radius:8px; background:#f2f2f2; color:#111; touch-action:manipulation; }
+button b{ display:block; font-size:20px; line-height:1.1; }
+button span{ display:block; font-size:11px; }
+button.done{ background:#111; color:#fff; }
+pre{ margin:0; font:11.5px/1.4 ui-monospace,Menlo,Consolas,monospace; white-space:pre-wrap; word-break:break-all; }
+#log{ border-top:1px solid #888; padding-top:4px; min-height:8em; }
+#env, #voices{ border-top:1px solid #888; margin-top:6px; padding-top:4px; color:#333; }
+</style>
+</head>
+<body>
+<h1>音の診断</h1>
+<p>A から E まで、順に一つずつ押す（音が止んでから次へ）。聞こえた記号を覚えておき、最後にこの画面を写真に撮る。</p>
+<div class="btns">
+  <button id="bA"><b>A</b><span>声</span></button>
+  <button id="bB"><b>B</b><span>ピー</span></button>
+  <button id="bC"><b>C</b><span>声2</span></button>
+  <button id="bD"><b>D</b><span>ポー</span></button>
+  <button id="bE"><b>E</b><span>音＋声</span></button>
+</div>
+<pre id="log">（押すと、ここに記録が出る）</pre>
+<p style="margin-top:6px">A＝声（声はおまかせ）　B＝高いピー（audio）　C＝声（作品と同じ選び方）　D＝低めのポー（Web Audio）　E＝小さい音を流しながら声</p>
+<pre id="env"></pre>
+<pre id="voices"></pre>
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var logEl = $("log"), envEl = $("env"), voicesEl = $("voices");
+  var lines = [];
+  function log(s){ lines.push(s); logEl.textContent = lines.join("\n"); }
+  function sec(ms){ return (ms / 1000).toFixed(2) + "s"; }
+  window.onerror = function(m){ log("JS エラー: " + m); };
+
+  var SS = (typeof speechSynthesis !== "undefined" && typeof SpeechSynthesisUtterance !== "undefined") ? speechSynthesis : null;
+  var pick = null, counts = [], vcCount = 0, keep = [];
+  var vcSupported = !!SS && SS.onvoiceschanged !== undefined;
+
+  function jaList(){
+    if(!SS) return [];
+    return SS.getVoices().filter(function(v){ return (v.lang || "").toLowerCase().indexOf("ja") === 0; });
+  }
+  function workPick(){
+    var ja = jaList();
+    pick = ja.find(function(v){ return /google/i.test(v.name); }) || ja[0] || null;
+  }
+  function vname(v){ return v ? (v.name + "｜" + v.lang) : "なし（言語だけ指定）"; }
+  function renderEnv(){
+    var ua = navigator.userAgent.replace("Mozilla/5.0 ", "").replace(" (KHTML, like Gecko)", "");
+    var out = [];
+    out.push("端末: " + ua);
+    if(!SS){ out.push("声の仕組み: 無い"); envEl.textContent = out.join("\n"); return; }
+    out.push("声の数: " + counts.join(" / "));
+    out.push("voiceschanged: " + (vcSupported ? "対応・" + vcCount + " 回" : "非対応"));
+    out.push("作品が選ぶ声: " + vname(pick));
+    envEl.textContent = out.join("\n");
+    var ja = jaList();
+    voicesEl.textContent = "日本語の声の一覧（" + ja.length + "）\n" + ja.map(function(v, i){
+      return (i + 1) + ". " + v.name + "｜" + v.lang + (v.default ? "｜既定" : "") + (v.localService ? "｜端末内" : "｜通信");
+    }).join("\n");
+  }
+  function snap(label){
+    if(SS) counts.push(label + " 全" + SS.getVoices().length + "・日" + jaList().length);
+    renderEnv();
+  }
+
+  if(SS){
+    workPick();
+    if(vcSupported){
+      SS.addEventListener("voiceschanged", function(){ vcCount++; workPick(); snap("変化" + vcCount); });
+    }
+  }
+  snap("読込時");
+  setTimeout(function(){ snap("0.5s"); }, 500);
+  setTimeout(function(){ snap("2s"); }, 2000);
+
+  function speakTest(tag, text, useWorkVoice){
+    if(!SS){ log(tag + " 声の仕組みが無い"); return; }
+    var run = function(note){
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = "ja-JP";
+      var name = "おまかせ";
+      if(useWorkVoice){ if(pick){ u.voice = pick; name = pick.name; } else { name = "なし→おまかせ"; } }
+      u.rate = 1;
+      var p0 = Date.now(), started = 0, finished = false;
+      u.onstart = function(){ started = Date.now(); log(tag + " start +" + sec(started - p0)); };
+      u.onend = function(){ finished = true; log(tag + " end +" + sec(Date.now() - p0) + (started ? "（話した長さ " + sec(Date.now() - started) + "）" : "（start なし）")); };
+      u.onerror = function(e){ finished = true; log(tag + " error「" + ((e && e.error) || "?") + "」+" + sec(Date.now() - p0)); };
+      keep.push(u);
+      log(tag + " 押した（声: " + name + "）" + (note || ""));
+      try { SS.speak(u); } catch(err){ log(tag + " 例外: " + err.message); return; }
+      setTimeout(function(){ if(!started && !finished) log(tag + " 1.5s たっても start なし（speaking=" + SS.speaking + " pending=" + SS.pending + "）"); }, 1500);
+      setTimeout(function(){ if(!finished) log(tag + " 9s たっても end なし（speaking=" + SS.speaking + " pending=" + SS.pending + "）"); }, 9000);
+    };
+    if(SS.speaking || SS.pending){ SS.cancel(); setTimeout(function(){ run("・前の声を止めた"); }, 120); }
+    else run("");
+  }
+
+  function wavUri(freq, dur, amp){
+    var rate = 11025, n = Math.floor(rate * dur), buf = new ArrayBuffer(44 + n * 2), v = new DataView(buf), i;
+    var str = function(o, s){ for(var k = 0; k < s.length; k++) v.setUint8(o + k, s.charCodeAt(k)); };
+    str(0, "RIFF"); v.setUint32(4, 36 + n * 2, true); str(8, "WAVE"); str(12, "fmt "); v.setUint32(16, 16, true);
+    v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, rate, true); v.setUint32(28, rate * 2, true);
+    v.setUint16(32, 2, true); v.setUint16(34, 16, true); str(36, "data"); v.setUint32(40, n * 2, true);
+    for(i = 0; i < n; i++){
+      var fade = Math.min(1, i / 300, (n - i) / 300);
+      v.setInt16(44 + i * 2, Math.round(Math.sin(2 * Math.PI * freq * i / rate) * 32767 * amp * fade), true);
+    }
+    var u8 = new Uint8Array(buf), s = "";
+    for(i = 0; i < u8.length; i += 0x8000){ s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); }
+    return "data:audio/wav;base64," + btoa(s);
+  }
+  function mkAudio(uri){ var a = new Audio(); a.preload = "auto"; a.src = uri; return a; }
+  var aB = mkAudio(wavUri(880, 1.0, 0.5));
+  var aE = mkAudio(wavUri(440, 5.0, 0.12));
+
+  function audioTest(tag, a){
+    var p0 = Date.now();
+    a.onplaying = function(){ log(tag + " playing +" + sec(Date.now() - p0)); };
+    a.onpause = function(){ if(!a.ended) log(tag + " pause（途中で止まった）+" + sec(Date.now() - p0)); };
+    a.onended = function(){ log(tag + " ended +" + sec(Date.now() - p0)); };
+    a.onerror = function(){ log(tag + " error code=" + (a.error ? a.error.code : "?")); };
+    try { a.currentTime = 0; } catch(e){}
+    var pr;
+    try { pr = a.play(); } catch(err){ log(tag + " 例外: " + err.message); return; }
+    if(pr && pr.catch) pr.catch(function(err){ log(tag + " play 拒否「" + err.name + "」"); });
+  }
+
+  var ctx = null;
+  function webAudioTest(tag){
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC){ log(tag + " Web Audio が無い"); return; }
+    try {
+      if(!ctx) ctx = new AC();
+      var p0 = Date.now();
+      log(tag + " 押した（state=" + ctx.state + "）");
+      if(ctx.state !== "running" && ctx.resume){
+        var r = ctx.resume();
+        if(r && r.then) r.then(function(){ log(tag + " resume 後 state=" + ctx.state); }, function(err){ log(tag + " resume 拒否「" + err.name + "」"); });
+      }
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = "sine"; o.frequency.value = 660; g.gain.value = 0.3;
+      o.connect(g); g.connect(ctx.destination);
+      o.onended = function(){ log(tag + " ended +" + sec(Date.now() - p0) + "（state=" + ctx.state + "）"); };
+      o.start(0); o.stop(ctx.currentTime + 1.0);
+      setTimeout(function(){ if(ctx.state !== "running") log(tag + " 3s たっても state=" + ctx.state); }, 3000);
+    } catch(err){ log(tag + " 例外: " + err.message); }
+  }
+
+  function press(id, fn){
+    $(id).addEventListener("click", function(){ $(id).className = "done"; fn(); });
+  }
+  press("bA", function(){ speakTest("A", "音の診断です。いち、に、さん。", false); });
+  press("bB", function(){ log("B 押した"); audioTest("B", aB); });
+  press("bC", function(){ speakTest("C", "音の診断です。いち、に、さん。", true); });
+  press("bD", function(){ webAudioTest("D"); });
+  press("bE", function(){ log("E 押した"); audioTest("E音", aE); speakTest("E声", "音といっしょに話しています。", false); });
+})();
+</script>
+</body>
+</html>
