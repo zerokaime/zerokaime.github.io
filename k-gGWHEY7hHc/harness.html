@@ -1,0 +1,2748 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0回目</title>
+<meta name="color-scheme" content="light">
+<meta name="description" content="障害のある人との「はじめて」を練習するための小さなブラウザ作品です。ここでの失敗は誰も傷つけません。何度でもやり直せます。">
+<meta name="theme-color" content="#EEF1F3">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="0回目">
+<meta property="og:title" content="0回目｜初対面の、そのまえに。">
+<meta property="og:description" content="障害のある人との「はじめて」を練習するための小さなブラウザ作品です。ここでの失敗は誰も傷つけません。何度でもやり直せます。">
+<meta property="og:url" content="https://zerokaime.github.io/">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://zerokaime.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="青地に白い「０回目」">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2064%2064'%3E%3Crect%20width%3D'64'%20height%3D'64'%20rx%3D'14'%20fill%3D'%231F5FA8'%2F%3E%3Ctext%20x%3D'32'%20y%3D'47'%20text-anchor%3D'middle'%20font-family%3D'sans-serif'%20font-size%3D'42'%20font-weight%3D'700'%20fill%3D'%23FFFFFF'%3E0%3C%2Ftext%3E%3C%2Fsvg%3E">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<style>
+  :root{
+    --paper:#EEF1F3;
+    --ink:#22272B;
+    --muted:#5A6470;
+    --blue:#1F5FA8;
+    --blue-deep:#164A85;
+    --blue-pale:#E3ECF6;
+    --card:#FFFFFF;
+    --line:#B5BDC5;
+    --line-ui:#7F8B98;
+    --btn-bg:var(--blue); --btn-fg:#FFFFFF; --btn-hover:var(--blue-deep);
+    --radius:14px;
+    --mincho:"Hiragino Mincho ProN","Yu Mincho","YuMincho","MS PMincho",serif;
+    --gothic:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic",Meiryo,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{font-size:100%}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--gothic);
+    line-height:1.9;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:620px;margin:0 auto;padding:20px 16px 64px}
+  header.top{
+    display:flex;align-items:baseline;justify-content:space-between;
+    padding:6px 2px 18px;
+  }
+  .brand{font-family:var(--mincho);font-size:1.05rem;letter-spacing:.35em;color:var(--blue-deep)}
+  .brand b{font-size:1.3rem}
+  .toplink{background:var(--card, #fff);border:1px solid var(--line-ui);border-radius:8px;font-family:var(--gothic);font-size:.8rem;color:var(--ink);cursor:pointer;padding:6px 10px}
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px 20px;
+    margin:0 0 14px;
+    box-shadow:0 2px 10px rgba(34,39,43,.05);
+  }
+  .narr{font-family:var(--mincho);font-size:1.02rem;line-height:2.1}
+  .narr + .narr{margin-top:10px}
+  p.sn + .card,.fig + .card{margin-top:12px}
+  .say{
+    border-left:4px solid var(--blue);
+    background:var(--blue-pale);
+    border-radius:8px;
+    padding:14px 16px;
+    margin:14px 0 6px;
+  }
+  .say .who{display:block;font-size:.75rem;color:var(--blue-deep);letter-spacing:.15em;margin-bottom:4px}
+  .say .line{font-family:var(--mincho);font-size:1.04rem}
+  .say.kare{background:#E4F2E6;border-left-color:#2E7D4F}
+  .say.kare .who{color:#1F5A3A}
+  html.inv .say.kare{background:#14301F;border-left-color:#8FD1A6}
+  html.inv .say.kare .who{color:#BFE3CC}
+  .qlabel{font-size:.95rem;color:var(--blue-deep);letter-spacing:.15em;margin:28px 2px 10px}
+  button.choice{
+    display:block;width:100%;text-align:left;
+    background:var(--card);
+    border:2px solid var(--blue);
+    border-radius:var(--radius);
+    padding:16px 38px 16px 18px;margin:0 0 6px;
+    font-family:var(--gothic);font-size:.98rem;line-height:1.8;color:var(--blue-deep);
+    cursor:pointer;position:relative;
+    transition:border-color .15s, background .15s;
+  }
+  button.choice::after{content:"›";content:"›" / "";position:absolute;right:14px;top:50%;transform:translateY(-56%);font-size:1.5rem;line-height:1;color:var(--blue);font-family:sans-serif}
+  button.choice:hover{border-color:var(--blue-deep)}
+  button.choice:hover::after{color:var(--blue-deep)}
+  button.choice:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+  button.choice .act{display:block;font-size:.78rem;color:var(--muted);margin-bottom:2px;letter-spacing:.08em}
+  .learn{
+    border:1.5px solid var(--blue);
+    border-radius:var(--radius);
+    background:var(--card);
+    padding:20px;margin:16px 0 14px;
+  }
+  .learnhead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .learnhead .t{font-size:.82rem;letter-spacing:.25em;color:var(--blue-deep)}
+  .learn p{font-size:.95rem}
+  .learn p + p{margin-top:8px}
+  .fig{display:flex;justify-content:center;padding:8px 0 2px}
+  .fig svg{width:100%;max-width:300px;height:auto;border-radius:12px}
+  button.next{
+    display:block;width:100%;
+    background:var(--btn-bg);color:var(--btn-fg);
+    border:none;border-radius:var(--radius);
+    padding:16px 18px;margin:6px 0 10px;
+    font-family:var(--gothic);font-size:1rem;letter-spacing:.1em;
+    cursor:pointer;
+  }
+  button.next:hover{background:var(--btn-hover)}
+  button.next:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+  button.ghost{
+    display:block;width:100%;
+    background:none;border:1.5px solid var(--line-ui);border-radius:var(--radius);
+    padding:13px 18px;margin:0 0 10px;
+    font-family:var(--gothic);font-size:.9rem;color:var(--muted);cursor:pointer;
+  }
+  button.ghost:hover{border-color:var(--muted)}
+  button.ghost:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+  .hero{
+    text-align:center;padding:38px 8px 30px;
+  }
+  .hero .eyebrow{font-size:.8rem;letter-spacing:.4em;color:var(--muted);margin-bottom:18px}
+  .hero h1{
+    font-family:var(--mincho);font-weight:600;
+    font-size:3.4rem;letter-spacing:.12em;color:var(--blue-deep);
+    line-height:1.2;
+  }
+  .hero .sub{margin-top:20px;font-size:.95rem;color:var(--ink);text-align:left}
+  .scenebox{border-top:3px solid var(--blue)}
+  .eyebrow.month{font-size:1rem}
+  .eyebrow{font-size:.75rem;letter-spacing:.3em;color:var(--blue-deep);margin-bottom:6px}
+  .sn{font-size:.82rem;color:var(--muted)}
+  .scenebox .sn{font-size:.75rem;letter-spacing:.3em;color:var(--blue-deep);margin-bottom:6px}
+  .scenebox h2{font-family:var(--mincho);font-size:1.3rem;font-weight:600;margin-bottom:6px}
+  .scenebox .meta{font-size:.82rem;color:var(--muted)}
+  .about h2{font-family:var(--mincho);font-size:1.15rem;margin-bottom:10px;color:var(--blue-deep)}
+  .about p{font-size:.93rem;margin-bottom:10px}
+  .grad{
+    text-align:center;font-family:var(--mincho);
+    padding:26px 10px;color:var(--blue-deep);letter-spacing:.15em;font-size:1.05rem;
+  }
+  footer{
+    margin-top:36px;text-align:center;
+    font-size:.72rem;color:var(--muted);letter-spacing:.15em;line-height:2;
+  }
+  .dock{margin-top:2px}
+  .prog{display:flex;gap:5px;align-items:center;margin:2px 0 6px}
+  .prog i{display:block;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--blue-deep)}
+  .prog i.done{background:var(--blue-deep)}
+  .prog i.now{background:var(--blue);border-color:var(--blue);box-shadow:0 0 0 2px var(--blue-pale)}
+  .fig.record{padding-bottom:10px}
+  .fig.record svg{max-width:100%;border:1px solid var(--line)}
+  @media (min-width: 920px){
+    html{font-size:93.75%}
+    .wrap{max-width:660px;padding-top:12px}
+    .card,.learn{padding:18px 20px}
+    .narr{line-height:1.95}
+    .hero{padding:26px 8px 20px}
+    .dock{position:sticky;bottom:0;padding:14px 0 10px;background:linear-gradient(to top, var(--paper) 72%, rgba(238,241,243,0))}
+  }
+  @media (min-width: 1280px){
+    .wrap{max-width:720px;padding-top:10px}
+    header.top{padding:4px 2px 12px}
+    .card,.learn{padding:16px 20px}
+    .card{margin-bottom:12px}
+    .learn{margin:12px 0}
+    .narr{line-height:1.85}
+    .say{padding:12px 16px;margin:12px 0 4px}
+    .qlabel{margin:20px 2px 8px}
+    .hero{padding:20px 8px 14px}
+    .fig{padding:4px 0 0}
+    .dock{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;padding:12px 0 10px}
+    .dock > button{margin:0}
+    .dock > button.choice{padding:13px 34px 13px 16px}
+    .dock > button.next{grid-column:1 / -1}
+    .dock > button:last-child:nth-child(odd){grid-column:1 / -1}
+    .dock > button.next ~ button:last-child:nth-child(even){grid-column:1 / -1}
+    .dock > button.next ~ button:last-child:nth-child(odd){grid-column:auto}
+  }
+  @media (min-width: 1400px){
+    #stage{position:relative}
+    #stage > .fig{position:absolute;left:100%;top:0;margin-left:40px;width:300px;padding:0}
+    #stage > .fig + .card{margin-top:0}
+    #stage > .fig ~ .fig{top:260px}
+    #stage > .fig.record{width:clamp(300px, calc(50vw - 416px), 440px)}
+    .learn{position:relative}
+    .learn > .fig{position:absolute;left:100%;top:0;margin-left:40px;width:300px;padding:0}
+  }
+  @media (min-width: 1400px) and (min-height: 35em){
+    .wrap{padding-top:28px}
+    header.top{position:fixed;top:28px;left:max(12px, calc(50% - 700px));width:300px;display:block;padding:0;margin:0}
+    header.top .brand{display:block;font-size:1.35rem;margin-bottom:16px}
+    header.top .brand b{font-size:1.7rem}
+    header.top > div{display:flex;flex-direction:column;gap:8px;align-items:stretch}
+    header.top .toplink{text-align:left;font-size:.9rem;padding:10px 14px}
+    footer{position:fixed;bottom:22px;left:max(12px, calc(50% - 700px));width:300px;margin:0;text-align:left;font-size:.75rem;line-height:1.9}
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .card,.learn,.say,#stage > *{animation:rise .35s ease both}
+    @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    .m-rain{animation:figRain 1.1s linear infinite}
+    @keyframes figRain{0%{transform:translateY(-8px);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateY(10px);opacity:0}}
+    .m-ring{animation:figRing 1.2s ease-in-out infinite}
+    @keyframes figRing{0%,100%{opacity:.2}50%{opacity:1}}
+    .m-look{animation:figLook 1.4s linear infinite}
+    @keyframes figLook{to{stroke-dashoffset:-14}}
+    .m-door{transform-box:fill-box;transform-origin:right center;animation:figDoor 4.5s ease-in-out infinite}
+    @keyframes figDoor{0%,55%,100%{transform:scaleX(1)}75%{transform:scaleX(.92)}}
+    .m-walk{animation:figWalk 5s ease-in-out infinite alternate}
+    .m-walk2{animation:figWalk 6.5s ease-in-out infinite alternate-reverse}
+    @keyframes figWalk{from{transform:translateX(-5px)}to{transform:translateX(5px)}}
+    .m-glow{animation:figGlow 1.8s ease-in-out infinite}
+    @keyframes figGlow{0%,100%{opacity:.5}50%{opacity:1}}
+    .m-crowd{animation:figGlow 2.8s ease-in-out infinite}
+  }
+  :root{color-scheme:light}
+  html.inv{color-scheme:dark;
+    --paper:#000000; --ink:#FFFFFF; --muted:#CDD5DD; --blue:#8DB8F2; --blue-deep:#B9D2F5; --blue-pale:#14233A; --card:#0D1117;
+    --line:#8B96A3; --line-ui:#C9D1D9;
+    --btn-bg:#FFFFFF; --btn-fg:#000000; --btn-hover:#D9DEE3;
+  }
+  html.inv .card{box-shadow:none}
+  html.inv .learn > .fig svg{background:#FFFFFF}
+  #invbtn[aria-pressed="true"]{color:var(--blue-deep);font-weight:600}
+  header.top{flex-wrap:wrap;gap:2px 8px;align-items:center}
+  .toplink{min-height:44px;padding:10px 8px}
+  .toplink:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+  button.choice,button.next,button.ghost{min-height:48px}
+  #ttsbtn[aria-pressed="true"]{color:var(--blue-deep);font-weight:600}
+  #verstamp{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+  @media (prefers-contrast: more){
+    :root{--line-ui:var(--muted)}
+    html.inv{--line-ui:#FFFFFF}
+    .card{border-width:2px}
+    button.choice,button.ghost,.learn{border-width:2.5px}
+  }
+  @media (max-height:520px){
+    .dock{position:static;background:none;padding:0}
+  }
+  @media (min-width:920px) and (max-width:1279.98px) and (max-height:50em){
+    .dock{position:static;background:none;padding:0}
+  }
+  details.fold{margin:14px 0 6px;border:1px solid var(--muted);border-radius:10px;padding:6px 12px;background:var(--card)}
+  details.fold summary{cursor:pointer;font-family:var(--gothic);font-size:.95rem;color:var(--ink);padding:6px 0;list-style:none}
+  details.fold summary::-webkit-details-marker{display:none}
+  details.fold summary::before{content:"▸ ";content:"▸ " / "";color:var(--muted)}
+  details.fold[open] summary::before{content:"▾ ";content:"▾ " / ""}
+  details.fold p{font-family:var(--mincho);line-height:1.9;margin:8px 4px 10px}
+  .about details.fold p{font-family:var(--gothic);font-size:.93rem;line-height:1.9}
+  .about button.yomilink{margin:8px 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><b>0</b>回目</div>
+    <div>
+      <button class="toplink" id="ttsbtn" aria-pressed="false" aria-label="この画面を読み上げる">🔊 読み上げ</button>
+      <button class="toplink" id="invbtn" aria-pressed="false" aria-label="配色を反転する（黒地に白い文字）" onclick="invToggle()">◐ 反転</button>
+      <button class="toplink" onclick="goInfo('whatis')">おことわり</button>
+      <button class="toplink" id="quitlink" onclick="quitPressed()">終了する</button>
+    </div>
+  </header>
+  <main id="stage" aria-live="polite"></main>
+  <footer><span id="verstamp">0回目 v0.141</span> ｜ 場面1「歩道で」・場面2「会場の受付・案内」（第一部・第二部）・場面3「職場」<br>あなたの選択は、どこにも送信されません。<br>作者・出どころ・くわしい説明は <a href="https://github.com/zerokaime/zerokaime.github.io#readme" target="_blank" rel="noopener" style="color:var(--blue-deep);text-decoration:underline;text-underline-offset:3px">README（GitHub）</a> に。作り方の経緯と補足は <a href="https://double-techou.hatenablog.com/entry/zerokaime" target="_blank" rel="noopener" style="color:var(--blue-deep);text-decoration:underline;text-underline-offset:3px">ブログの記事</a> に。</footer>
+</div>
+
+<script>
+"use strict";
+
+let playCount = 0;
+let S = {};
+
+const ITEMS = [
+  {name:"スマホ", counter:"スマホ"},
+  {name:"手帳", counter:"手帳"},
+  {name:"ボールペン", counter:"ペン"},
+  {name:"一枚の紙", counter:"紙"}
+];
+
+let approachCount = 0;
+
+function newRun(){
+  playCount++;
+  S = {
+    item: ITEMS[Math.floor(Math.random()*ITEMS.length)],
+    world: null,
+    lost: false
+  };
+}
+
+const B1W = [["drop",40],["dansa",25],["door",15],["taka",10],["phone",10]];
+let lastWorld = null;
+const B1FIRST = [["drop","dansa","door"],["drop","door","dansa"],["dansa","drop","door"],["dansa","door","drop"],["door","drop","dansa"],["door","dansa","drop"]];
+let b1Order = null;
+function b1Pre(k){ return k === "taka" ? 3 : (k === "phone" ? 4 : 0); }
+function b1World(r, exclude){
+  const ws = B1W.filter(function(w){ return w[0] !== exclude; });
+  const total = ws.reduce(function(a, w){ return a + w[1]; }, 0);
+  let acc = 0;
+  for(const w of ws){ acc += w[1]; if(r * total < acc) return w[0]; }
+  return ws[ws.length - 1][0];
+}
+function decideWorld(){
+  if(approachCount === 0){ lastWorld = null; b1Order = B1FIRST[Math.floor(Math.random() * B1FIRST.length)]; }
+  approachCount++;
+  let world;
+  if(approachCount <= 3) world = (b1Order || B1FIRST[0])[approachCount - 1];
+  else if(approachCount === 4) world = "taka";
+  else if(approachCount === 5) world = "phone";
+  else { world = b1World(Math.random(), null); if(world === lastWorld) world = b1World(Math.random(), lastWorld); }
+  lastWorld = world; S.world = world;
+  S.lost = (approachCount <= 5) ? true : (Math.random() < 0.5);
+}
+
+const stage = document.getElementById("stage");
+
+const SPL = "<!--SPLIT-->";
+let splitOff = false, pendingSecond = null;
+function headOf(a){
+  const s = a.indexOf('<div class="scenebox">'); if(s < 0) return "";
+  const re = /<div\b|<\/div>/g; re.lastIndex = s; let depth = 0, m;
+  while((m = re.exec(a))){ if(m[0] === "</div>"){ depth--; if(depth === 0) return a.slice(s, m.index + 6); } else depth++; }
+  return "";
+}
+function render(html){
+  if(!splitOff && html.indexOf(SPL) >= 0){
+    const i = html.indexOf(SPL);
+    const a = html.slice(0, i), b = html.slice(i + SPL.length);
+    pendingSecond = headOf(a) + b;
+    renderRaw(a + '<button class="next" onclick="renderSecond()">次へ</button>');
+    return;
+  }
+  pendingSecond = null;
+  renderRaw(html);
+}
+function renderSecond(){ if(pendingSecond){ const h = pendingSecond; pendingSecond = null; const keep = infoOpen; renderRaw(h); infoOpen = keep; } }
+function renderRaw(html){
+  infoOpen = false;
+  ttsStop();
+  stage.innerHTML = html;
+  { let run = []; const flush = function(){ if(run.length){ const c = document.createElement("div"); c.className = "card narrbox"; run[0].parentNode.insertBefore(c, run[0]); run.forEach(function(p){ c.appendChild(p); }); run = []; } };
+    Array.from(stage.children).forEach(function(el){ if(el.matches("p.narr")) run.push(el); else flush(); }); flush(); }
+  const kids = Array.from(stage.children);
+  let i = kids.length - 1;
+  const grab = [];
+  if(!stage.querySelector(".hero")){ while(i >= 0 && kids[i].tagName === "BUTTON"){ grab.unshift(kids[i]); i--; } }
+  if(grab.length){
+    const dock = document.createElement("div");
+    dock.className = "dock";
+    grab.forEach(b => dock.appendChild(b));
+    stage.appendChild(dock);
+  }
+  Array.from(stage.children).forEach(function(el, i){ el.style.setProperty("animation-delay", (Math.min(i, 10) * 70) + "ms"); });
+  window.scrollTo({top:0, behavior:"auto"});
+  const f = stage.querySelector("h1,h2,.card,.learn") || stage.firstElementChild;
+  if(f){ f.setAttribute("tabindex","-1"); f.focus({preventScroll:true}); }
+  if(ttsAuto && TTS_SUPPORTED){ ttsTimer = setTimeout(function(){ ttsTimer = null; if(ttsAuto) ttsStart(); }, TTS_AUTO_DELAY_MS); }
+}
+
+function learn(title, body){
+  return `<div class="learn">
+    <div class="learnhead"><span class="t">${title}</span></div>
+    ${body}
+  </div>`;
+}
+
+function say(line){
+  return `<div class="say"><div class="who">車椅子の男性</div><div class="line">${line}</div></div>`;
+}
+
+const FIG160 = `
+<div class="fig" role="img" aria-label="車椅子からの視野と立ち位置の図。腰の高さから前方およそ160度だけが見えており、そのうしろは見えない。近づくなら、やや斜め前（左右どちらでも）がいちばん良い。真後ろの至近距離は、車椅子が動くと危ない。">
+<svg width="240" height="160" viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg">
+  <path d="M120 120 L18 74 A110 110 0 0 1 222 74 Z" fill="#E3ECF6" stroke="#1F5FA8" stroke-width="2"/>
+  <circle cx="120" cy="120" r="7" fill="#1F5FA8"/>
+  <circle cx="78" cy="76" r="7" fill="none" stroke="#1F5FA8" stroke-width="2.5"/>
+  <circle cx="162" cy="76" r="7" fill="none" stroke="#1F5FA8" stroke-width="2.5"/>
+  <text x="120" y="53" text-anchor="middle" font-size="11" fill="#164A85" font-family="sans-serif">◎ やや斜め前が、いちばん</text>
+  <line x1="8" y1="120" x2="232" y2="120" stroke="#D7DCE1" stroke-width="2" stroke-dasharray="4 5"/>
+  <text x="120" y="30" text-anchor="middle" font-size="13" fill="#164A85" font-family="sans-serif">前方 約160°</text>
+  <text x="120" y="150" text-anchor="middle" font-size="11" fill="#5A6470" font-family="sans-serif">視点の高さ＝立っている人の腰のあたり</text>
+  <text x="1" y="116" font-size="11" fill="#5A6470" font-family="sans-serif">ここよりうしろは</text>
+  <text x="228" y="116" text-anchor="end" font-size="11" fill="#5A6470" font-family="sans-serif">「存在しない」</text>
+  <text x="120" y="137" text-anchor="middle" font-size="11" fill="#8A5B00" font-family="sans-serif">△ 真後ろ至近は動くと危ない</text>
+</svg>
+</div>`;
+
+function helloCard(){
+  return learn("「こんにちは」について", `
+    <p>挨拶は、<b>コミュニケーションの意図</b>のいちばん簡単な宣言です。それが伝われば、困っている人は続きを話せるし、困っていない人は挨拶を返して、それでおしまい。</p>
+    <p>もしかしたら「大丈夫ですか？」より良い言葉かもしれない。</p>
+  `);
+}
+
+const FC = { ink:"#22272B", blue:"#1F5FA8", deep:"#164A85", navy:"#2F4A6B", skin:"#F2D6C2", hair:"#3A3A3A", wall:"#E7ECF1", wall2:"#DDE4EB", road:"#9AA5B1", walk:"#CFD6DD", floor:"#E6E2DA", desk:"#C9B99A" };
+const PLAYER = "#8A5B00";
+const OTHER = { staff:"#2F6F9F", helper:"#7A6B8F", a:"#6B7A8F", b:"#3C3C50", c:"#4C6A88" };
+function svgPerson(x, y, body, opt){
+  opt = opt || {}; const d = opt.dir || 1, arm = opt.arm || "down";
+  const neck = y + 11, hip = y + 48, foot = y + 76;
+  const armEnd = arm === "up" ? `${x + 14 * d} ${y + 6}` : arm === "out" ? `${x + 20 * d} ${y + 30}` : `${x + 6 * d} ${y + 44}`;
+  return `<g>
+  <path d="M${x} ${neck} L${x} ${hip}" stroke="${body}" stroke-width="13" stroke-linecap="round"/>
+  <path d="M${x} ${hip} L${x - 6} ${foot} M${x} ${hip} L${x + 8} ${foot}" stroke="${FC.navy}" stroke-width="8" stroke-linecap="round"/>
+  <path d="M${x} ${y + 18} L${armEnd}" stroke="${body}" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="${x}" cy="${y}" r="11" fill="${FC.skin}" stroke="${FC.ink}" stroke-width="1.5"/>
+  <path d="M${x - 10} ${y - 4} Q${x} ${y - 16} ${x + 10} ${y - 4}" fill="${FC.hair}"/>
+  <circle cx="${x + 4 * d}" cy="${y + 1}" r="1.4" fill="${FC.ink}"/>
+  </g>`;
+}
+function svgBackDeskPerson(x, y, body){
+  const hip = y + 40;
+  return `<g>
+  <path d="M${x - 15} ${y + 14} L${x + 15} ${y + 14} L${x + 13} ${hip + 6} L${x - 13} ${hip + 6} Z" fill="${body}"/>
+  <path d="M${x - 15} ${y + 16} L${x - 19} ${y + 34} M${x + 15} ${y + 16} L${x + 19} ${y + 34}" stroke="${body}" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="${x}" cy="${y}" r="11" fill="${FC.hair}"/>
+  <path d="M${x - 11} ${y + 2} Q${x} ${y + 14} ${x + 11} ${y + 2}" fill="${FC.skin}"/>
+  <rect x="${x - 19}" y="${hip - 10}" width="38" height="42" rx="6" fill="#555B63"/>
+  <path d="M${x} ${hip + 32} L${x} ${hip + 48} M${x - 18} ${hip + 50} L${x + 18} ${hip + 50}" stroke="#555B63" stroke-width="4" stroke-linecap="round"/>
+  </g>`;
+}
+function svgBackPerson(x, y, body){
+  const hip = y + 40;
+  const lower = `<rect x="${x - 18}" y="${hip}" width="36" height="6" fill="#8A8F96"/><path d="M${x - 14} ${hip + 6} L${x - 16} ${hip + 34} M${x + 14} ${hip + 6} L${x + 16} ${hip + 34}" stroke="#8A8F96" stroke-width="3"/><path d="M${x - 16} ${hip + 6} L${x - 16} ${hip + 2} L${x - 22} ${hip - 2} M${x + 16} ${hip + 6} L${x + 16} ${hip + 2} L${x + 22} ${hip - 2}" stroke="#8A8F96" stroke-width="3" fill="none"/>`;
+  return `<g>
+  <path d="M${x - 15} ${y + 14} L${x + 15} ${y + 14} L${x + 13} ${hip} L${x - 13} ${hip} Z" fill="${body}"/>
+  <path d="M${x - 15} ${y + 16} L${x - 22} ${y + 38} M${x + 15} ${y + 16} L${x + 22} ${y + 38}" stroke="${body}" stroke-width="6" stroke-linecap="round"/>
+  ${lower}
+  <circle cx="${x}" cy="${y}" r="11" fill="${FC.hair}"/>
+  <path d="M${x - 11} ${y + 2} Q${x} ${y + 14} ${x + 11} ${y + 2}" fill="${FC.skin}"/>
+  </g>`;
+}
+function svgBackChair(x, y){
+  return `<g>
+  <rect x="${x - 28}" y="${y - 6}" width="9" height="42" rx="4" fill="${FC.ink}"/>
+  <rect x="${x + 19}" y="${y - 6}" width="9" height="42" rx="4" fill="${FC.ink}"/>
+  <rect x="${x - 22}" y="${y + 2}" width="44" height="6" fill="${FC.ink}"/>
+  <rect x="${x - 18}" y="${y - 32}" width="36" height="42" rx="5" fill="${FC.navy}"/>
+  <path d="M${x - 16} ${y - 32} L${x + 16} ${y - 32} L${x + 14} ${y - 4} L${x - 14} ${y - 4} Z" fill="${FC.blue}"/>
+  <circle cx="${x}" cy="${y - 46}" r="11" fill="${FC.hair}"/>
+  <path d="M${x - 11} ${y - 44} Q${x} ${y - 32} ${x + 11} ${y - 44}" fill="${FC.skin}"/>
+  </g>`;
+}
+function svgChair(x, y, opt){
+  opt = opt || {}; const d = opt.dir || 1, arm = opt.arm || "lap";
+  const hx = x + 26 * d, hy = y - 62;
+  const armPath = arm === "up" ? `M${hx - 16 * d} ${hy + 20} L${hx - 2 * d} ${hy - 20}` : arm === "front" ? `M${hx - 16 * d} ${hy + 20} L${hx + 14 * d} ${hy + 16}` : `M${hx - 16 * d} ${hy + 20} L${hx - 6 * d} ${hy + 38}`;
+  return `<g>
+  <circle cx="${x}" cy="${y}" r="20" fill="none" stroke="${FC.ink}" stroke-width="4"/>
+  <circle cx="${x}" cy="${y}" r="12" fill="none" stroke="${FC.ink}" stroke-width="1.5"/>
+  <circle cx="${x}" cy="${y}" r="3" fill="${FC.ink}"/>
+  <circle cx="${x + 34 * d}" cy="${y + 12}" r="7" fill="none" stroke="${FC.ink}" stroke-width="3"/>
+  <path d="M${x - 10 * d} ${y - 38} L${x - 8 * d} ${y - 16} L${x + 30 * d} ${y - 16} L${x + 38 * d} ${y + 6}" fill="none" stroke="${FC.ink}" stroke-width="4" stroke-linecap="round"/>
+  <path d="M${x - 4 * d} ${y - 16} Q${x - 2 * d} ${y - 48} ${hx - 6 * d} ${hy + 8}" fill="none" stroke="${FC.blue}" stroke-width="12" stroke-linecap="round"/>
+  <path d="M${x + 12 * d} ${y - 16} L${x + 32 * d} ${y - 16} L${x + 38 * d} ${y}" fill="none" stroke="${FC.navy}" stroke-width="10" stroke-linecap="round"/>
+  <path d="${armPath}" stroke="${FC.blue}" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="${hx}" cy="${hy}" r="11" fill="${FC.skin}" stroke="${FC.ink}" stroke-width="1.5"/>
+  <path d="M${hx - 10} ${hy - 4} Q${hx} ${hy - 16} ${hx + 10} ${hy - 4}" fill="${FC.ink}"/>
+  <circle cx="${hx + 4 * d}" cy="${hy + 1}" r="1.4" fill="${FC.ink}"/>
+  </g>`;
+}
+function svgOutdoor(){
+  return `<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCE9F7"/><stop offset="1" stop-color="#F3F7FB"/></linearGradient></defs>
+  <rect x="0" y="0" width="360" height="220" fill="url(#sky)"/>
+  <rect x="0" y="40" width="70" height="90" fill="${FC.wall}"/><rect x="78" y="22" width="90" height="108" fill="${FC.wall2}"/><rect x="176" y="48" width="60" height="82" fill="${FC.wall}"/><rect x="244" y="30" width="116" height="100" fill="${FC.wall2}"/>
+  <g fill="#F6F9FC"><rect x="12" y="52" width="12" height="16"/><rect x="36" y="52" width="12" height="16"/><rect x="92" y="36" width="14" height="18"/><rect x="120" y="36" width="14" height="18"/><rect x="148" y="36" width="14" height="18"/><rect x="92" y="70" width="14" height="18"/><rect x="120" y="70" width="14" height="18"/><rect x="148" y="70" width="14" height="18"/><rect x="260" y="46" width="14" height="18"/><rect x="290" y="46" width="14" height="18"/><rect x="320" y="46" width="14" height="18"/><rect x="260" y="80" width="14" height="18"/><rect x="290" y="80" width="14" height="18"/><rect x="320" y="80" width="14" height="18"/></g>
+  <rect x="0" y="130" width="360" height="56" fill="${FC.walk}"/><rect x="0" y="186" width="360" height="34" fill="${FC.road}"/>
+  <line x1="0" y1="186" x2="360" y2="186" stroke="#FFFFFF" stroke-width="3"/><line x1="0" y1="203" x2="360" y2="203" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="14 10"/>`;
+}
+function svgIndoor(floorColor){
+  return `<rect x="0" y="0" width="360" height="220" fill="#F4F6F8"/><rect x="0" y="0" width="360" height="140" fill="#EDF1F5"/><rect x="0" y="140" width="360" height="80" fill="${floorColor || FC.floor}"/><line x1="0" y1="140" x2="360" y2="140" stroke="#D7DCE1" stroke-width="2"/>`;
+}
+function svgWrap(inner){ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 220" width="360" height="220">${inner}</svg>`; }
+function svgCounter(x, w){ return `<rect x="${x}" y="112" width="${w}" height="74" fill="#5B7FA6"/><rect x="${x}" y="106" width="${w}" height="8" fill="#3F5F84"/><text x="${x + w / 2}" y="136" text-anchor="middle" font-size="11" fill="#FFFFFF" font-family="sans-serif">受付</text>`; }
+const DROP_ITEMS = {
+  "スマホ": `<g transform="translate(262 170) rotate(-20)"><rect x="-7" y="-12" width="14" height="24" rx="3" fill="${FC.ink}"/><rect x="-5" y="-9" width="10" height="17" rx="1" fill="#6FA3E0"/></g>`,
+  "手帳": `<g transform="translate(262 170) rotate(-20)"><rect x="-9" y="-12" width="18" height="24" rx="2" fill="#6B4A2E"/><rect x="-9" y="-12" width="4" height="24" rx="1" fill="#4A3220"/><rect x="-3" y="-6" width="9" height="2" fill="#D9CBB5"/></g>`,
+  "ボールペン": `<g transform="translate(262 172) rotate(35)"><rect x="-2.5" y="-16" width="5" height="32" rx="2" fill="${FC.blue}"/><path d="M-2.5 16 L0 22 L2.5 16 Z" fill="#9AA5B1"/><rect x="-1.2" y="-15" width="2.4" height="8" fill="#FFFFFF" fill-opacity="0.6"/></g>`,
+  "一枚の紙": `<g transform="translate(262 170) rotate(-12)"><rect x="-11" y="-14" width="22" height="28" fill="#FFFFFF" stroke="#B8C0C8" stroke-width="1"/><path d="M-6 -7 H6 M-6 -2 H6 M-6 3 H4" stroke="#B8C0C8" stroke-width="1.2" fill="none"/></g>`
+};
+const dropScene = function(item){ return svgWrap(svgOutdoor() + item + svgChair(186, 166) + `<path class="m-look" d="M222 108 L256 160" stroke="${FC.blue}" stroke-width="1.5" stroke-dasharray="3 4"/>` + svgPerson(96, 112, PLAYER, {})); };
+const FIGS = {
+  b1_open: { alt: "歩道の絵。建物の前の歩道に、背中の曲がった車椅子の男性が前を向いて止まっている。あなたは少し離れたうしろに立っている。", svg: svgWrap(svgOutdoor() + svgChair(186, 166) + svgPerson(96, 112, PLAYER, {})) },
+  b1_drop: { alt: "歩道の絵。車椅子の男性の斜め前、手の届かない所に、落としものが落ちている。彼はそれをじっと見ている。", svg: dropScene(DROP_ITEMS["スマホ"]), vars: Object.fromEntries(Object.keys(DROP_ITEMS).map(function(k){ return [k, dropScene(DROP_ITEMS[k])]; })) },
+  b1_dansa: { alt: "歩道の絵。歩道の先に数センチの段差があり、車椅子の男性はその手前で止まって、あたりを見回している。人通りは、わりとある。", svg: svgWrap(svgOutdoor() + `<rect x="240" y="122" width="120" height="8" fill="#B9C2CB"/><rect x="240" y="130" width="120" height="56" fill="#C4CCD4"/>` + svgChair(170, 166) + `<g class="m-walk">` + svgPerson(300, 92, OTHER.a, { dir: -1 }) + `</g><g class="m-walk2">` + svgPerson(40, 100, OTHER.helper, { dir: 1 }) + `</g>` + `<text x="262" y="118" font-size="11" fill="${FC.deep}" font-family="sans-serif">数センチの段差</text>`) },
+  b1_door: { alt: "建物の入り口の絵。引いて開ける扉の前で、車椅子の男性が止まっている。あたりに、ほかの人影はない。", svg: svgWrap(svgOutdoor() + `<rect x="236" y="60" width="124" height="126" fill="${FC.wall2}"/><g class="m-door"><rect x="262" y="84" width="60" height="102" fill="#B7C7DA" stroke="${FC.ink}" stroke-width="3"/><rect x="268" y="90" width="48" height="56" fill="#DCE9F7"/><circle cx="270" cy="140" r="4" fill="${FC.ink}"/></g><text x="292" y="78" text-anchor="middle" font-size="11" fill="${FC.deep}" font-family="sans-serif">引いて開ける扉</text>` + svgChair(190, 166, { arm: "front" })) },
+  b1_taka: { alt: "自動販売機の絵。車椅子の男性が、自動販売機の上の段を見上げたまま止まっている。", svg: svgWrap(svgOutdoor() + `<rect x="250" y="56" width="80" height="130" rx="4" fill="#D64B4B"/><rect x="258" y="64" width="64" height="70" fill="#F6F9FC"/><g fill="#6FA3E0"><rect x="262" y="70" width="12" height="20"/><rect x="278" y="70" width="12" height="20"/><rect x="294" y="70" width="12" height="20"/><rect x="310" y="70" width="8" height="20"/><rect x="262" y="98" width="12" height="20"/><rect x="278" y="98" width="12" height="20"/><rect x="294" y="98" width="12" height="20"/><rect x="310" y="98" width="8" height="20"/></g><rect x="262" y="150" width="56" height="18" fill="#3A3A3A"/>` + svgChair(190, 166, { arm: "lap" }) + `<path class="m-look" d="M222 102 L270 74" stroke="${FC.blue}" stroke-width="1.5" stroke-dasharray="3 4"/>`) },
+  b1_phone: { alt: "歩道の絵。車椅子の男性がスマホを手に持って、画面を見たり、辺りを見渡したりしている。困っているかどうかは、外からは分からない。", svg: svgWrap(svgOutdoor() + svgChair(186, 166, { arm: "front" }) + `<rect x="222" y="112" width="10" height="16" rx="2" fill="${FC.ink}" transform="rotate(-15 227 120)"/><rect class="m-glow" x="224" y="114" width="6" height="11" rx="1" fill="#6FA3E0" transform="rotate(-15 227 120)"/>` + svgPerson(96, 112, PLAYER, {})) },
+  b2_s1: { alt: "会場の受付ゲートの絵。カウンターの内側にあなた（受付係）が立ち、列の先に車椅子の男性と、その横に立っている連れの人がいる。", svg: svgWrap(svgIndoor("#E2E6EA") + svgPerson(64, 58, PLAYER, { dir: 1 }) + svgCounter(0, 130) + svgChair(200, 168, { dir: -1, arm: "front" }) + svgPerson(276, 96, OTHER.helper, { dir: -1 }) + `<text x="200" y="208" text-anchor="middle" font-size="11" fill="${FC.deep}" font-family="sans-serif">車椅子の男性と、連れの人</text>`) },
+  b2_s2: { alt: "ゲートの内側の絵。あなた（案内係）が先に立って歩き出そうとしていて、そのうしろに車椅子の男性と連れの人がいる。通路の先は人混み。", svg: svgWrap(svgIndoor("#E2E6EA") + `<g class="m-crowd" fill="#C9D1DA"><circle cx="300" cy="80" r="9"/><circle cx="326" cy="92" r="9"/><circle cx="344" cy="76" r="9"/><circle cx="312" cy="110" r="9"/><circle cx="338" cy="118" r="9"/></g><text x="318" y="140" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">人混み</text>` + svgPerson(230, 70, PLAYER, { dir: 1, arm: "out" }) + svgChair(120, 168, { arm: "lap" }) + svgPerson(50, 96, OTHER.helper, { dir: 1 })) },
+  b2_s3: { alt: "連絡通路の絵。あなた（案内係）が車椅子の男性と連れの人を案内している途中で、イヤーインカムが鳴り、通路の先から後任のスタッフが駆けてくる。", svg: svgWrap(svgIndoor("#E2E6EA") + `<rect x="0" y="40" width="360" height="100" fill="#E8EDF2"/><line x1="0" y1="140" x2="360" y2="140" stroke="#C9D1DA" stroke-width="2"/>` + svgPerson(300, 70, OTHER.staff, { dir: -1, arm: "out" }) + `<text x="300" y="52" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">後任</text>` + svgPerson(186, 66, PLAYER, { dir: 1 }) + `<g class="m-ring"><path d="M196 56 q8 -10 0 -18" fill="none" stroke="${FC.deep}" stroke-width="2"/><path d="M200 60 q14 -16 0 -30" fill="none" stroke="${FC.deep}" stroke-width="1.5"/></g>` + svgChair(110, 168, { arm: "lap" }) + svgPerson(44, 96, OTHER.helper, { dir: 1 })) },
+  b2_s4: { alt: "4階の観客席をうしろから見た絵。真ん中に太い柱があり、その左に車椅子の男性、右にパイプ椅子のヘルパーさんが、柱をはさんで対称に並び、二人とも前のグラウンドを見ている後ろ姿。", svg: svgWrap(`<rect x="0" y="0" width="360" height="220" fill="#F4F6F8"/><rect x="0" y="0" width="360" height="124" fill="#CFE6CF"/><rect x="0" y="60" width="360" height="2" fill="#FFFFFF"/><rect x="0" y="116" width="360" height="10" fill="#B9C9B9"/><rect x="0" y="126" width="360" height="94" fill="#E2E6EA"/><rect x="0" y="126" width="360" height="4" fill="#C9D1DA"/><rect x="132" y="0" width="96" height="176" fill="#B9C2CB"/><rect x="132" y="0" width="8" height="176" fill="#A6B0BA"/>` + svgBackChair(80, 160) + svgBackPerson(280, 122, OTHER.helper) + `<text x="180" y="200" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">柱</text>`) },
+  b2_p2s1: { alt: "車椅子の高さから見た受付ゲートの絵。目の前にカウンターが高く立ち、受付係の顔は見上げる位置にある。横には、立っているヘルパーさんの腰のあたりが見える。", svg: svgWrap(`<rect x="0" y="0" width="360" height="220" fill="#EDF1F5"/>` + svgPerson(170, 50, OTHER.staff, { dir: 1 }) + `<rect x="60" y="96" width="220" height="124" fill="#5B7FA6"/><rect x="60" y="90" width="220" height="8" fill="#3F5F84"/><text x="170" y="118" text-anchor="middle" font-size="12" fill="#FFFFFF" font-family="sans-serif">受付（目の高さより、上）</text><path d="M296 60 L296 220" stroke="${OTHER.helper}" stroke-width="22" stroke-linecap="round"/><path d="M8 140 L352 140" stroke="${FC.blue}" stroke-width="1.5" stroke-dasharray="3 4"/><text x="170" y="158" text-anchor="middle" font-size="11" fill="#FFFFFF" font-family="sans-serif">あなたの目の高さ</text><text x="320" y="156" font-size="10" fill="${FC.deep}" font-family="sans-serif">ヘルパー</text><text x="320" y="170" font-size="10" fill="${FC.deep}" font-family="sans-serif">さんの腰</text>`) },
+  b3_w1: { alt: "役所のフロアの絵。4月の朝。課長が車椅子の新人を連れてフロアに入ってくる。あなたの隣の席は机の高さが調整され、通路は広めに空いている。", svg: svgWrap(svgIndoor() + `<rect x="52" y="120" width="94" height="12" fill="${FC.desk}"/><rect x="56" y="132" width="6" height="40" fill="#A8977A"/><rect x="136" y="132" width="6" height="40" fill="#A8977A"/><rect x="78" y="86" width="44" height="34" rx="2" fill="#3A3A3A"/>` + svgBackDeskPerson(100, 70, PLAYER) + `<text x="100" y="206" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">あなた（自席）</text>` + `<rect x="158" y="136" width="56" height="12" fill="${FC.desk}"/><rect x="162" y="148" width="6" height="34" fill="#A8977A"/><rect x="204" y="148" width="6" height="34" fill="#A8977A"/><text x="150" y="124" font-size="10" fill="${FC.deep}" font-family="sans-serif">隣の席（高さ調整済み）</text>` + svgPerson(270, 62, OTHER.b, { dir: -1, arm: "out" }) + svgChair(326, 170, { dir: -1, arm: "lap" }) + `<text x="270" y="46" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">課長</text><text x="326" y="208" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">新人</text>`) },
+  b3_w2: { alt: "雨の朝の役所の入り口の絵。車椅子の彼が雨合羽を脱げずにいる。フロアの係員は数人いるが、誰も動かない。", svg: svgWrap(svgIndoor() + `<rect x="0" y="0" width="120" height="140" fill="#D5DDE6"/><g class="m-rain" stroke="#9DB3C9" stroke-width="2"><line x1="20" y1="20" x2="14" y2="40"/><line x1="50" y1="30" x2="44" y2="50"/><line x1="80" y1="16" x2="74" y2="36"/><line x1="36" y1="70" x2="30" y2="90"/><line x1="70" y1="80" x2="64" y2="100"/></g><text x="60" y="130" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">入り口・雨</text>` + svgChair(120, 170, { arm: "up" }) + `<path d="M98 100 Q146 86 170 130 L160 160 L112 160 Z" fill="#9FC7E8" fill-opacity="0.8" stroke="#6FA3E0" stroke-width="2"/>` + svgPerson(250, 70, OTHER.c, { dir: -1 }) + svgPerson(300, 76, OTHER.a, { dir: -1 }) + svgPerson(330, 70, OTHER.helper, { dir: -1 }) + `<text x="290" y="46" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">係員たち（動かない）</text>`) },
+  b3_w3: { alt: "縦長で狭い会議室を上から見た絵。机は上下二つに分かれて並び、席は両側にある。画面は会議室の右上の角に斜めに置かれている。入り口は手前。", svg: svgWrap(`<rect x="0" y="0" width="360" height="220" fill="#F4F6F8"/><rect x="100" y="10" width="160" height="200" fill="#EDF1F5" stroke="#C9D1DA" stroke-width="2"/>
+  <rect x="150" y="34" width="60" height="70" fill="${FC.desk}"/><rect x="150" y="110" width="60" height="70" fill="${FC.desk}"/><line x1="150" y1="107" x2="210" y2="107" stroke="#7A8794" stroke-width="2"/>
+  <g><rect x="124" y="40" width="18" height="14" rx="3" fill="#7A8794"/><rect x="124" y="72" width="18" height="14" rx="3" fill="#7A8794"/><rect x="124" y="118" width="18" height="14" rx="3" fill="#7A8794"/><rect x="124" y="150" width="18" height="14" rx="3" fill="#7A8794"/><rect x="218" y="40" width="18" height="14" rx="3" fill="#7A8794"/><rect x="218" y="72" width="18" height="14" rx="3" fill="#7A8794"/><rect x="218" y="118" width="18" height="14" rx="3" fill="#7A8794"/><rect x="218" y="150" width="18" height="14" rx="3" fill="#7A8794"/></g>
+  <g transform="rotate(45 240 24)"><rect x="226" y="20" width="28" height="8" fill="#3A3A3A"/><rect x="229" y="28" width="22" height="3" fill="#6FA3E0"/></g><text x="266" y="24" font-size="10" fill="${FC.deep}" font-family="sans-serif">画面</text>
+  <rect x="166" y="196" width="28" height="4" fill="#7A8794"/><text x="180" y="208" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">入り口</text>
+  <circle cx="60" cy="180" r="12" fill="none" stroke="${FC.blue}" stroke-width="3"/><text x="20" y="206" font-size="10" fill="${FC.deep}" font-family="sans-serif">車椅子</text>`) },
+  b3_w3_aketa: { alt: "縦長で狭い会議室を上から見た絵。机は上下二つに分かれて並び、席は両側にある。車椅子は右側の入り口に近い、空けた席に着いている。画面は会議室の右上の角に斜めに置かれ、その席からは見えにくい。入り口は手前。", svg: svgWrap(`<rect x="0" y="0" width="360" height="220" fill="#F4F6F8"/><rect x="100" y="10" width="160" height="200" fill="#EDF1F5" stroke="#C9D1DA" stroke-width="2"/>
+  <rect x="150" y="34" width="60" height="70" fill="${FC.desk}"/><rect x="150" y="110" width="60" height="70" fill="${FC.desk}"/><line x1="150" y1="107" x2="210" y2="107" stroke="#7A8794" stroke-width="2"/>
+  <g><rect x="124" y="40" width="18" height="14" rx="3" fill="#7A8794"/><rect x="124" y="72" width="18" height="14" rx="3" fill="#7A8794"/><rect x="124" y="118" width="18" height="14" rx="3" fill="#7A8794"/><rect x="124" y="150" width="18" height="14" rx="3" fill="#7A8794"/><rect x="218" y="40" width="18" height="14" rx="3" fill="#7A8794"/><rect x="218" y="72" width="18" height="14" rx="3" fill="#7A8794"/><rect x="218" y="118" width="18" height="14" rx="3" fill="#7A8794"/><rect x="218" y="150" width="18" height="14" rx="3" fill="#FFFFFF" stroke="#7A8794" stroke-width="1.5"/></g><circle cx="227" cy="157" r="11" fill="none" stroke="${FC.blue}" stroke-width="3"/>
+  <text x="266" y="153" font-size="10" fill="${FC.deep}" font-family="sans-serif">空けた席に</text><text x="266" y="167" font-size="10" fill="${FC.deep}" font-family="sans-serif">車椅子</text>
+  <g transform="rotate(45 240 24)"><rect x="226" y="20" width="28" height="8" fill="#3A3A3A"/><rect x="229" y="28" width="22" height="3" fill="#6FA3E0"/></g><text x="266" y="24" font-size="10" fill="${FC.deep}" font-family="sans-serif">画面</text>
+  <rect x="166" y="196" width="28" height="4" fill="#7A8794"/><text x="180" y="208" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">入り口</text>`) },
+  b3_w3_kiku: { alt: "同じ会議室を上から見た絵。机を二つ斜めにずらして、入り口から右手前までの通り道が広くなっている。車椅子は入り口に近い右手前の席に着き、画面は奥の壁の真ん中にあって、どの席からも見える。", svg: svgWrap(`<rect x="0" y="0" width="360" height="220" fill="#F4F6F8"/><rect x="100" y="10" width="160" height="200" fill="#EDF1F5" stroke="#C9D1DA" stroke-width="2"/>
+  <rect x="152" y="12" width="56" height="8" fill="#3A3A3A"/><rect x="156" y="20" width="48" height="4" fill="#6FA3E0"/><text x="214" y="22" font-size="10" fill="${FC.deep}" font-family="sans-serif">画面</text>
+  <rect x="160" y="40" width="60" height="66" fill="${FC.desk}"/><rect x="140" y="118" width="60" height="66" fill="${FC.desk}"/>
+  <g><rect x="134" y="46" width="18" height="14" rx="3" fill="#7A8794"/><rect x="134" y="78" width="18" height="14" rx="3" fill="#7A8794"/><rect x="228" y="46" width="18" height="14" rx="3" fill="#7A8794"/><rect x="228" y="78" width="18" height="14" rx="3" fill="#7A8794"/><rect x="114" y="124" width="18" height="14" rx="3" fill="#7A8794"/><rect x="114" y="156" width="18" height="14" rx="3" fill="#7A8794"/><rect x="208" y="124" width="18" height="14" rx="3" fill="#7A8794"/></g>
+  <path d="M180 194 L180 182 L218 170" fill="none" stroke="#6FA3E0" stroke-width="2" stroke-dasharray="3 3"/>
+  <circle cx="222" cy="164" r="12" fill="none" stroke="${FC.blue}" stroke-width="3"/><text x="236" y="190" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">車椅子</text>
+  <rect x="166" y="196" width="28" height="4" fill="#7A8794"/><text x="180" y="208" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">入り口</text>`) },
+  b3_souji: { alt: "仕事納めの日の大掃除の絵。彼は自席で机の引き出しの中身を出して整理している。係員のひとりは脚立に乗って窓を拭き、もうひとりは段ボールを運んでいる。床にはバケツと雑巾、壁ぎわには段ボールの山。", svg: svgWrap(svgIndoor() + `<rect x="150" y="26" width="72" height="60" fill="#DCE9F7" stroke="#C9D1DA" stroke-width="2"/><line x1="186" y1="26" x2="186" y2="86" stroke="#C9D1DA" stroke-width="2"/><line x1="150" y1="56" x2="222" y2="56" stroke="#C9D1DA" stroke-width="2"/>
+  <rect x="20" y="124" width="110" height="14" fill="${FC.desk}"/><rect x="26" y="138" width="6" height="40" fill="#A8977A"/><rect x="118" y="138" width="6" height="40" fill="#A8977A"/>
+  <rect x="34" y="138" width="40" height="12" fill="#B9A989" stroke="#8F7F62" stroke-width="1.5"/><rect x="40" y="110" width="20" height="13" fill="#FFFFFF" stroke="#9AA5B1" stroke-width="1.2"/><rect x="64" y="108" width="20" height="13" fill="#FFFFFF" stroke="#9AA5B1" stroke-width="1.2" transform="rotate(-8 74 114)"/><rect x="92" y="111" width="18" height="12" fill="#F0C27A" stroke="#8F7F62" stroke-width="1.2"/>
+  ` + svgChair(100, 170, { dir: -1, arm: "front" }) + `<path d="M150 172 L176 98 M206 172 L180 98" stroke="#8A8F96" stroke-width="4" stroke-linecap="round"/><path d="M158 152 L198 152 M164 134 L192 134 M170 116 L186 116" stroke="#8A8F96" stroke-width="3" stroke-linecap="round"/>
+  ` + svgPerson(178, 58, OTHER.a, { dir: 1, arm: "up" }) + `<rect x="186" y="60" width="12" height="9" rx="2" fill="#FFFFFF" stroke="#9AA5B1" stroke-width="1"/>
+  <rect x="142" y="184" width="20" height="16" rx="2" fill="#7A8FA6"/><path d="M144 184 Q152 172 160 184" fill="none" stroke="#555B63" stroke-width="2"/><rect x="166" y="192" width="18" height="8" rx="2" fill="#E8EDF2" stroke="#9AA5B1" stroke-width="1"/>
+  ` + svgPerson(292, 90, OTHER.c, { dir: -1, arm: "out" }) + `<rect x="256" y="112" width="30" height="22" fill="#C9B99A" stroke="#8F7F62" stroke-width="1.5"/><line x1="256" y1="123" x2="286" y2="123" stroke="#8F7F62" stroke-width="1"/>
+  <rect x="304" y="160" width="44" height="26" fill="#C9B99A" stroke="#8F7F62" stroke-width="1.5"/><rect x="308" y="136" width="36" height="24" fill="#C9B99A" stroke="#8F7F62" stroke-width="1.5"/><line x1="308" y1="148" x2="344" y2="148" stroke="#8F7F62" stroke-width="1"/>
+  <text x="76" y="204" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">自席で机の整理</text><text x="208" y="204" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">窓拭き</text><text x="326" y="204" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">段ボール</text>`) },
+  b3_w6: { alt: "昼休みの役所の絵。彼は自席でひとり、弁当を食べている。離れた休憩スペースでは係員たちが集まって昼食をとっている。", svg: svgWrap(svgIndoor() + `<rect x="20" y="124" width="110" height="14" fill="${FC.desk}"/><rect x="26" y="138" width="6" height="40" fill="#A8977A"/><rect x="118" y="138" width="6" height="40" fill="#A8977A"/><rect x="60" y="110" width="26" height="12" rx="2" fill="#F0C27A" stroke="${FC.ink}" stroke-width="1.5"/>` + svgChair(100, 170, { dir: -1, arm: "front" }) + `<rect x="210" y="100" width="130" height="86" rx="8" fill="#E8EDF2" stroke="#C9D1DA" stroke-width="2"/><rect x="236" y="140" width="78" height="10" fill="${FC.desk}"/>` + svgPerson(246, 92, OTHER.c, { dir: 1 }) + svgPerson(276, 88, OTHER.a, { dir: -1 }) + svgPerson(306, 92, OTHER.helper, { dir: -1 }) + `<text x="275" y="204" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">休憩スペース</text><text x="76" y="204" text-anchor="middle" font-size="10" fill="${FC.deep}" font-family="sans-serif">自席でひとり</text>`) },
+};
+function figure(k, v){ const f = FIGS[k]; if(!f) return ""; const svg = (v && f.vars && f.vars[v]) || f.svg; return `<div class="fig" role="img" aria-label="${f.alt}">${svg}</div>`; }
+
+const V = {};
+function prog(i, n){
+  let s = "";
+  for(let k = 1; k <= n; k++) s += '<i class="' + (k < i ? "done" : (k === i ? "now" : "")) + '"></i>';
+  return '<span class="prog" aria-hidden="true">' + s + '</span>';
+}
+let WALK = [];
+const WALK_BOX = { 1: ["場面1", "歩道で", "b1_open"], 2: ["場面2", "会場の受付・案内", "b2_s1"], 3: ["場面3", "職場", "b3_w1"] };
+function walkB1Scene(){ const m = { drop:"落としもの", dansa:"段差", door:"扉", taka:"高い所の物", phone:"スマホを見ている" }; return (S && S.world && m[S.world]) || "歩道で"; }
+function walkNote(btn){
+  const h = stage.querySelector(".scenebox h2");
+  const scene = h ? h.textContent.trim() : (lastBox === 1 ? walkB1Scene() : (WALK.length ? WALK[WALK.length - 1].scene : ""));
+  WALK.push({ part: /^S\d'/.test(scene) ? "p2" : "p1", scene: scene, label: btn.textContent.replace(/\s+/g, " ").trim() });
+}
+stage.addEventListener("click", function(e){ const b = (e.target && e.target.closest) ? e.target.closest("button.choice") : null; if(b && stage.contains(b)) walkNote(b); }, true);
+function walkFig(box){
+  if(lastBox === 1 && S && S.world && FIGS["b1_" + S.world]) return { k: "b1_" + S.world, v: (S.world === "drop" && S.item) ? S.item.name : null };
+  if(lastBox === 3){
+    const cands = [["s3", "b3_w3"], ["s1", "b3_w1"], ["s6", "b3_w6"], ["s2", "b3_w2"]];
+    let best = null;
+    cands.forEach(function(c){ const ch = B3[c[0]]; if(!ch || B3PT[c[0]][ch] === undefined) return; const p = B3PT[c[0]][ch]; if(!best || p > best.p) best = { p: p, k: (c[0] === "s3" && ch === "kiku") ? "b3_w3_kiku" : (c[0] === "s3" && ch === "dantei") ? "b3_w3_aketa" : c[1] }; });
+    if(best && best.p > 0) return { k: best.k, v: null };
+  }
+  return { k: box[2], v: null };
+}
+function walkCard(extra){
+  const box = WALK_BOX[lastBox] || WALK_BOX[1];
+  const rows = WALK.concat(extra || []);
+  const W = 540, PAD = 36, TXT = 18, LH = 28, MAXC = 25;
+  const FW = W - PAD * 2, FH = Math.round(FW * 220 / 360);
+  const esc = function(s){ return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); };
+  const wrap = function(s){ const out = []; let cur = ""; Array.from(s).forEach(function(ch){ if(cur.length >= MAXC && !/[」』）。、・？！…]/.test(ch)){ out.push(cur); cur = ""; } cur += ch; }); if(cur) out.push(cur); return out; };
+  const GO = "'Hiragino Kaku Gothic ProN','Hiragino Sans','Yu Gothic',Meiryo,sans-serif", MI = "'Hiragino Mincho ProN','Yu Mincho',serif";
+  const fk = walkFig(box);
+  const fsrc = (fk && FIGS[fk.k]) ? ((fk.v && FIGS[fk.k].vars && FIGS[fk.k].vars[fk.v]) || FIGS[fk.k].svg) : "";
+  const fig = fsrc ? fsrc.replace(/^<svg [^>]*>/, '<svg x="' + PAD + '" y="92" width="' + FW + '" height="' + FH + '" viewBox="0 0 360 220">') : "";
+  let y = 92 + FH + 34, body = "", prevScene = null, prevPart = null;
+  rows.forEach(function(r){
+    if(lastBox === 2 && r.part && r.part !== prevPart){ body += '<text x="' + PAD + '" y="' + y + '" font-size="13" fill="#5A6470" font-family="' + GO + '" letter-spacing="2">' + (r.part === "p2" ? "第二部" : "第一部") + '</text>'; y += 24; prevPart = r.part; prevScene = null; }
+    if(r.scene !== prevScene){ body += '<text x="' + PAD + '" y="' + y + '" font-size="13" fill="#164A85" font-family="' + GO + '" letter-spacing="2">' + esc(r.scene) + '</text>'; y += 22; prevScene = r.scene; }
+    wrap(r.label).forEach(function(ln){ body += '<text x="' + (PAD + 10) + '" y="' + y + '" font-size="' + TXT + '" fill="#22272B" font-family="' + GO + '">' + esc(ln) + '</text>'; y += LH; });
+    y += 12;
+  });
+  const H = y + PAD - 12;
+  const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '">' +
+    '<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="#FFFFFF"/><rect x="0" y="0" width="' + W + '" height="6" fill="#1F5FA8"/>' +
+    '<text x="' + PAD + '" y="50" font-size="24" fill="#164A85" font-family="' + MI + '" font-weight="600" letter-spacing="3">0回目　歩いた記録</text>' +
+    '<text x="' + PAD + '" y="74" font-size="14" fill="#5A6470" font-family="' + GO + '" letter-spacing="2">' + box[0] + '「' + box[1] + '」</text>' +
+    fig + body + '<rect x="0" y="' + (H - 6) + '" width="' + W + '" height="6" fill="#1F5FA8"/></svg>';
+  return '<div class="fig record" role="img" aria-label="歩いた記録の絵。場面の絵と、この回に選んだ一手が、場面の順に並んでいる。">' + svg + '</div>\n  <button class="ghost" onclick="walkSave()">この記録を画像として保存する</button>';
+}
+function walkDownload(href, name){
+  const a = document.createElement("a"); a.href = href; a.download = name; a.style.display = "none";
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){ a.remove(); }, 1500);
+  if(href.indexOf("blob:") === 0) setTimeout(function(){ URL.revokeObjectURL(href); }, 60000);
+}
+function walkSave(){
+  const el = stage.querySelector(".fig.record svg"); if(!el) return;
+  const box = WALK_BOX[lastBox] || WALK_BOX[1];
+  const name = "0回目_歩いた記録_" + box[1] + ".png";
+  const w = parseInt(el.getAttribute("width"), 10), h = parseInt(el.getAttribute("height"), 10);
+  const url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(el.outerHTML);
+  const asSvg = function(){ walkDownload(url, name.replace(/png$/, "svg")); };
+  try{
+    const img = new Image();
+    img.onload = function(){
+      try{
+        const c = document.createElement("canvas"); const k = 2; c.width = w * k; c.height = h * k;
+        const ctx = c.getContext("2d"); ctx.scale(k, k); ctx.drawImage(img, 0, 0, w, h);
+        c.toBlob(function(b){ if(b) walkDownload(URL.createObjectURL(b), name); else asSvg(); }, "image/png");
+      }catch(e){ asSvg(); }
+    };
+    img.onerror = asSvg;
+    img.src = url;
+  }catch(e){ asSvg(); }
+}
+
+V.home = () => `
+  <div class="hero">
+    <div class="eyebrow">初対面の、そのまえに。</div>
+    <h1>0回目</h1>
+  </div>
+  <div class="card scenebox">
+    <div class="sn">場面1</div>
+    <h2>歩道で</h2>
+    <div class="meta">一周 2〜3分 ｜ 選択肢式 ｜ 何が起きているかは、歩いてみるまで分かりません</div>
+  </div>
+  <button class="next" onclick="start()">歩き出す</button>
+  <div class="card scenebox">
+    <div class="sn">場面2</div>
+    <h2>会場の受付・案内</h2>
+    <div class="meta">一周 約10分 ｜ 選択肢式・二部構成 ｜ 同じ一日を、スタッフの側と、車椅子の人の側から歩きます</div>
+  </div>
+  <button class="next" onclick="go('b2gate')">この場面について</button>
+  <p class="sn" style="text-align:center;letter-spacing:.2em;margin-top:26px">── もう一つの練習場 ──</p>
+  <div class="card scenebox">
+    <div class="sn">場面3</div>
+    <h2>職場</h2>
+    <div class="meta">一周 約10分 ｜ 選択肢式 ｜ 今日、あなたの職場に、車椅子に乗った新人が配属されます。あなたは係長で、指導役です</div>
+  </div>
+  <button class="next" onclick="go('b3gate')">この場面について</button>
+`;
+
+V.exitlite = () => `
+  <div class="card">
+    <p class="narr">ここで閉じて、大丈夫です。</p>
+    <p class="narr">このブラウザ作品は何も保存せず、あなたの選択をどこにも送信しません。いつ閉じても、いつ戻ってきても、また同じように始まります。</p>
+  </div>
+  <button class="ghost" onclick="go('home')">ホームに戻る</button>
+`;
+
+V.open = () => `
+  <div class="card">
+    <p class="narr">歩道に、背中の曲がった車椅子の男性が止まっている。</p>
+  </div>
+  ${figure("b1_open")}
+  <div class="qlabel">どうしますか</div>
+  <button class="choice" onclick="goNear()"><span class="act">すこし</span>近づいてみる</button>
+  <button class="choice" onclick="go('farpass')"><span class="act">遠まきに</span>通り過ぎる</button>
+`;
+
+V.farpass = () => `
+  <div class="card">
+    <p class="narr">遠まきに、通り過ぎた。彼のことは、<b>何も分からないまま</b>。</p>
+  </div>
+  ${learn("それも、ふつうの距離です", `
+    <p>遠くからでは、困っているのかどうかさえ分かりません。分からないまま行き過ぎる——街では、それがいちばん多いすれちがい方です。</p>
+    <p><b>気になったら、近づいてみる</b>。分かるのは、いつもそこからです。</p>
+  `)}
+  <button class="next" onclick="start()">もう一周してみる</button>
+  <button class="ghost" onclick="goInfo('bs1')">舞台裏</button>
+  <button class="ghost" onclick="go('home')">ホームへ</button>
+  <button class="ghost" onclick="quitPressed()">終了する</button>
+`;
+
+V.near = () => {
+  if(S.world === "drop"){
+    return `
+  <div class="card">
+    <p class="narr">近づく。よく見ると、車輪の斜め前に、${S.item.name}が落ちている。彼はそれを、じっと見ている。</p>
+  </div>
+  ${figure("b1_drop", S.item.name)}
+  <div class="qlabel">どうしますか</div>
+  <button class="choice" onclick="pick1('hello')"><span class="act">やや斜め前から</span>「こんにちは」と声をかける</button>
+  <button class="choice" onclick="pick1('back')"><span class="act">うしろから</span>「あの、落としましたよ」と声をかける</button>
+  <button class="choice" onclick="pick1('front')"><span class="act">やや斜め前にまわりこんで</span>目が合ってから、声をかける</button>
+  <button class="choice" onclick="pick1('silent')"><span class="act">何も言わずに</span>${S.item.counter}を拾って、渡す</button>
+  <button class="choice" onclick="pick1('pass')"><span class="act">今日は</span>通り過ぎる</button>
+`;
+  }
+  if(S.world === "dansa"){
+    return `
+  <div class="card">
+    <p class="narr">近づく。歩道の先に、数センチの段差がある。彼はその手前で止まって、あたりをゆっくり見回している。人通りは、わりとある。</p>
+  </div>
+  ${figure("b1_dansa")}
+  <div class="qlabel">どうしますか</div>
+  <button class="choice" onclick="pickDansa('eye')"><span class="act">視界に入って</span>立ち止まり、目を合わせる</button>
+  <button class="choice" onclick="pickDansa('open')"><span class="act">やや斜め前から</span>「何かお手伝いできることありますか？」</button>
+  <button class="choice" onclick="pickDansa('push')"><span class="act">何も言わずに</span>うしろから車椅子を押して上げようとする</button>
+  <button class="choice" onclick="pickDansa('pass')"><span class="act">今日は</span>通り過ぎる</button>
+`;
+  }
+  if(S.world === "door"){
+    return `
+  <div class="card">
+    <p class="narr">近づく。建物の入り口——引いて開けるタイプの扉の前で、彼は止まっている。あたりに、ほかの人影はない。</p>
+    <p class="narr">彼がこちらに気づいた。</p>
+  </div>
+  ${say("あのー、あのー、すいません。")}
+  ${figure("b1_door")}
+  <div class="qlabel">どうしますか</div>
+  <button class="choice" onclick="pickDoor('respond')"><span class="act">立ち止まって</span>「はい、どうしました？」</button>
+  <button class="choice" onclick="pickDoor('hello')">「こんにちは」</button>
+  <button class="choice" onclick="pickDoor('ignore')"><span class="act">聞こえなかったことにして</span>通り過ぎる</button>
+`;
+  }
+  if(S.world === "taka"){
+    return `
+  <div class="card">
+    <p class="narr">近づく。自動販売機の前で、彼は上の段を見上げたまま止まっている。</p>
+  </div>
+  ${figure("b1_taka")}
+  <div class="qlabel">どうしますか</div>
+  <button class="choice" onclick="pickTaka('hello')"><span class="act">やや斜め前から</span>「こんにちは」と声をかける</button>
+  <button class="choice" onclick="pickTaka('open')"><span class="act">やや斜め前から</span>「何かお手伝いできることありますか？」</button>
+  <button class="choice" onclick="pickTaka('pass')"><span class="act">今日は</span>通り過ぎる</button>
+`;
+  }
+  return `
+  <div class="card">
+    <p class="narr">近づく。彼は、スマホをスクロールしたり、辺りを見渡したりしている。困っているのかどうか、まだ分からない。</p>
+  </div>
+  ${figure("b1_phone")}
+  <div class="qlabel">どうしますか</div>
+  <button class="choice" onclick="pickPhone('hello')"><span class="act">やや斜め前から</span>「こんにちは」と声をかける</button>
+  <button class="choice" onclick="pickPhone('open')"><span class="act">やや斜め前にまわりこんで</span>「何かお手伝いできることありますか？」</button>
+  <button class="choice" onclick="pickPhone('vague')"><span class="act">ひとこと</span>「大丈夫ですか？」</button>
+  <button class="choice" onclick="pickPhone('pass')"><span class="act">そのまま</span>通り過ぎる</button>
+`;
+};
+
+V.noreact = () => `
+  <div class="card">
+    <p class="narr">「あの——落としましたよ」</p>
+    <p class="narr">……返事がない。彼は${S.item.name}を見つめたまま、あなたに気づく様子がない。</p>
+  </div>
+  ${learn("なにが起きたのか", `
+    <p>彼の視点は、立っている人の<b>腰のあたりの高さ</b>にある。見えているのは前方およそ160度——<b>そのうしろの世界は、存在しないに等しい</b>。うしろからの声は、とても届きにくい。</p>
+    ${FIG160}
+    <p>近づくなら、<b>やや斜め前</b>——右でも左でもいい。車椅子は前後に動く可能性が常にあって、真後ろの至近距離に立つと、轢かれることすらあり得ます。でも、横にずれるようには動けない。それに斜め前なら、こちらの姿が見えている。だからいちばん安心です。</p>
+    <p>そして気づかないことに<b>無視も悪気もない</b>。ここが大事なところです。視界に入って、目が合ったら。そこからがコミュニケーションのスタートです。</p>
+  `)}
+  <button class="next" onclick="go('front')">斜め前にまわりこむ</button>
+`;
+
+V.helloDrop = () => `
+  ${say("こんにちは。……あ、すいません、そこの" + S.item.counter + "、取っていただけるとありがたいんですが。")}
+  <div class="card">
+    <p class="narr">${S.item.name}を拾って、渡す。</p>
+  </div>
+  ${say("ご親切に、本当にありがとうございます。")}
+  ${helloCard()}
+  <button class="next" onclick="go('debrief')">つづける</button>
+`;
+
+V.front = () => `
+  <div class="card">
+    <p class="narr">やや斜め前にまわりこむ。視界に入ると、彼がこちらに気づいて、目が合った。</p>
+  </div>
+  <div class="qlabel">なんて言いますか</div>
+  <button class="choice" onclick="pick2('open')">「何かお手伝いできることありますか？」</button>
+  <button class="choice" onclick="pick2('direct')">「それ、拾いましょうか？」</button>
+  <button class="choice" onclick="pick2('vague')">「大丈夫ですか？」</button>
+`;
+
+V.accept = (variant) => {
+  let reply, note;
+  if(variant === "open"){
+    reply = `あ——ご親切にありがとうございます。すいません、そこの${S.item.counter}、取っていただけるとありがたいんですが。`;
+    note = `<p>「<b>何かお手伝いできることありますか？</b>」は、開かれた申し出。何をどうしてほしいかは、本人がいちばんよく知っています。だから聞けば、本人が教えてくれる。相手の状況について得られる情報がいちばん多い聞き方でもあります。本作全体で、<b>いちばん持ち帰ってほしい型</b>です。</p>`;
+  } else if(variant === "direct"){
+    reply = `ご親切にありがとうございます。……はい、すいません、お願いします。`;
+    note = `<p>用件がはっきり見えているときは、具体的な申し出もまっすぐ届きます。ちなみに「落ちた物が拾えない」理由は、外から見ても直感的には分かりにくいかもしれません。ただ、かがんで拾える車椅子ユーザーは、巷での認識よりはだいぶ少ないと思います。</p>`;
+  } else {
+    reply = `あ、ありがとうございます。すいません、そこの${S.item.counter}だけ、拾っていただけますか。`;
+    note = `<p>この場面では、まったく問題ありません。困っていることが目に見えているからです。ただし、特に困っていない人に、急に近くで大きな声の「大丈夫ですか？」は、マイナスに働くこともあります。<b>「何かお手伝いできることありますか？」のほうが、相手の状況について得られる情報が多い聞き方</b>——相手が誰でも通用する型です。</p>`;
+  }
+  return `
+  ${say(reply)}
+  <div class="card">
+    <p class="narr">${S.item.name}を拾って、渡す。手もとで受けとって、彼はもういちど頭をさげた。</p>
+  </div>
+  ${say("ご親切に、本当にありがとうございます。")}
+  ${learn("ここでのこと", note)}
+  <button class="next" onclick="go('debrief')">つづける</button>
+`;};
+
+function dansaAssist(intro){
+  return `
+  ${intro}
+  ${say("すいません、この段差なんですが、前の小さい車輪を、すこし浮かせていただけますか。")}
+  <div class="card">
+    <p class="narr">言われたとおり、前輪を持ち上げようとする。……一回目は、うまく浮かない。</p>
+  </div>
+  ${say("あ、大丈夫です。すいません、こっちをもう一回だけ……そう、それでお願いします。")}
+  ${SPL}
+  <div class="card">
+    <p class="narr">二回目。前輪が段に乗り、車椅子が段差を越えた。</p>
+  </div>
+  ${say("ご親切に、本当にありがとうございます。")}
+  ${learn("一回でうまくいかなくて、ふつう", `
+    <p>段差の介助は、やる側もけっこう大変な作業です。<b>一回で成功しないことのほうが多い</b>——だから、失敗はあなたのせいではありません。彼のほうも、それを知っています。</p>
+    <p>そして、やり方は<b>本人がいちばん知っている</b>。うしろから前輪を浮かせるのか、前方から車椅子をつかんで斜め上に引っ張り込むのか。<b>聞けば、指示が来ます。方法を知らないことは、声をかけない理由になりません。</b></p>
+  `)}
+  <button class="next" onclick="go('debrief')">つづける</button>`;
+}
+
+V.resDansa = (c) => {
+  if(c === "eye"){
+    return dansaAssist(`
+  <div class="card"><p class="narr">視界に入って立ち止まると、目が合った。</p></div>
+  ${say("あのー、すいません。ちょっと手伝っていただけるとありがたいんですが、よろしいでしょうか？")}
+  ${learn("さっき、見回していたのは", `
+    <p>この場所は人通りがわりとある。だから作者は、こちらから頼みに行くより、<b>目の合った人に頼む「待ちの姿勢」</b>をとりがち。<b>段差介助というのは、なかなか口に出すのがしんどい、大変心苦しいお願いだからです。</b></p>
+    <p>つまり、立ち止まって目を合わせること自体が、もう申し出なんです。</p>
+  `)}`);
+  }
+  if(c === "open"){
+    return dansaAssist(`
+  ${say("あ、ご親切にありがとうございます。すいません、ちょっと手伝っていただけるとありがたいんですが、よろしいでしょうか？")}`);
+  }
+  if(c === "push"){
+    return `
+  <div class="card">
+    <p class="narr">声をかけずに、うしろから車椅子を押し上げようとする。車椅子が、がくんと揺れた。</p>
+  </div>
+  ${say("わっ——。……あ、すいません、ありがとうございます。でも、びっくりしました。")}
+  ${learn("先に、ひとことだけ", `
+    <p>承諾なしに車椅子を動かすのは、はっきりした地雷です。車椅子は<b>体の延長</b>——突然動くと、単純にこわい。</p>
+    <p>直し方はかんたんで、動かす前にひとこと。<b>「押しましょうか？」</b>から始めれば、同じ善意がそのまま届きます。</p>
+  `)}
+  <button class="next" onclick="pickDansa('open')">声をかけ直す</button>
+  <button class="ghost" onclick="go('debrief')">つづける</button>`;
+  }
+  return `
+  <div class="card">
+    <p class="narr">今日は、通り過ぎた。彼はまだ、段差の手前であたりを見回している。</p>
+  </div>
+  ${learn("それも、ふつうのことです", `
+    <p>責められることではありません。ひとつだけ事実を置いておくと——あの数センチは、<b>彼一人ではどれだけ時間をかけても越えられません。手を貸せば、1〜2分です。</b></p>
+  `)}
+  <button class="next" onclick="start()">もう一周してみる</button>
+  <button class="ghost" onclick="goInfo('bs1')">舞台裏</button>
+  <button class="ghost" onclick="go('home')">ホームへ</button>
+  <button class="ghost" onclick="quitPressed()">終了する</button>`;
+};
+
+V.resDoor = (c) => {
+  if(c === "respond" || c === "hello"){
+    const opener = (c === "hello")
+      ? say("こんにちは。あの、すいません、そこの扉、引いて開けていただけますか。")
+      : say("あ、ありがとうございます。すいません、そこの扉、引いて開けていただけますか。");
+    return `
+  ${opener}
+  <div class="card">
+    <p class="narr">扉を引いて、開けたまま支える。彼が通り抜けて、こちらを振り返った。</p>
+  </div>
+  ${say("ご親切に、本当にありがとうございます。")}
+  ${learn("十秒で開く扉", `
+    <p><b>引く方向の開き戸は、彼がいちばん困る扉</b>です。手伝う側にとっては<b>十秒</b>で、難しさもない。ただ、このシーンでは、人通りが少ない。</p>
+    <p>「あのー、あのー、すいません」と通りかかる一人ひとりに向かって言っても、<b>大概なかなかつかまりません</b>。素通りされると、次の人が来るのは何十分後かもしれない。<b>あなたが立ち止まった時点で、彼にとっては幸運でした</b>。</p>
+  `)}
+  <button class="next" onclick="go('debrief')">つづける</button>`;
+  }
+  return `
+  <div class="card">
+    <p class="narr">聞こえなかったことにして、通り過ぎた。うしろで、もういちど「すいません」と聞こえた気がした。</p>
+  </div>
+  ${learn("この場所の事実", `
+    <p>立ち止まらないのも、ふつうの自由です。責める話ではありません。</p>
+    <p>ただ、事実だけ置いておきます。この扉は十秒で開きます。そして人通りの少ない場所では、次の通行人まで<b>何十分</b>ということがあります。だから、あの<b>呼びかけは切実</b>です。</p>
+  `)}
+  <button class="next" onclick="start()">もう一周してみる</button>
+  <button class="ghost" onclick="goInfo('bs1')">舞台裏</button>
+  <button class="ghost" onclick="go('home')">ホームへ</button>
+  <button class="ghost" onclick="quitPressed()">終了する</button>`;
+};
+
+V.resTaka = (c) => {
+  if(c === "pass"){
+    return `
+  <div class="card">
+    <p class="narr">今日は、通り過ぎた。彼はまだ、上の段を見上げている。</p>
+  </div>
+  ${learn("それも、ふつうのことです", `
+    <p>責められることではありません。</p>
+  `)}
+  <button class="next" onclick="start()">もう一周してみる</button>
+  <button class="ghost" onclick="goInfo('bs1')">舞台裏</button>
+  <button class="ghost" onclick="go('home')">ホームへ</button>
+  <button class="ghost" onclick="quitPressed()">終了する</button>`;
+  }
+  const opener = (c === "hello") ? "こんにちは。あの、" : "あ、ご親切にありがとうございます。";
+  return `
+  ${say(opener + "すいません、上の段のボタンに手が届かなくて。押していただけますか。")}
+  <div class="card">
+    <p class="narr">言われたボタンを押す。ガコン、と音がしたほうを見ると、取り出し口はずいぶん低い位置にある。手前の蓋を押し開けて、奥から取り出す作りだ。</p>
+    <p class="narr">「取りますね」と声をかけて、かがんで蓋を開け、飲みものを取り出して、手渡す。</p>
+  </div>
+  ${say("ご親切に、本当にありがとうございます。")}
+  ${learn("渡すところまで", `
+    <p><b>ボタンの先に、もう一難あります</b>。機械によっては、飲みものを取ること自体が、めちゃくちゃ大変なことがある。</p>
+    <p>だから、手に渡すところまでやっていい。<b>それでやり過ぎということは絶対ない</b>、と作者は思います。一度助けてくれた方に追加で何かを頼むのは大変心苦しく、相当な勇気が必要になってくるからです。</p>
+  `)}
+  ${learn("見た目で分かる困りごと", `
+    <p>高い所の物は、頼む理由が見た目で伝わりやすい——だから作者にとっても、<b>頼みやすい部類</b>の困りごとです。</p>
+  `)}
+  <button class="next" onclick="go('debrief')">つづける</button>`;
+};
+
+V.resPhone = (c) => {
+  if(c === "hello"){
+    if(S.lost){
+      const ask = (Math.random() < 0.5)
+        ? "すいません、ちょっと道が分からなくなってしまって。✕✕駅って、どう行けばいいかご存知ですか？"
+        : "すいません、車椅子のうしろに掛けてあるかばんから、飲みものを取っていただけませんか。";
+      return `
+  ${say("こんにちは。……あ、" + ask)}
+  <div class="card"><p class="narr">聞いてみたら、<b>困っていた</b>。外からは、スマホを見ているようにしか見えなかったのに。</p></div>
+  ${helloCard()}
+  ${learn("見えなかった困りごと", `
+    <p>スマホを見ている＝困っていない、とは限りません。<b>うしろの荷物を自力で取れない</b>人もいる。道に迷った時、スマホを使うと<b>手がふさがる</b>人もいる。それらは外からは分からない。</p>
+    <p>分からないから、声をかける。かければ、続きは本人が教えてくれます。</p>
+  `)}
+  <button class="next" onclick="go('debrief')">つづける</button>`;
+    }
+    return `
+  ${say("こんにちは。")}
+  <div class="card"><p class="narr">挨拶が、かえってくる。それだけの、ふつうのやりとり。彼は困っていなかった——今日のところは。</p></div>
+  ${helloCard()}
+  ${learn("それだけで、いいのです", `
+    <p>断られてすら、いません。<b>いちばん気軽で無難な接触のしかた</b>です。</p>
+    <p>もし困っていたなら、この挨拶のあとに、頼みごとが続いていたはずです。</p>
+  `)}
+  <button class="next" onclick="go('debrief')">つづける</button>`;
+  }
+  if(c === "open" || c === "vague"){
+    if(S.lost){
+      const ask = (Math.random() < 0.5)
+        ? "すいません、ちょっと道が分からなくなってしまって。✕✕駅って、どう行けばいいかご存知ですか？"
+        : "すいません、車椅子のうしろに掛けてあるかばんから、飲みものを取っていただけませんか。";
+      const opener = "あ、";
+      return `
+  ${say(opener + "ご親切にありがとうございます。" + ask)}
+  <div class="card"><p class="narr">聞いてみたら、<b>困っていた</b>。外からは、スマホを見ているようにしか見えなかったのに。</p></div>
+  ${learn("見えなかった困りごと", `
+    <p>スマホを見ている＝困っていない、とは限りません。<b>うしろの荷物を自力で取れない</b>人もいる。道に迷った時、スマホを使うと<b>手がふさがる</b>人もいる。それらは外からは分からない。</p>
+    <p>分からないから、聞く。聞けば、本人が教えてくれる。それだけのことです。</p>
+  `)}
+  <button class="next" onclick="go('debrief')">つづける</button>`;
+    }
+    if(c === "open"){
+      return `
+  ${say("あ、すいません、今は大丈夫です。連れを待っているだけなので——ご親切にありがとうございます。")}
+  ${learn("断られました", `
+    <p>今日は、待ち合わせだっただけ。</p>
+    <p>それでも、あなたは何もまちがっていない。声をかけた時点で良いことをしている。<b>落ち込む必要は、まったくない</b>。丁重に断って、それでおしまい——それがふつうです。</p>
+  `)}
+  <button class="next" onclick="go('debrief')">つづける</button>`;
+    }
+    return `
+  ${say("え、何がですか？")}
+  ${learn("通じませんでした", `
+    <p>悪いことは、何も起きていません。ただ、通じない。「大丈夫ですか？」は<b>情報の少ない聞き方</b>なので、困っていない人には、きょとんとされます。</p>
+    <p>できれば、より開かれた形——「何かお手伝いできることありますか？」。あるいは、もっと軽く——「こんにちは」。</p>
+  `)}
+  <button class="next" onclick="go('debrief')">つづける</button>`;
+  }
+  return `
+  <div class="card">
+    <p class="narr">そのまま、通り過ぎた。彼が困っていたのかどうかは——今日は、分からないまま。</p>
+  </div>
+  ${learn("それも、ふつうのことです", `
+    <p>責められることではありません。</p>
+    <p>ただ、分からないままは、すこし気になる——気になったら、声をかけるという手がいつでもあります。「こんにちは」なら、困っていてもいなくても、ちゃんと成立します。</p>
+  `)}
+  <button class="next" onclick="start()">もう一周してみる</button>
+  <button class="ghost" onclick="goInfo('bs1')">舞台裏</button>
+  <button class="ghost" onclick="go('home')">ホームへ</button>
+  <button class="ghost" onclick="quitPressed()">終了する</button>`;
+};
+
+V.silent = () => `
+  <div class="card">
+    <p class="narr">何も言わずに${S.item.name}を拾い、さしだす。彼は軽く会釈して、受けとった。</p>
+  </div>
+  ${say("……ご親切に、ありがとうございます。")}
+  ${learn("この選択について", `
+    <p><b>最善とは言えない。でも、十分ありがたい</b>——作者はそう感じます。拾ってくれる人が、話すことが難しい人かもしれない。日本語の話者でないかもしれない。もしそうした事情がなくても、<b>善意は善意</b>です。</p>
+    <p>ただ、物によって「手渡しがいい」ときと「膝の上に置いてほしい」ときがあります。だから、できるなら一言コミュニケーションがあったほうが効果的で、<b>あなたの善意が、より無駄なく届きます</b>。迷ったら「どこに置きましょうか？」で、ぜんぶ解決します。</p>
+  `)}
+  <button class="next" onclick="go('debrief')">つづける</button>
+`;
+
+V.pass = () => `
+  <div class="card">
+    <p class="narr">今日は、通り過ぎた。ふつうの午後が、そのまま続いていく。</p>
+  </div>
+  ${learn("それも、ふつうのことです", `
+    <p>責められることではありません。ただ、ひとつだけ事実を置いておきます。</p>
+    <p>車椅子から落としものを拾うのは、<b>何時間かけてもできない</b>ことがある。<b>あなたなら、十秒です。</b></p>
+    <p>そして、こちらから頼むのは、ものすごくしんどい（作者の実感）。だから、<b>先に気づいた人の一声は、かける側が思うよりずっと重い</b>。</p>
+  `)}
+  <button class="next" onclick="start()">もう一周してみる</button>
+  <button class="ghost" onclick="goInfo('bs1')">舞台裏</button>
+  <button class="ghost" onclick="go('home')">ホームへ</button>
+  <button class="ghost" onclick="quitPressed()">終了する</button>
+`;
+
+V.debrief = () => `
+  ${learn("今回のまとめ", `
+    <p>迷ったら<b>「何かお手伝いできることありますか？」</b></p>
+    <p>もっと迷ったら<b>「こんにちは」</b>だけでもいい。挨拶は、通じます。</p>
+    <p>あとは、本人が教えてくれます。障害も、性格も、やり方も人それぞれだから、正解の暗記はいらない。<b>聞けばいい</b>。それだけ持ち帰ってください。</p>
+  `)}
+  ${learn("もし断られても", `
+    <p>タイミングや内容が合わなくて相手に断られることはあります。それでも、声をかけた時点で良いことをしている。<b>落ち込む必要は、まったくない</b>。</p>
+  `)}
+  ${walkCard()}
+  <div class="grad">ここまでが、0回目。<br>ここでは、何度でも練習できます。</div>
+  <button class="next" onclick="start()">もう一周（すこし状況が変わります）</button>
+  <button class="ghost" onclick="goInfo('bs1')">舞台裏</button>
+  <button class="ghost" onclick="goInfo('whatis')">おことわり</button>
+  <button class="ghost" onclick="go('home')">ホームへ</button>
+  <button class="ghost" onclick="quitPressed()">終了する</button>
+`;
+
+let lastBox = 1;
+const bsHead = (title) => `<div class="scenebox"><p class="eyebrow">${title}</p><h2 class="bsh">舞台裏</h2></div>`;
+const bsClose = () => `
+  <div class="card">
+    <p class="narr">ただし、本物の人に普遍的な正解はありません。障害も、性格も、やり方も、人それぞれ。だから、<b>迷ったら本人に聞く</b>。それが、たったひとつの結論です。</p>
+  </div>`;
+function bsFrame(title, cards){
+  return bsHead(title) + cards + bsClose() + `
+  <button class="next" onclick="goBack()">もどる</button>
+  <button class="ghost" onclick="quitPressed()">終了する</button>
+`;
+}
+V.bs1 = () => bsFrame("歩道で", `
+  ${learn("よくある困りごと", `
+    <p>この場面で登場するのは、実際に作者が街で一人の時、しばしば陥る状況です。いちばん多いのは<b>落としもの</b>。あなたなら十秒、自力では何時間かけても無理なことがある。紙がいちばん厄介。ほかに、<b>引く方向の開き戸</b>（簡単だけど、人通りが少ない場合は特に切実）。<b>段差（1〜2分。頼む側もすごく心苦しい）</b>。他に高い所の物など。</p>
+  `)}
+  ${learn("体のこと", `
+    <p>視点は、立っている人の腰の高さ。見えるのは前方およそ160度で、うしろからの声はほぼ届きません。無視ではなく、届かない。近づくなら<b>やや斜め前</b>（車椅子は前後には動くけれど、横にずれるようには動かない）。腰をかがめて目線を合わせるのは、いちばん伝わる信頼の合図。</p>
+  `)}
+  ${SPL}
+  ${learn("声のかけ方", `
+    <p><b>「こんにちは」</b>——いちばん軽い。挨拶は申し出ではないから、断りが発生しません。<b>「何かお手伝いできることありますか？」</b>——いちばん情報の多い聞き方。「大丈夫ですか？」——困りごとが見えているときは全く問題なし。見えないときは「え、何がですか？」と返される可能性があります。黙って拾って渡すのも十分ありがたいですが、一言あると善意がより無駄なく届きます。</p>
+  `)}
+  ${learn("断られたら", `
+    <p>相手が断るのは、困っていないときだけ。「あ、すいません、今は大丈夫です」、それで終わり。落ち込む必要は、まったくない。街中で声をかけてくれる人は決して多くない。そうした中で、<b>貴重な時間を使って気にかけてくれた。それだけで十分ありがたく感じます</b>。</p>
+  `)}
+  ${learn("この場面のからくり", `
+    <p>歩道の彼は、いちばん多くは落としものを見つめています。段差の前で人を待つ日も、開かない扉の前で呼びかける日も、自動販売機を見上げる日も、ただスマホを見ている日もある。スマホのとき、半分は困っています。最初の五周は、彼は必ずあなたの助けを必要とするようにできています。</p>
+  `)}
+`);
+V.bs2 = () => bsFrame("会場の受付・案内", `
+  ${learn("悩みの連続", `
+    <p>柱の死角があることは、会場も公式に案内している。そしてこの階の車椅子席の数には余裕があるから、殆どの場合、見やすい位置へ少し寄っても、周囲の迷惑にはならない。ただ、その裁量が言葉で伝えられることはない。こういう時、何が最善なのか。我慢するか、さっと自然にずれるか、スタッフを探して聞きに行くか。あなたならどうするだろう。結構悩ましいのではないか。生きる上で、問題・選択・決断を避けて通れないのは誰しも同じだ。ただ障害を抱えていると、一般に理解されづらい部分や生活の細部にまで、それらが入り込んで来るように思う。</p>
+  `)}
+  ${learn("困難の連続でも生きられる理由", `
+    <p>障害当事者として生きるとは、文字通り、上記のような様々な事に一生当たり続けることを意味する。しかし引き受けるのは悪い事ばかりではない。球場に何年も通った後、スタッフや弁当屋さんから素晴らしい対応を初めてされた。街で親切な人が声をかけてくれた。そういう時、作者の中で悪い事は素晴らしい事に変わる。</p>
+  `)}
+`);
+V.bs3 = () => bsFrame("職場", `
+  ${learn("職場の場面について", `
+    <p>各場面と選択肢は、八つの構造的問題とリンクしています。①障害者枠採用者への先入観、②意思統一のない配属、③固定された「お世話係」への負担の集中、④障害者と接した経験の薄さ、⑤前例踏襲への固執、⑥「特別扱いしてはならない」の履き違え、⑦新人への役割期待、⑧関係を立て直せる場が夜の二次会にしか無いこと。どれも単独ではなく絡み合って効きます。そしてどれにも、係長は影響します。たとえ決定を覆せなくても、人の認識に書き込まれ、次の人に残ります。</p>
+    <p>結末は、一年半で辞める／三年半で辞める／勤続十一年目を迎える、の三つです。八つの場面の選択を総合して決まります。三年半が、作者の実際の勤続年数です。</p>
+    <p>これは職場の完全な再現ではありません。球場・役所・図書館の三つの職場での実体験(2014年〜2019年頃)と創作とを織り交ぜて作りました。</p>
+  `)}
+`);
+V.backstage = () => `
+  <div class="card">
+    <p class="narr">プレイして頂きありがとうございました。</p>
+    <p class="narr">この作品は、いつ戻ってきても、また同じように始まります。</p>
+    <p class="narr">最後にいくつか背景を提示しておきます。本作であなたが体験したことは、作者の実体験から作られています。</p>
+  </div>
+  ${learn("作者について", `
+    <p>歩くことができず、右手が使えない、背中の曲がった車椅子の男性。</p>
+  `)}
+  <div class="card about">
+    <h2>なぜ作ったか</h2>
+    <p>施設で過ごした身として、障害者と健常者が対等に混ざり合うことの大切さを強く感じてきました。両者が隔絶され交わらなければ、表面上はトラブルがなくなるかもしれません。しかし互いに何かを分かり合うこともなくなります。そして、知らないがゆえの決めつけや怖れが、どちらの側にも積み重なっていくでしょう。だから混ざるしかない。それは障害者の生存だけでなく、社会全体にも資すると信じます。</p>
+    <p>ただ混ざろうと言っても、接し慣れてなければ身構えるのは当然です。学校で障害者と混ざる機会がなく成人した健常者であれば尚更です。主にそうした方々が、自分も相手も傷付けずに交流の入口を練習できる道具を作りたい。それが本作の原点になりました。</p>
+    <p>いつか、練習なんか要らない時代が来ることを願っています。</p>
+  </div>
+  <div class="grad">ここまでが、0回目。<br>ここから先は、本物の人と。</div>
+  ${quitBack ? '<button class="next" onclick="resumeQuit()">続きへもどる</button>' : ""}
+  <button class="${quitBack ? "ghost" : "next"}" onclick="go('home')">ホームへ</button>
+`;
+
+
+let infoBack = null, infoOpen = false;
+function goInfo(v){
+  const back = infoOpen ? infoBack : { html: stage.innerHTML, pending: pendingSecond, y: window.scrollY || 0 };
+  render(V[v]());
+  infoBack = back; infoOpen = true;
+}
+function goBack(){
+  const back = infoBack; infoBack = null; infoOpen = false;
+  if(back){ renderRaw(back.html); pendingSecond = back.pending; window.scrollTo({top: back.y || 0, behavior:"auto"}); } else { go("home"); }
+}
+
+V.genkan = () => `
+  <div class="hero">
+    <div class="eyebrow">初対面の、そのまえに。</div>
+    <h1>0回目</h1>
+    <p class="sub">障害のある人との「はじめて」を練習するための小さなブラウザ作品です。<br>
+    ここでの失敗は誰も傷つけません。何度でもやり直せます。</p>
+  </div>
+  <div class="card about">
+    <h2>これは何？</h2>
+    <p>これは<b>0回目</b>——現実の障害者との初対面（1回目）の前の、<b>安全な練習場</b>です。あなたの選択は、<b>どこにも送信されません</b>。</p>
+    ${fold(`
+    <p>このブラウザ作品に関心を持って下さったあなたは、おそらくいい人でしょう。それでも、障害者とどう接していいか、イメージできないかもしれません。作者は<b>「迷ったら本人に聞く」</b>以上の正解は無いと考えています。しかしそれは必ずしも最初から簡単にできることではない、とも認識しています。未知で異質な他者を恐れたり、接触に不安を感じるのは自然なことです。</p>
+    <p>そこで本作では、そうした<b>心理的バリアの緩和を目指しました</b>。手軽さとゲーム性も両立したつもりです。<b>よくある3つの具体的な場面での選択を通じて、</b>こういう人間や会話が社会に存在することを知り、<b>仮想的に関わることができます。</b>それが少しでも、現実での障害者との交流に資することを願います。</p>
+    `, "もっと詳しく")}
+    ${TTS_SUPPORTED ? `<button class="ghost yomilink" onclick="go('yomiage')">本作の読み上げボタンの説明はこちら</button>` : ""}
+  </div>
+  <button class="next" onclick="go('home')">場面を選ぶ</button>
+`;
+
+V.whatis = () => `
+  <div class="card about">
+    <h2>おことわり</h2>
+    <p>これは、あらゆる障害への対応マニュアル<b>ではありません</b>。マナー試験でも、本物の出会いの代わりでもありません。</p>
+    <p>障害も、性格も、価値観も、人それぞれです。だからこそ、接し方の正解はひとつではありません。<b>迷ったら、目の前の本人に聞くのがいちばんです。</b></p>
+    <h2>「障害者」と「健常者」という線引きについて</h2>
+    <p>これに関しては様々な議論があることは承知しています。確かにそれらの内実は千差万別であり、定義も是非もニュアンスも絶えず揺れ動いています。ただ本作では平易さを重視し、便宜的に使いました。誰をどんなラベルで呼ぼうとも、<b>その前にまず皆人間です。それを忘れないこと</b>の方が遥かに大事だと思います。ですから用語の詳細な議論に立ち入ることはしていません。</p>
+    <h2>セリフと知識の出どころ</h2>
+    <p>場面の相手役は<b>作者</b>を原型にした人物で、歩くことができず、右手が使えない、背中の曲がった車椅子の男性です。<b>障害のある人の「代表」ではありません。</b>場面のセリフと解説は、原則的に作者の監修を終えています。しかしそれらは作者の主観に基づいており、無謬性を保証するものではありません。</p>
+    ${TTS_SUPPORTED ? `<button class="ghost yomilink" onclick="goInfo('yomiage')">本作の読み上げボタンの説明はこちら</button>` : ""}
+  </div>
+  <button class="next" onclick="goBack()">もどる</button>
+`;
+
+V.yomiage = () => `
+  <div class="card about">
+    <p>画面の上のほうに並んだ四つのボタンの、一つ目が「読み上げ」です。押すと、いまの画面の文章を上から順に声で読みます。読み上げ中は、「停止」というボタンになります。もう一度押すと止まります。声は端末によって変わります。ブラウザによっては、声にするために、読み上げる文章をブラウザの提供元へ送ることがあります。</p>
+    <p>止めるまでは、次の画面へ進んでも続けて読みます。選択肢の前には「選択肢1」のように番号を、そのほかのボタンの前には「ボタン」を、閉じた折りたたみの前には「折りたたみ」を付けて読みます。閉じた折りたたみは題だけを読み、開くとその中身を読みます。</p>
+    <p>上のほうの四つのボタンと、いちばん下の案内は読みません。従って、ここでその内容をご説明します。</p>
+    <p>ボタンは順番に、読み上げ、反転、おことわり、終了する、です。「反転」は色の切り替えのことを指しています。反転中は、「元の色」というボタンになります。</p>
+    <p>いちばん下の案内は以下の通りです。</p>
+    <p>「${document.getElementById("verstamp").textContent} ｜ 場面1「歩道で」・場面2「会場の受付・案内」（第一部・第二部）・場面3「職場」<br>あなたの選択は、どこにも送信されません。<br>作者・出どころ・くわしい説明は README（GitHub） に。作り方の経緯と補足は ブログの記事 に。」</p>
+  </div>
+  <button class="next" onclick="yomiBack()">もどる</button>
+`;
+function yomiBack(){ if(infoOpen && infoBack && infoBack.html.indexOf('onclick="yomiBack()"') < 0){ goBack(); } else { infoBack = null; infoOpen = false; go("genkan"); } }
+
+const TTS_SUPPORTED = (typeof speechSynthesis !== "undefined") && (typeof SpeechSynthesisUtterance !== "undefined");
+let ttsOn = false, ttsList = [], ttsIdx = 0, ttsVoice = null, ttsTimer = null, ttsUtter = null;
+let ttsAuto = false, ttsGen = 0, ttsRoot = null;
+const TTS_AUTO_DELAY_MS = 300;
+
+const TTS_DICT = [
+  ["3階に降ります", "3階におります"]  ,
+  ["」には", "」、には"]  ,
+  ["4階・お席", "4階、おせき"]  ,
+  ["場面3", "ばめんさん"]  ,
+  ["の側", "のがわ"]  ,
+  ["ただ「少々」の長さ", "ただ、「少々」、の長さ"]  ,
+  ["まだ約束がある。「帰りの時間帯には、4階にスタッフを」。いま前に", "まだ約束がある。—「帰りの時間帯には、4階にスタッフを」。—いま前に"]  ,
+  ["萎縮", "いしゅく"], ["起案", "きあん"], ["捻挫", "ねんざ"], ["居宅介護", "きょたくかいご"]  ,
+  ["持ち帰ってほしい型", "持ち帰ってほしいかた"]  ,
+  ["数センチ", "すうセンチ"]  ,
+  ["申し出", "もうしで"]  ,
+  ["辛く", "つらく"]  ,
+  ["こんな風に", "こんなふうに"]  ,
+  ["◯◯番", "まるまるばん"]  ,
+  ["の方を向いて", "のほうを向いて"]  ,
+  ["一文", "いちぶん"]  ,
+  ["保ったまま", "たもったまま"]  ,
+  ["第一部の選択: ", "第一部の選択。—"]  ,
+  ["立ち入る", "たちいる"]  ,
+  ["物の準備", "ものの準備"]  ,
+  ["雨合羽", "あまがっぱ"]  ,
+  ["四通", "よんつう"]  ,
+  ["右上の角", "右上のかど"]  ,
+  ["庁舎中", "ちょうしゃじゅう"]  ,
+  ["システム入れない", "システムいれない"]  ,
+  ["議事録って", "ぎじろくって"]  ,
+  ["楽したい", "らくしたい"]  ,
+  ["道に迷った", "みちに迷った"]  ,
+  ["連れの方を", "連れのほうを"]  ,
+  ["避けられない", "さけられない"]  ,
+  ["係が入れ替わった", "かかりが入れ替わった"]  ,
+  ["受取所の方へ", "受取所のほうへ"]  ,
+  ["柱の縁", "柱のふち"]  ,
+  ["スマホの方を", "スマホのほうを"]  ,
+  ["4月はじめ", "しがつはじめ"]  ,
+  ["10月はじめ", "じゅうがつはじめ"]  ,
+  ["係で集まろう", "かかりで集まろう"]  ,
+  ["街中で", "まちなかで"]  ,
+  ["エレベーターの方が", "エレベーターのほうが"]  ,
+  ["忘れないことの方が", "忘れないことのほうが"]  ,
+  ["柱", "ハシラ"]  ,
+  ["球場・役所・図書館", "球場、役所、図書館"]  ,
+  ["性根", "しょうね"]  ,
+  ["三者", "さんしゃ"]  ,
+  ["何年も通った", "何年もかよった"]  ,
+  ["一年半で辞める／三年半で辞める／勤続十一年目を迎える", "一年半で辞める、三年半で辞める、勤続十一年目を迎える"]  ,
+  ["頭の上の方へ", "頭の上のほうへ"]  ,
+  ["ヘルパーさんの方を向く", "ヘルパーさんのほうを向く"]  ,
+  ["上のほうの", "うえのほうの"]  ,
+  ["最後尾", "さいこうび"]  ,
+  ["介助者の方へ", "介助者のほうへ"]  ,
+  ["いつも通り", "いつもどおり"]  ,
+  ["両側", "りょうがわ"]  ,
+  ["係長、彼のきあん、", "係長。彼のきあん、"]  ,
+  ["（例：", "（例。"]  ,
+  ["①", "まるいち"], ["②", "まるに"], ["③", "まるさん"], ["④", "まるよん"], ["⑤", "まるご"], ["⑥", "まるろく"], ["⑦", "まるなな"], ["⑧", "まるはち"]
+];
+const TTS_PAUSE_MS = 600;
+function ttsApplyDict(t){
+  for(const pair of TTS_DICT){ t = t.split(pair[0]).join(pair[1]); }
+  t = t.replace(/S(\d)' /g, "エス$1ダッシュ。 ");
+  t = t.replace(/S(\d) /g, "エス$1。 ");
+  t = t.replace(/S(\d)'/g, "エス$1ダッシュ");
+  t = t.replace(/S(\d)/g, "エス$1");
+  const WK = ["", "いち", "に", "さん", "よん", "ご", "ろく", "なな", "はち", "きゅう"];
+  t = t.replace(/W(\d)' /g, function(_, d){ return "ダブリュー" + WK[+d] + "ダッシュ。 "; });
+  t = t.replace(/W(\d) /g, function(_, d){ return "ダブリュー" + WK[+d] + "。 "; });
+  t = t.replace(/W(\d)'/g, function(_, d){ return "ダブリュー" + WK[+d] + "ダッシュ"; });
+  t = t.replace(/W(\d)/g, function(_, d){ return "ダブリュー" + WK[+d]; });
+  t = t.split("」と").join("」、と");
+  t = t.replace(/(^|[。 ])は？/g, "$1ハ？");
+  return t;
+}
+
+function ttsPickVoice(){
+  if(!TTS_SUPPORTED) return;
+  const ja = speechSynthesis.getVoices().filter(function(v){ return (v.lang || "").toLowerCase().indexOf("ja") === 0; });
+  ttsVoice = ja.find(function(v){ return /google/i.test(v.name); }) || ja[0] || null;
+}
+
+function ttsParts(marks, root){
+  const clone = (root || stage).cloneNode(true);
+  if(root){ Array.from(clone.children).forEach(function(c){ if(c.tagName === "SUMMARY") c.remove(); }); }
+  clone.querySelectorAll("details.fold:not([open])").forEach(function(d){
+    const s = d.querySelector("summary"); const p = document.createElement("p"); p.className = "narr";
+    p.textContent = s ? (marks ? "折りたたみ、" : "") + s.textContent.trim() : ""; d.parentNode.replaceChild(p, d);
+  });
+  clone.querySelectorAll('[role="img"]').forEach(function(el){
+    const p = document.createElement("p");
+    p.className = "narr";
+    p.textContent = "図の説明。" + (el.getAttribute("aria-label") || "");
+    el.parentNode.replaceChild(p, el);
+  });
+  clone.querySelectorAll("br").forEach(function(b){ const prev = ((b.previousSibling && b.previousSibling.textContent) || "").trim(); b.parentNode.replaceChild(document.createTextNode(/[。！？]$/.test(prev) ? " " : "。 "), b); });
+  const parts = [];
+  const els = Array.from(clone.querySelectorAll(".eyebrow,h1,h2,.sub,.sn,.meta,.narr,.say .who,.say .line,.qlabel,.learnhead .t,.learn p,.grad,.about p,.card p,details.fold summary,details.fold p,button"));
+  const elSet = new Set(els);
+  let choiceNo = 0;
+  els.forEach(function(el){
+    if(el.parentElement && elSet.has(el.parentElement)) return;
+    let t = el.textContent.replace(/\s+/g, " ").trim();
+    if(!t) return;
+    if(marks && el.tagName === "BUTTON") t = (el.classList.contains("choice") ? "選択肢" + (++choiceNo) + "、" : "ボタン、") + t;
+    parts.push(t);
+  });
+  if(!parts.length) parts.push(clone.textContent.replace(/\s+/g, " ").trim());
+  return parts;
+}
+
+function ttsText(root){
+  return ttsParts(true, root).join("。 ").replace(/。{2,}/g, "。");
+}
+
+const TTS_READABLE = /[0-9A-Za-z０-９Ａ-Ｚａ-ｚぁ-ゖァ-ヺー一-鿿々〆]/;
+function ttsChunks(text){
+  const out = [];
+  let buf = "";
+  const push = function(s){ s = s.trim(); if(s && TTS_READABLE.test(s)) out.push(s); };
+  for(const ch of text){
+    if(ch === "—"){
+      push(buf);
+      if(out[out.length - 1] !== "\u0000") out.push("\u0000");
+      buf = "";
+      continue;
+    }
+    buf += ch;
+    if(ch === "。" || ch === "！" || ch === "？"){
+      push(buf);
+      buf = "";
+    } else if(buf.length >= 90){
+      const cut = buf.lastIndexOf("、");
+      if(cut > 30){ push(buf.slice(0, cut + 1)); buf = buf.slice(cut + 1); }
+      else { push(buf); buf = ""; }
+    }
+  }
+  push(buf);
+  return out;
+}
+
+function ttsSetOn(on){
+  ttsOn = on;
+  const b = document.getElementById("ttsbtn");
+  if(!b) return;
+  b.setAttribute("aria-pressed", on ? "true" : "false");
+  b.textContent = on ? "⏹ 停止" : "🔊 読み上げ";
+  b.setAttribute("aria-label", on ? "読み上げを停止する" : "この画面を読み上げる");
+}
+
+function ttsSpeakNext(){
+  if(!ttsOn || ttsIdx >= ttsList.length){ ttsSetOn(false); return; }
+  const piece = ttsList[ttsIdx++];
+  if(piece === "\u0000"){ ttsTimer = setTimeout(ttsSpeakNext, TTS_PAUSE_MS); return; }
+  const u = new SpeechSynthesisUtterance(piece);
+  u.lang = "ja-JP";
+  if(ttsVoice) u.voice = ttsVoice;
+  u.rate = 1;
+  const g = ttsGen;
+  u.onend = function(){ if(g === ttsGen) ttsSpeakNext(); };
+  u.onerror = function(){ if(g === ttsGen) ttsSetOn(false); };
+  ttsUtter = u;
+  speechSynthesis.speak(u);
+}
+
+function ttsStart(root){
+  if(!TTS_SUPPORTED) return;
+  if(ttsTimer){ clearTimeout(ttsTimer); ttsTimer = null; }
+  ttsGen++;
+  ttsRoot = root || null;
+  ttsList = ttsChunks(ttsApplyDict(ttsText(root)));
+  ttsIdx = 0;
+  if(!ttsList.length) return;
+  const busy = speechSynthesis.speaking || speechSynthesis.pending;
+  if(busy) speechSynthesis.cancel();
+  ttsSetOn(true);
+  if(busy) ttsTimer = setTimeout(ttsSpeakNext, 60); else ttsSpeakNext();
+}
+
+function ttsStop(){
+  if(!TTS_SUPPORTED){ return; }
+  if(ttsTimer){ clearTimeout(ttsTimer); ttsTimer = null; }
+  ttsGen++;
+  ttsOn = false;
+  ttsUtter = null;
+  speechSynthesis.cancel();
+  ttsSetOn(false);
+}
+
+(function(){
+  const b = document.getElementById("ttsbtn");
+  if(!b) return;
+  if(!TTS_SUPPORTED){ b.style.display = "none"; return; }
+  b.addEventListener("click", function(){ if(ttsOn){ ttsAuto = false; ttsStop(); } else { ttsAuto = true; ttsStart(); } });
+  ttsPickVoice();
+  if(speechSynthesis.onvoiceschanged !== undefined){
+    speechSynthesis.addEventListener("voiceschanged", ttsPickVoice);
+  }
+})();
+window.addEventListener("pagehide", function(){ ttsAuto = false; ttsStop(); kenshuHalt(); });
+
+stage.addEventListener("click", function(e){
+  const s = (e.target && e.target.closest) ? e.target.closest("summary") : null;
+  const d = s ? s.parentElement : null;
+  if(!d || !d.matches("details.fold") || !ttsAuto || !TTS_SUPPORTED) return;
+  if(d.open){ if(ttsOn && ttsRoot === d) ttsStop(); return; }
+  setTimeout(function(){ if(d.open && d.isConnected && ttsAuto) ttsStart(d); }, 0);
+});
+
+function go(v){ render(V[v]()); }
+
+function invToggle(){
+  const on = document.documentElement.classList.toggle("inv");
+  const b = document.getElementById("invbtn");
+  if(!b) return;
+  b.setAttribute("aria-pressed", on ? "true" : "false");
+  b.textContent = on ? "◐ 元の色" : "◐ 反転";
+  b.setAttribute("aria-label", on ? "元の色にもどす（白地に黒い文字）" : "配色を反転する（黒地に白い文字）"   );
+}
+
+let quitBack = null;
+
+let histPushed = false;
+function histEnter(){ if(!histPushed && typeof history !== "undefined" && history.pushState){ try{ history.pushState({ zerokaime: 1 }, "", location.href); histPushed = true; }catch(e){} } }
+window.addEventListener("popstate", function(){ if(histPushed){ histPushed = false; infoBack = null; infoOpen = false; quitBack = null; go("home"); } });
+function isSceneNow(root){ root = root || stage; return !root.querySelector(".hero") && !root.querySelector(".about") && !root.querySelector("h2.bsh") && !/プレイして頂きありがとうございました|ここで閉じて、大丈夫です/.test(root.textContent); }
+function quitPressed(){
+  if(playCount > 0 || b2Played || b2p2Played || b3Played){
+    if(isSceneNow()) quitBack = { html: stage.innerHTML, pending: pendingSecond, y: window.scrollY || 0 };
+    else if(infoOpen && infoBack && isSceneHtml(infoBack.html)){ quitBack = infoBack; infoBack = null; }
+    go("backstage");
+  } else { go("exitlite"); }
+}
+function isSceneHtml(html){ const t = document.createElement("div"); t.innerHTML = html; return isSceneNow(t); }
+function resumeQuit(){ const b = quitBack; quitBack = null; if(b){ renderRaw(b.html); pendingSecond = b.pending; window.scrollTo({top: b.y || 0, behavior:"auto"}); } else { go("home"); } }
+function start(){ histEnter(); newRun(); lastBox = 1; quitBack = null; WALK = []; render(V.open()); }
+function goNear(){ decideWorld(); render(V.near()); }
+
+function pick1(c){
+  if(c === "hello"){ render(V.helloDrop()); }
+  else if(c === "back"){ render(V.noreact()); }
+  else if(c === "front"){ render(V.front()); }
+  else if(c === "silent"){ render(V.silent()); }
+  else { render(V.pass()); }
+}
+
+function pick2(variant){ render(V.accept(variant)); }
+
+function pickPhone(c){ render(V.resPhone(c)); }
+function pickDansa(c){ render(V.resDansa(c)); }
+function pickDoor(c){ render(V.resDoor(c)); }
+function pickTaka(c){ render(V.resTaka(c)); }
+
+let B2 = {};
+let b2Played = false;
+function b2Start(){ histEnter(); B2 = {}; b2Played = true; lastBox = 2; quitBack = null; WALK = []; render(V.b2s1()); }
+
+V.b2gate = () => `
+  <div class="scenebox"><p class="eyebrow">場面2</p><h2>会場の受付・案内</h2></div>
+  <p class="narr">この場面は二部構成です。</p>
+  <p class="narr"><b>第一部</b>では、あなたはこの会場の受付・案内<b>スタッフ</b>です。車椅子の来場者と、その連れの人がゲートに来ます。</p>
+  <p class="narr"><b>第二部</b>では、同じ一日を、車椅子の<b>来場者</b>として体験します。第一部であなたが選んだ対応が、相手の側にどう届いていたかが見えます。</p>
+  ${SPL}
+  <p class="narr">第二部だけを歩くこともできます。その場合は第一部の選択の代わりに、最も辛く感じた日の対応の組み合わせで進みます。</p>
+  <button class="next" onclick="b2Start()">第一部から歩く（おすすめ）</button>
+  <button class="ghost" onclick="b2p2Start(true)">第二部だけ歩く</button>
+  <button class="ghost" onclick="go('home')">戻る</button>
+`;
+
+V.b2bridge = () => `
+  <p class="grad">ここまでが、スタッフとしての一日。</p>
+  <p class="narr"><b>ここからは、視点が変わります。</b>同じ一日を、車椅子で入場する側から歩きます。</p>
+  <p class="narr">さっきあなたが選んだ一手が、「第一部の選択」という札で示されます。それは相手にどう届いていたのでしょうか。</p>
+  <button class="next" onclick="b2p2Start(false)">車椅子側から歩く</button>
+  <button class="ghost" onclick="b2Start()">第一部をもう一周</button>
+  <button class="ghost" onclick="go('home')">ホームに戻る</button>
+`;
+
+function noteBox(t){
+  return `<p class="sn" style="border:1px dashed var(--muted);padding:8px 10px;border-radius:8px">${t}</p>`;
+}
+function b2Manual(t){ return noteBox("研修マニュアル: " + t); }
+
+V.b2s1 = () => `
+  <div class="scenebox"><p class="eyebrow">受付ゲート・開場直後</p>
+  <h2>S1 受付係</h2>${prog(1,4)}</div>
+  ${b2Manual("チケットを確認し、入場口へご案内する。")}
+  <p class="narr">列の先に、車椅子の男性と、その横に立っている連れの人。二人連れらしい。今分かるのはそれだけだ。</p>
+  <p class="narr">順番が来た。車椅子の男性が、こちらを見て口を開く。</p>
+  <div class="say"><span class="who">車椅子の男性</span><span class="line">車椅子席、合計2枚。僕本人と、こちらの介助者のぶんです。</span></div>
+  ${figure("b2_s1")}
+  ${SPL}
+  <p class="narr">席種の申告だ。連れの人は、介助者だった。</p>
+  <p class="qlabel">どうしますか</p>
+  <button class="choice" onclick="b2s1('tsure')">介助者の方に「チケットお願いします」と言う</button>
+  <button class="choice" onclick="b2s1('tachi')">立ったまま、男性に「チケット拝見します」と言う</button>
+  <button class="choice" onclick="b2s1('kagamu')">かがんで目線を合わせ、男性に「チケットを拝見してもいいですか」と言う</button>
+  <button class="choice" onclick="b2s1('kami')">男性に「チケットは紙ですかね？」と聞く</button>
+`;
+
+function b2s1(c){
+  B2.s1 = c;
+  let head = "";
+  if(c === "tsure"){
+    head = `<div class="say"><span class="who">介助者の方</span><span class="line">私は介助者なので、ご本人に話してください。</span></div>
+    <p class="narr">はっきりした、慣れた声だった。男性がうなずいて、自分のスマホを取り出す。</p>
+    ${learn("最初の一瞥", `
+    <p>連れにまず目が行くのは、誰にでも起きうる。単に目線の高さが近いからというだけの場合もあるだろう。とある日でも、多くのスタッフが、最初の一瞬は連れの方を見た。試されるのは一瞥そのものではなく、本人が話し出した時に<b>向き直ることを厭わないか</b>。</p>
+  `)}`;
+  } else if(c === "tachi"){
+    head = `<p class="narr">男性がスマホの画面を差し出す。あなたの位置からは、少し遠い。彼は腕を伸ばしている。</p>`;
+  } else if(c === "kagamu"){
+    head = `<div class="say"><span class="who">車椅子の男性</span><span class="line">はい、これでお願いします。</span></div>
+    <p class="narr">スマホがすっと差し出される。目が合う高さだと、確認は一往復で終わる。</p>
+    ${learn("かがむことの意味", `
+    <p>この「（かがんで）拝見してもいいですか」は、作者が「お手本のようだ」と感じた実在の一手。目線の高さを合わせることは、性根の問題ではなく、<b>数秒でできる所作</b>だ。<b>外形的に見えて、実はとても本質的で意義深い</b>行為。</p>
+  `)}`;
+  } else {
+    head = `<div class="say"><span class="who">車椅子の男性</span><span class="line">いえ、電子です。</span></div>
+    ${learn("かたちの決めつけ", `
+    <p>「車椅子のお客は紙・当日・窓口だろう」という前提は、導線の設計にも埋まっていることがある。処理の前に<b>「チケットはどのような形でお持ちですか」</b>と本人に聞けば、決めつける必要がなくなる。</p>
+  `)}`;
+  }
+  render(head + `
+  <p class="narr">スマホを受け取って、必要な確認は終わった。</p>
+  <p class="qlabel">手の中のスマホを</p>
+  <button class="choice" onclick="b2s1b('return')">「お返しします」と、すぐ本人の手に返す</button>
+  <button class="choice" onclick="b2s1b('keep')">スマホを預かったまま、付随するこちら側の事務処理もまとめて済ませてしまう</button>
+  `);
+}
+
+function b2s1b(c){
+  B2.s1b = c;
+  let head = "";
+  if(c === "return"){
+    head = `<p class="narr">スマホは彼の手に戻った。彼はそれをポシェットに押し込んで、前を向いた。</p>`;
+  } else {
+    head = `<p class="narr">処理のあいだ、ふと目を上げると、彼が首をねじり、ガラス越しに伸び上がるようにして、あなたの手元へ視線を送ろうとしているのに気づく。</p>
+    ${learn("預かったものの重さ", `
+    <p>とある日、作者はスマホを預けたまま列を先へ進むよう言われ、進んだ先のかどで長さの分からない待機をした。作者はこの状況をとても不安に感じた（理由は第二部で）。確認が済んだら、まず返す。それだけで消える不安がある。</p>
+  `)}`;
+  }
+  render(head + `
+  <p class="narr">ゲートを抜けた。ここでは、案内係も体験して頂く。</p>
+  <button class="next" onclick="render(V.b2s2())">案内につく</button>
+  `);
+}
+
+V.b2s2 = () => `
+  <div class="scenebox"><p class="eyebrow">ゲートの内側</p><h2>S2 案内のはじまり</h2>${prog(2,4)}</div>
+  ${b2Manual("車椅子のお客様は、お席までご案内する。")}
+  ${figure("b2_s2")}
+  <p class="qlabel">最初の一言は</p>
+  <button class="choice" onclick="b2s2('sengen')">「お席までご案内いたします」と歩き出す</button>
+  <button class="choice" onclick="b2s2('yohi')">「ご案内、ご一緒してもよろしいですか？」と聞く</button>
+`;
+
+function b2s2(c){
+  B2.s2 = c;
+  if(c === "sengen"){
+    render(`
+    <p class="narr">歩き出そうとしたとき、男性が口を開いた。</p>
+    <div class="say"><span class="who">車椅子の男性</span><span class="line">あ、すいません。先に、ネットで予約した弁当とファンクラブ特典の受け取りに寄ってから席へお願いできますか。</span></div>
+    <p class="qlabel">どうしますか</p>
+    <button class="choice" onclick="b2s2b('matte')">「少々お待ちください」と、無線で確認する</button>
+    <button class="choice" onclick="b2s2b('fukusho')">「受け取り場所を経由して、お席へ行きますね」と復唱する</button>
+    <button class="choice" onclick="b2s2b('manual')">「お席までのご案内と決まっておりまして……」と説明する</button>
+    `);
+  } else {
+    render(`
+    <div class="say"><span class="who">車椅子の男性</span><span class="line">助かります。先に、ネットで予約した弁当とファンクラブ特典の受け取りに寄りたくて。</span></div>
+    ${learn("聞けば、言える", `
+    <p>とある日、要否を聞かれる場面は一度もなく、流れが速すぎて要望を言う暇すらなかった。「ご一緒してもよろしいですか？」という問いは、案内の要否を本人に返すと同時に、<b>相手の要望が出てくる隙間</b>を作る。聞かれた瞬間、初めて言えることがある。</p>
+  `)}
+    <button class="next" onclick="b2s2b('fukusho')">「受け取り場所を経由して、お席へ行きますね」</button>
+    `);
+  }
+}
+
+function b2s2b(c){
+  B2.s2b = c;
+  let head = "";
+  if(c === "matte"){
+    head = `<p class="narr">「少々お待ちください」。あなたは無線に向かって小声で確認を始める。男性と介助者の方は、通路の脇で待っている。どれくらい待つのか、あなたもまだ言っていない。</p>
+    ${learn("待たせ方の作法", `
+    <p>確認が要ること自体は、責められない。ただ「少々」の長さを知らされない待機は、待つ側では別の重さになる。<b>「2〜3分いただきます。終わったらこちらからお声がけします」</b>こんな風に長さと再開の約束を先に告げるだけで、同じ待ち時間でも、感じ方が変わる。</p>
+  `)}`;
+  } else if(c === "fukusho"){
+    head = `<div class="say"><span class="who">車椅子の男性</span><span class="line">ありがとうございます。</span></div>
+    ${learn("復唱は受領証", `
+    <p>要望をそのまま口に出して返す。それだけで「聞こえています、消えません」の証明になる。とある日にこれをやった案内人は、受け取りを一度も落とさなかった。</p>
+  `)}`;
+  } else {
+    head = `<p class="narr">説明の途中で、男性が言った。</p>
+    <div class="say"><span class="who">車椅子の男性</span><span class="line">……途中に、受取所があるんです。</span></div>
+    ${learn("マニュアルの外の一歩", `
+    <p>マニュアルは「席まで届けること」しか見ていない。間違いというよりは、目標が狭い。だからこそ、経由地を足すという小さな逸脱が、マニュアルより先に相手を見た証明になる。</p>
+  `)}`;
+  }
+  render(head + `
+  <p class="narr">お弁当の受取所を経由した。包みは、男性の膝の上に。</p>
+  <button class="next" onclick="render(V.b2s3())">席へ向かう</button>
+  `);
+}
+
+V.b2s3 = () => `
+  <div class="scenebox"><p class="eyebrow">連絡通路</p><h2>S3 引き継ぎ</h2>${prog(3,4)}</div>
+  <p class="narr">イヤーインカムが鳴る。「——対応が長くなっているようだが、大丈夫か？ 厄介案件なら、交代で対応に入ってもいいが」。</p>
+  ${figure("b2_s3")}
+  <p class="qlabel">どうしますか</p>
+  <button class="choice" onclick="b2s3('marunage')">「代わってもらいます」——来た後任に「あと、お願いします」とだけ伝える</button>
+  <button class="choice" onclick="b2s3('hikitsugi')">後任に「◯◯番のお席まで。道中でファンクラブ特典の受け取りをご希望です」と伝えて交代する</button>
+  <button class="choice" onclick="b2s3('ikki')">無線に「いえ、大丈夫です。このままご案内を終えます」と返す</button>
+`;
+
+function b2s3(c){
+  B2.s3 = c;
+  let head = "";
+  if(c === "marunage"){
+    head = `<p class="narr">後任のスタッフが駆けてくる。そして、介助者の方を向いて言った。「どちらのお席ですか？」。男性が、さっき言ったことを、もう一度最初から説明し直している。</p>
+    ${learn("引き継ぎのリセット", `
+    <p>担当が替わるたび、情報が消え、視線の方向が連れに戻り、本人が同じ説明を繰り返す。原型の記録では、しばしば問題の多くがこの<b>リレー構造</b>から生じていた。</p>
+  `)}`;
+  } else if(c === "hikitsugi"){
+    head = `<p class="narr">後任は頷いて、男性に言った。「伺っています。特典の受取所を通って、お席までご一緒します」。説明のやり直しは、起きなかった。</p>
+    ${learn("引き継ぎ一文", `
+    <p>行き先と、これからのことを一文で渡すだけで、リセットは起きない。リレーが避けられない日の、確かな次善策。</p>
+  `)}`;
+  } else {
+    head = `<p class="narr">「いえ、大丈夫です。このままご案内を終えます」。無線の向こうが一瞬黙って、「了解」と返ってきた。共用エレベーターの混雑ぶりからして、職員用エレベーターの方が早そうだ。その旨のご説明と手配を進めながら近道へとご案内していく。</p>
+    ${learn("一気通貫", `
+    <p>とある日、ゲートから席まで一人で通した案内人がいた。その瞬間、誤った列への誘導も、特典グッズの受け取り漏れも、説明のやり直しも、長いエレベーター待ちも、<b>全部が同時に消えた</b>。もし引き継がなくても、一人が文脈を保ったまま柔軟に対応できるなら、それに勝るものは無い。</p>
+  `)}`;
+  }
+  render(head + `<button class="next" onclick="render(V.b2s4())">お席へ</button>`);
+}
+
+V.b2s4 = () => `
+  <div class="scenebox"><p class="eyebrow">4階・お席</p><h2>S4 締めの一言</h2>${prog(4,4)}</div>
+  <p class="narr">席に着いた。介助者の方がパイプ椅子を広げている。あなたは持ち場に戻る前に、最後の一言を選ぶ。</p>
+  ${figure("b2_s4")}
+  <p class="qlabel">最後にかける言葉は</p>
+  <button class="choice" onclick="b2s4('sakura')">「では、ごゆっくりどうぞ」</button>
+  <button class="choice" onclick="b2s4('kuukyo')">「お帰りの際は、お近くのスタッフにお声がけください」</button>
+  <button class="choice" onclick="b2s4('souten')">「お帰りの時間帯には4階にスタッフを立たせますので、エレベーターの案内が必要なら、その者にお声がけください。ゲートのスタッフにも伝えておきます」</button>
+`;
+
+function b2s4(c){
+  B2.s4 = c;
+  let head = "";
+  if(c === "sakura"){
+    head = `<p class="narr">男性は「どうも」と応えた。帰り道のことは、まだ誰も知らない。</p>`;
+  } else if(c === "kuukyo"){
+    head = `${learn("中身の具体性", `
+    <p>「お近くのスタッフに」には、スタッフが、いつ、どこに、何のために居るのかが無い。実際にあった言い方で、以下のようなものがあった。「<b>お帰りの時間帯</b>には<b>4階</b>にスタッフを立たせますので、<b>エレベーターの案内が必要なら</b>、その者にお声がけください」。</p>
+  `)}`;
+  } else if(c === "souten"){
+    head = `<div class="say"><span class="who">車椅子の男性</span><span class="line">具体的に教えてもらえて、すごく助かりました。色々ときめ細かなご配慮、本当にありがとうございます。</span></div>
+    ${learn("中身のある約束", `
+    <p>これはとある日に実在した言葉、ほぼそのまま。時間帯・場所・目的・引き継ぎの予告——約束に四つの要素が入っている。ここまで言えるスタッフは稀で、だからこそ、これは<b>組織が支えるべき約束</b>でもある。</p>
+  `)}`;
+  }
+
+  render(head + `
+  <button class="next" onclick="go('b2bridge')">次へ</button>
+  `);
+}
+
+
+let b2p2Played = false;
+let b2Direct = false;
+
+function sayAs(who, line){
+  return `<div class="say"><div class="who">${who}</div><div class="line">${line}</div></div>`;
+}
+function p2mirror(t){
+  if(b2Direct) return "";
+  return noteBox("第一部の選択 — " + t);
+}
+function b2p2Start(direct){ histEnter(); b2Direct = !!direct; if(b2Direct) B2 = {}; b2p2Played = true; lastBox = 2; quitBack = null; WALK = b2Direct ? [] : WALK.filter(function(x){ return x.part !== "p2"; }); render(V.p2s1()); }
+
+V.p2s1 = () => {
+  let first = "";
+  if(B2.s1 === "tsure"){
+    first = p2mirror("介助者の方に「チケットお願いします」と言う") +
+      sayAs("受付係","チケットお願いします。") +
+      `<p class="narr">声の向き先は、あなたの横に立っているヘルパーさんだ。ヘルパーさんが半歩さがって、あなたを手のひらで示す。</p>` +
+      sayAs("ヘルパーさん","私は介助者なので、ご本人に話してください。") +
+      `<p class="narr">係の目が、こちらへ降りてくる。あなたはポシェットからスマホを出す。最初の一往復ぶん、遅れて始まる。</p>`;
+  } else if(B2.s1 === "tachi"){
+    first = p2mirror("立ったまま「チケット拝見します」と言う") +
+      sayAs("受付係","チケット拝見します。") +
+      `<p class="narr">声は、まっすぐあなたに来た。ただ、係は立ったままだ。あなたは腕をいっぱいに伸ばして、頭の上の方へスマホを差し出す。</p>`;
+  } else if(B2.s1 === "kagamu"){
+    first = p2mirror("かがんで「チケットを拝見してもいいですか」と言う") +
+      `<p class="narr">係が、すっとかがんだ。目が合う。</p>` +
+      sayAs("受付係","チケットを拝見してもいいですか。") +
+      `<p class="narr">スマホを、ふつうの距離で手渡せる。確認は一往復で終わった。それだけのことが嬉しい。</p>`;
+  } else if(B2.s1 === "kami"){
+    first = p2mirror("「チケットは紙ですかね？」と聞く") +
+      sayAs("受付係","チケットは紙ですかね？") +
+      sayAs("あなた","いえ、電子です。") +
+      `<p class="narr">スマホを出しながら、ふと思う。いま、紙だと思われたのは、たまたまだろうか。それでも、聞かれたぶんだけ、その場で直せた。</p>`;
+  } else {
+    first = sayAs("受付係","チケットお願いします。") +
+      `<p class="narr">声の向き先は、あなたの横に立っているヘルパーさんだ。ヘルパーさんが半歩さがって、あなたを手のひらで示す。係の目が、こちらへ降りてきて、あなたはポシェットからスマホを出す。</p>`;
+  }
+  let phone = "";
+  if(B2.s1b === "return"){
+    phone = p2mirror("「お返しします」と、すぐ本人の手に返す") +
+      sayAs("受付係","お返しします。") +
+      `<p class="narr">スマホは、すぐあなたの手に戻ってきた。ポシェットに押し込んで、前を向く。手の中に戻る。それだけで、安心する。</p>`;
+  } else {
+    phone = (B2.s1b === "keep" ? p2mirror("スマホを預かったまま、処理をまとめて済ませる") : "") +
+      `<p class="narr">スマホは、係の手の中にある。「先へお進みください」と言われて、あなたは列を離れ、通行のじゃまにならない曲がり角で止まる。</p>
+      <p class="narr">ガラスの向こうで、処理が続いている。あなたは首をねじり、伸び上がるようにして、係の手元へ視線を送る。あと何分なのか、何の処理なのかは、聞かされていない。目の前を、人の腹と鞄が流れていく。スマホを丸裸でずっと没収された状態なので、正直不安で仕方がない。手元で見えてさえいれば、まだ違う。完全に切り離されるのはかなり怖い。</p>`;
+  }
+  return `
+  <div class="scenebox"><p class="eyebrow">受付ゲート・開場直後</p><h2>S1' 入場</h2>${prog(1,6)}</div>
+  ${b2Direct ? '<p class="sn">（第一部を歩いていないので、実際にあった一日の対応がそのまま出てきます）</p>' : ''}
+  <p class="narr">日曜の昼。今日のあなたは、車椅子で、この会場に来ました。横にヘルパーさんがひとり。列がゲートへ流れていく。視点の高さは、立っている人の腰のあたり。順番が来た。</p>
+  ${sayAs("あなた","車椅子席、合計2枚。僕本人と、こちらの介助者のぶんです。")}
+  ${sayAs("受付係","かしこまりました。こちらへ。")}
+  ${first}
+  ${figure("b2_p2s1")}
+  ${SPL}
+  ${phone}
+  <button class="next" onclick="render(V.p2s2())">ゲートの内側へ</button>
+  `;
+};
+
+V.p2s2 = () => {
+  if(B2.s2 === "yohi"){
+    return `
+    <div class="scenebox"><p class="eyebrow">ゲートの内側</p><h2>S2' 案内</h2>${prog(2,6)}</div>
+    ${p2mirror("「ご案内、ご一緒してもよろしいですか？」と聞く")}
+    ${sayAs("案内係","ご案内、ご一緒してもよろしいですか？")}
+    <p class="narr">要る・要らないを、あなたが決めていい問いだった。聞かれた瞬間、言おうと思っていたことが、そのまま口から出てくる。</p>
+    ${sayAs("あなた","助かります。先に、ネットで予約した弁当とファンクラブ特典の受け取りに寄りたくて。")}
+    <button class="next" onclick="p2s2go('ok')">案内について行く</button>
+    `;
+  }
+  return `
+  <div class="scenebox"><p class="eyebrow">ゲートの内側</p><h2>S2' 案内</h2>${prog(2,6)}</div>
+  ${B2.s2 === "sengen" ? p2mirror("「お席までご案内いたします」と歩き出す") : ""}
+  ${sayAs("案内係","お席までご案内いたします。")}
+  <p class="narr">係は、もう半分うしろを向いて歩き出している。要るかどうかは、聞かれなかった。</p>
+  <p class="qlabel">どうしますか</p>
+  <button class="choice" onclick="p2s2go('follow')">ついて行く</button>
+  <button class="choice" onclick="p2s2go('refuse')">案内を断る</button>
+  `;
+};
+
+function p2Bento(retsu){
+  return (retsu === "fukusho"
+    ? `<p class="narr">そう返ってきて、少しほっとする。</p>
+    <p class="narr">やがて弁当屋さんの「予約者様受け取り口」と書かれたカウンターに案内された。そこで予約番号を言うと、</p>`
+    : retsu
+    ? `<p class="narr">お弁当の受取所にできた行列の最後尾で、案内が止まる。こんなに長い列に並ばないといけないのか。そう思いつつ1分ほどたった時、「ご予約の方はこちらでーす」と大きな声がした。そちらを見ると、弁当屋さんが「予約者様受け取り口」と書かれたカウンターから身を乗り出し、列に手を振っている。どうやら誤って当日販売の列に案内されていたようだ。そちらに行き予約番号を言うと、</p>`
+    : `<p class="narr">お弁当の受取所で、案内が止まる。予約番号を言うと、弁当屋さんが、カウンター越しにすこし身を乗り出して——</p>`) +
+    sayAs("弁当屋さん","<b>お膝の上に、お置きしましょうか？</b>") +
+    `<p class="narr"><b>聞かれてから、置かれる。</b>あたたかい包みが、膝の上でちゃんと安定している。</p>`;
+}
+function p2Fukusho(){ return !b2Direct && B2.s2 === "sengen" && B2.s2b === "fukusho"; }
+function p2Req(lead, nod){
+  if(p2Fukusho()) return p2mirror("「受け取り場所を経由して、お席へ行きますね」と復唱する") +
+    `<p class="narr">${lead}係は振り返って、</p>` + sayAs("案内係","受け取り場所を経由して、お席へ行きますね。") + p2Bento("fukusho");
+  return `<div class="card narrbox"><p class="narr">${lead}${nod}</p></div>` + p2Bento(true);
+}
+function p2s2go(c){
+  if(c === "refuse"){
+    render(`
+    <p class="narr" style="text-align:center;margin:2em 0">——言葉が、出ませんでした。</p>
+    ${learn("断れない、ということ", `
+    <p>いま、ボタンは押せたのに、断りは起きませんでした。意地悪ではなく、これが原型の実際です。</p>
+      <p>作者は、この会場の案内を、これまで<b>一度も断れたことがありません</b>。半分は構造の話。観客席へは、エレベーターが車椅子にとって唯一の動線です。案内を断ると、満員のエレベーターに延々と乗れないかもしれない。案内とエレベーターのアクセスが、事実上ひとつに束ねられている。もう半分は空気の話。別の場所で案内を断った時に浴びてきた「ほんまにええんやな……もうどうなっても知らんで」という趣旨の言動も頭にはある。そうした経験から受ける圧の中で、一度受けた流れを途中で断ち切るのは、さらに難しい。</p>
+      <p>だから一番ありがたいのは、<b>案内の要否を先に聞き、断った場合にも難所の情報と代わりの道を伝えた上で「あとからでも頼み直せる」と言って</b>下さることです。実際に、優先エレベーターが無く混雑することを説明し、職員用の経路を案内して下さった方がいました。これらの対応のうち一つだけでも、だいぶ助かります。</p>
+  `)}
+    ${SPL}
+    ${p2Req("あなたは黙って、案内の背中について行く。「先に、ネットで予約した弁当とファンクラブ特典の受け取りを」とだけ、背中に向かって言う。", "")}
+    <button class="next" onclick="render(V.p2s3())">連絡通路へ</button>
+    `);
+  } else if(c === "follow"){
+    render(`
+    ${p2Req("「先に、ネットで予約した弁当とファンクラブ特典の受け取りを」と、背中に向かって言う。", "係は振り返って、頷いた。")}
+    <button class="next" onclick="render(V.p2s3())">連絡通路へ</button>
+    `);
+  } else {
+    render(`
+    <p class="narr">係が、あなたの速さに歩幅を合わせる。行き先と経由地が、いま、ふたりのあいだで共有されている。</p>
+    ${p2Bento()}
+    <button class="next" onclick="render(V.p2s3())">連絡通路へ</button>
+    `);
+  }
+}
+
+V.p2s3 = () => {
+  let relay = "";
+  if(B2.s3 === "hikitsugi"){
+    relay = p2mirror("行き先と、これからのことを一文で引き継ぐ") +
+      `<p class="narr">通路の途中で、係が入れ替わった。来た人が、あなたに言う。</p>` +
+      sayAs("後任の係","伺っています。特典の受取所を通って、お席までご一緒します。") +
+      `<p class="narr">さっき言ったことを、もう一度言う必要はなかった。それだけで、通路が短く感じた。</p>`;
+  } else if(B2.s3 === "ikki"){
+    relay = p2mirror("「このままご案内を終えます」と、一人で通す") +
+      `<p class="narr">同じ人が、同じ歩幅のまま隣にいてくれる。一度伝えたことが、最後まで消えなかった。</p>`;
+  } else {
+    relay = (B2.s3 === "marunage" ? p2mirror("「あと、お願いします」とだけ伝えて交代") : "") +
+      `<p class="narr">通路の途中で、係が入れ替わった。駆けてきた人がヘルパーさんの方を向く。</p>` +
+      sayAs("後任の係","どちらのお席ですか？") +
+      `<p class="narr">あなたは車椅子を回転させて、さっきゲートで言ったことを、もう一度最初から説明する。席の番号。特典の受け取り。降りる階のこと。</p>
+      ${learn("同じ説明を、もう一度", `
+    <p>担当が替わるたびに、情報が消え、同じ説明を最初からやり直すことになる。そして、担当が「切り替わった」ときの、あの独特の感覚を、作者は人生で何度も体験してきた。結構しんどい。</p>
+  `)}`;
+  }
+  const tail = `${SPL}
+  <p class="narr">すこし進んだところで、スタッフが足を止め、あなたの頭ごしに、ヘルパーさんへ確認をはじめる。</p>
+  ${sayAs("スタッフ","お手洗いなどは、お済みですか？")}
+  <p class="qlabel">どうしますか</p>
+  <button class="choice" onclick="p2s3('self')">「僕が本人なので、こっちに話してください」と、自分で言う</button>
+  <button class="choice" onclick="p2s3('makase')">ヘルパーさんに、任せる</button>`;
+  return `
+  <div class="scenebox"><p class="eyebrow">連絡通路</p><h2>S3' 中継</h2>${prog(3,6)}</div>
+  ${relay}
+  ${tail}
+  `;
+};
+
+function p2s3(c){
+  let head = "";
+  if(c === "self"){
+    head = sayAs("あなた","あ……<b>僕が本人</b>なので、こっちに話してください。") +
+      `<p class="narr">一瞬、空気がピリッとした。スタッフも、ヘルパーさんも、言ったあなた自身も、全員が少し気まずい。誰も悪いことはしていないのに。</p>
+      ${learn("自己主張のコスト", `
+    <p>「こっちに話してください」——普通のことを言っただけなのに、独特の気まずさが全員に生まれる。この空気のしんどさは、どれだけ頻繁に味わっても薄まりません。</p>
+  `)}`;
+  } else {
+    head = sayAs("ヘルパーさん","私は介助者なので、ご本人に話してください。") +
+      `<p class="narr">慣れた、はっきりした声だった。向き先が、あなたに戻ってくる。あなたは「大丈夫です」と答える。言ってもらえた。だが多少その場が緊張しても、きちんと自分で言うべきだったかもしれない。慣れているとはいえ、ヘルパーさんにそれを言わせてしまったことも心苦しい。一抹の申し訳なさと自己嫌悪も残る。毎度のことながらメンタルを削られる。</p>`;
+  }
+  render(head + `<button class="next" onclick="render(V.p2s4())">受取所の方へ</button>`);
+}
+
+V.p2s4 = () => {
+  let bento = "";
+  if(B2.s3 === "hikitsugi" || B2.s3 === "ikki"){
+    bento = `<p class="narr">ファンクラブ特典の受取所にも、案内は言わなくても寄ってくれた。会員証を提示すると、グッズが、お弁当の横にちゃんと収まった。</p>`;
+  } else {
+    bento = `<p class="narr">ファンクラブ特典の受取所の前を、案内はまっすぐ通り過ぎていく。数メートル過ぎてから、あなたは声を出す。</p>` +
+      sayAs("あなた","すいません、特典の受け取りが——") +
+      `<p class="narr">係が立ち止まる。すこし嫌そうな顔で、来た道を引き返した。</p>`;
+  }
+  const seat = `<p class="narr">席に着く。目の前に、柱。すこし横へ動けば見える気がする。ただ、動いていいのかは、誰にも言われていない。あなたは柱の縁ごしに、グラウンドをのぞく位置で止まった。</p>`;
+  let close = "";
+  if(B2.s4 === "souten"){
+    close = p2mirror("時間帯・場所・引き継ぎまで入った、帰りの約束") +
+      sayAs("案内係","<b>お帰りの時間帯には4階にスタッフを立たせますので、エレベーターの案内が必要なら、その者にお声がけください。ゲートのスタッフにも伝えておきます。</b>") +
+      `<p class="narr">帰りのことを、先回りしてもらえた。約束を一つもらった。</p>`;
+  } else if(B2.s4 === "kuukyo"){
+    close = p2mirror("「お近くのスタッフにお声がけください」") +
+      sayAs("案内係","お帰りの際は、お近くのスタッフにお声がけください。") +
+      `<p class="narr">それは漠然としていて、帰りの不安を打ち消すには至らない。</p>`;
+  } else {
+    close = (B2.s4 === "sakura" ? p2mirror("「では、ごゆっくりどうぞ」") : "") +
+      `<p class="narr">係は一礼して、持ち場へ戻っていった。帰りのことは、まだ誰も知らない。</p>`;
+  }
+  return `
+  <div class="scenebox"><p class="eyebrow">4階・お席</p><h2>S4' 受け取りと席</h2>${prog(4,6)}</div>
+  ${bento}
+  ${seat}
+  ${SPL}
+  ${close}
+  <p class="narr">試合がはじまる。声援。打球音。ビジョンの光。ここから先、スタッフとの関わりは、こちらから話しかけないかぎり、ほとんど発生しない。</p>
+  <button class="next" onclick="render(V.p2s5())">試合終了。帰る</button>
+  `;
+};
+
+V.p2s5 = () => {
+  let pact = "";
+  if(B2.s4 === "souten"){
+    pact = `<p class="narr">頭の中には、まだ約束がある。「帰りの時間帯には、4階にスタッフを」。いま前に立っていたのが、その人だったのかは、分からない。約束と、いま起きたこと。両方が現実として残る。</p>`;
+  } else if(B2.s4 === "kuukyo"){
+    pact = `<p class="narr">「お近くのスタッフに」——さっき、たしかにそう言われていた。声は、かけた。</p>`;
+  }
+  return `
+  <div class="scenebox"><p class="eyebrow">試合終了・4階通路</p><h2>S5' 帰り</h2>${prog(5,6)}</div>
+  <p class="narr">人の流れが、いっせいにエレベーターへ向かっていく。通路の先に、スタッフがひとり立っている。あなたは車輪を進めて、近づく。</p>
+  ${sayAs("あなた","あ、すいません。3階に降ります。")}
+  <p class="narr">スタッフは、こちらへ一度視線をやった。それから、正面へ向き直った。</p>
+  ${sayAs("あなた","すいません。")}
+  <p class="narr">返事は、なかった。あなたは車輪を回して、エレベーターに向かう。すこし離れてから振り返ると、そのスタッフは、こちらを見ていた。</p>
+  ${b2Direct ? "" : '<p class="sn">これは第一部の選択肢に関係なく、同じ形で出てきます。実際にあったできごとです。</p>'}
+  ${pact}
+  ${SPL}
+  ${B2.s4 === "souten" ? `${learn("約束の壊れ方", `
+    <p>約束をした人は、嘘をついていない。けれど約束は、した本人の手の外で壊れることがある。</p>
+    <p>そして、良い一手ほど「そこまでやらなくていい」という周囲の水準への同調圧力で、最小限の約束へ縮んでいきやすい。作者が、別の職場でも見てきたことです。</p>
+    <p>だから<b>ひとりひとりの選択</b>と、<b>引き継ぎが機能する組織</b>、その両方が大切なのです。</p>
+  `)}` : ""}
+  <p class="narr">車椅子用のエレベーターはなく、全て他の人と同じ共用のものだ。二回諦めて見送って、三度目でなんとか乗った。扉が閉まる。</p>
+  <button class="next" onclick="render(V.p2s6())">外へ</button>
+  `;
+};
+
+V.p2s6 = () => {
+  const d = (v, map, dflt) => map[v] || dflt;
+  const rows = [
+    ["最初の声",
+     d(B2.s1, {tsure:"介助者の方へ「チケットお願いします」", tachi:"立ったまま「チケット拝見します」", kagamu:"かがんで「拝見してもいいですか」", kami:"「チケットは紙ですかね？」"}, "第一声はヘルパーさんへ（実際にあった形）"),
+     d(B2.s1, {tsure:"最初の一言が、横のヘルパーさんに向いた", tachi:"声はまっすぐ来た。腕は、いっぱいに伸ばした", kagamu:"目が合う高さで、一往復で終わった", kami:"聞かれたぶんだけ、その場で直せた"}, "最初の一言が、横のヘルパーさんに向いた")],
+    ["スマホ",
+     d(B2.s1b, {return:"「お返しします」と、すぐ返した", keep:"預かったまま、処理をまとめた"}, "預かったまま先へ（実際にあった形）"),
+     d(B2.s1b, {return:"手の中に戻る。それだけで、安心する", keep:"曲がり角で、首をねじってスマホの方を窺った"}, "曲がり角で、首をねじってスマホの方を窺った")],
+    ["案内",
+     d(B2.s2, {yohi:"「ご一緒してもよろしいですか？」と聞いた", sengen:"「ご案内いたします」と歩き出した"}, "要否は聞かれなかった（実際にあった形）"),
+     d(B2.s2, {yohi:"言いたいことが、聞かれた瞬間に言えた", sengen:"要望は、背中に向かって言うことになった"}, "要望は、背中に向かって言うことになった")],
+    ["引き継ぎ",
+     d(B2.s3, {hikitsugi:"行き先と、これからのことを一文で渡した", ikki:"一人で通した", marunage:"「あと、お願いします」"}, "引き継ぎなしの交代（実際にあった形）"),
+     d(B2.s3, {hikitsugi:"同じ説明を、二度しなくてよかった", ikki:"一度伝えたことが、最後まで消えなかった", marunage:"同じ説明を最初から繰り返した"}, "同じ説明を最初から繰り返した")]
+  ].map(r => `<p><span class="sn">${r[0]}</span><br>${b2Direct ? "" : "第一部の選択: "}${r[1]}<br>相手に届いた形: ${r[2]}</p>`).join("");
+  return `
+  <div class="scenebox"><p class="eyebrow">帰り道</p><h2>S6' 受け止め</h2>${prog(6,6)}</div>
+  <p class="narr">昼さがりの風。球場がうしろで小さくなっていく。</p>
+  <div class="card">${rows}</div>
+  ${SPL}
+  <p class="narr">受付の人。案内の人。弁当屋さん。最後に立っていた人。<b>どの人も、実際にいた人です。</b>とびきり良い一手も、返事のなかった背中も、同じ一日のなかに、ほんとうに並んでいました。</p>
+  ${walkCard()}
+  <div class="grad">ここまでが、両側から見た一日。<br>迷ったら、本人に聞く。</div>
+  <button class="next" onclick="goInfo('bs2')">舞台裏</button>
+  <button class="ghost" onclick="b2Start()">第一部へ</button>
+  <button class="ghost" onclick="go('home')">ホームへ</button>
+  <button class="ghost" onclick="quitPressed()">終了する</button>
+  `;
+};
+
+let B3 = {};
+let b3Played = false;
+function b3Start(){ histEnter(); B3 = {}; b3Played = true; lastBox = 3; quitBack = null; WALK = []; render(V.b3s1()); }
+function b3OpenFolds(){ stage.querySelectorAll("details.fold").forEach(function(d){ d.open = true; }); }
+
+function fold(body, title){
+  return `<details class="fold"><summary>${title || "彼の側から見る"}</summary>${body}</details>`;
+}
+
+const B3PT = {
+  s1: { aisatsu:1, kiku:2, sewa:0, eshaku:0 },
+  s2: { kakaeru:0, gappa:1, hiraku:1, nageru:2 },
+  s3: { joretsu:0, dantei:1, kiku:2, tomadou:0 },
+  s4: { damaru:0, modosu:0, sekkei:2 },
+  s5: { azukaru:0, satosu:1, tosu:2 },
+  s6: { damaru:0, nomikai:1, hiru:2 },
+  s7: { kaesenai:0, nagasu:0, ato:1, betsu:2 },
+  s8: { hojo:0, onaji:1, chosho:2 }
+};
+function b3Score(){
+  let t = 0;
+  for(const k in B3PT){ const c = B3[k]; if(c && B3PT[k][c] !== undefined) t += B3PT[k][c]; }
+  return t;
+}
+
+V.b3gate = () => `
+  <div class="scenebox"><p class="eyebrow">場面3</p><h2>職場</h2></div>
+  <p class="narr">この場面は、他の二つと少し違います。初日だけでなく一年の中の八つの場面を体験して頂きます。中には、少し重い場面もあります。</p>
+  <p class="narr">あなたはこの課の係長で、今日から配属されてくる車椅子の新人の指導役です。</p>
+  <p class="narr">彼の窓口は基本的にあなたに一本化されており、色々と面倒を見るように言われています。</p>
+  ${SPL}
+  <p class="narr">各場面の終わりに<b>「彼の側から見る」</b>というボタンがあります。開けるかは自由です。</p>
+  <p class="narr">あなたの一手で、彼の色々なことが変わります。</p>
+  <button class="next" onclick="b3Start()">初日へ</button>
+  <button class="ghost" onclick="go('home')">戻る</button>
+`;
+
+V.b3s1 = () => `
+  <div class="scenebox"><p class="eyebrow month">4月はじめ、配属初日の朝</p><h2>W1 紹介</h2>${prog(1,10)}</div>
+  <p class="narr">4月の朝。フロアの通路は広めに空けられ、隣の席の机は高さが調整されている。働く環境は完璧に整っているように見えた。</p>
+  <p class="narr">課長が、車椅子の新人を連れてフロアに入ってくる。</p>
+  <div class="say"><span class="who">課長</span><span class="line">今日からうちの課で働いてくれる新人さんです。優秀ですよ！なにせ、私がぜひにと呼んだんですから。</span></div>
+  <div class="say"><span class="who">彼</span><span class="line">障害のことで色々お願いしたり、未熟のためにご迷惑をおかけしたりして、皆様のご負担になってしまうこともあろうかと思います。申し訳ございません。その分、自分の得意なところで最大限貢献しカバーできるよう全力で頑張ります。これから何卒よろしくお願いいたします。</span></div>
+  ${SPL}
+  <p class="narr">フロアは、静かだった。拍手は、まばら。どこかで小さな声がした——<b>「……なんで、うちの課なんだろうな」</b>。</p>
+  <p class="narr">彼があなたの隣の席に着く。</p>
+  ${figure("b3_w1")}
+  <p class="qlabel">最初にかける言葉は</p>
+  <button class="choice" onclick="b3s1('aisatsu')">「よろしくお願いします。分からないことは、聞いてください」</button>
+  <button class="choice" onclick="b3s1('kiku')">「よろしくお願いします。私が指導役ですが、こちらから頼むことも多いと思うので、やりにくいことがあったら言ってくださいね」</button>
+  <button class="choice" onclick="b3s1('sewa')">「何かあったら全部、私に。他の人の手は煩わせなくていいから」</button>
+  <button class="choice" onclick="b3s1('eshaku')">「あとで話しましょう」とだけ言って、決裁の山に戻る</button>
+`;
+
+function b3s1(c){
+  B3.s1 = c;
+  let head = "", f = "";
+  const base1 = `<p>机の高さも通路も、事前に聞いてもらった通りでした。物の準備は完璧でした。</p>`;
+  const base = base1 + `<p>「なんでうちの課に」という小声は、聞こえていました。</p>`;
+  if(c === "aisatsu"){
+    head = `<div class="say"><span class="who">彼</span><span class="line">はい。よろしくお願いいたします。</span></div>
+    <p class="narr">彼は小さく頭を下げ、机の上のパソコンを立ち上げた。</p>`;
+    f = base;
+  } else if(c === "kiku"){
+    head = `<div class="say"><span class="who">彼</span><span class="line">ありがとうございます！こちらこそご指導ご鞭撻のほどよろしくお願いいたします。</span></div>
+    <p class="narr">声が、さっきの挨拶より少しだけ高かった。</p>`;
+    f = base + `<p>そこに係長がかけて下さった言葉は、萎縮しかけていた僕にとっては本当に大きかったです。</p>`;
+  } else if(c === "sewa"){
+    head = `<div class="say"><span class="who">彼</span><span class="line">ありがとうございます。ただ……なるべくお一人にご負担が集中しないように、と自戒しております。だから僕も、色々な人にヘルプを出せるように頑張りたいです。</span></div>
+    <p class="narr">言い終えてから、彼は少し笑って、モニターに向き直った。</p>`;
+    f = base1 + `<p>窓口が一人だと聞いて、その人に嫌われたら終わりだ、と思いました。「なんでうちの課に」という小声も聞こえてはいました。それでも「色々な人にヘルプを出せるように」と言ったのは、一人だけに依存するのは身を危うくすると経験的に知っていたからです。</p>`;
+  } else {
+    head = `<p class="narr">「はい」と返ってきた。会話は、そこで終わった。彼は机の高さを確かめるように、天板に手を置いた。あなたは決裁の山に戻り、午前中は一度も隣を見なかった。</p>`;
+    f = base + `<p>「あとで」は、その日のうちには来ませんでした。結果的に、話しかけて良いタイミングを探すのに後々まで苦心することになりました。</p>`;
+  }
+  render(head + `
+  ${fold(f)}
+  <button class="next" onclick="render(V.b3s2())">6月、梅雨の朝へ</button>
+  `);
+}
+
+V.b3s2 = () => `
+  <div class="scenebox"><p class="eyebrow month">6月、梅雨入りの朝</p><h2>W2 窓口</h2>${prog(2,10)}</div>
+  <p class="narr">雨の朝。彼が入り口で、雨合羽を脱げずにいる。フロアには係員が数人いるが、誰も動かない。彼の世話はあなたがするものだ、という空気が漂っている。</p>
+  <p class="narr">あなたは席を立って合羽を脱がせてあげる。彼は「すみません、ありがとうございます」と言う。</p>
+  ${figure("b3_w2")}
+  ${SPL}
+  <p class="narr">その日の午後、彼からの質問メールが四通。決裁の合間に、あなたが全部に返す。彼への連絡も、彼からの連絡も、全部あなたを通る。数週間で、そうなっていた。</p>
+  <p class="qlabel">窓口を、どうしますか</p>
+  <button class="choice" onclick="b3s2('kakaeru')">関わりを少しずつ減らしていく</button>
+  <button class="choice" onclick="b3s2('gappa')">朝礼で「雨合羽くらい、誰でも手伝って」と係に言う。仕事の質問は全て自分が受ける</button>
+  <button class="choice" onclick="b3s2('hiraku')">係に「彼の質問は誰が受けてもいい」と言い、彼に「誰に聞きやすい？」と尋ねる</button>
+  <button class="choice" onclick="b3s2('nageru')">課長に現状を話し「私だけでは彼のことを抱えきれない」と相談する</button>
+`;
+
+function b3s2(c){
+  B3.s2 = c;
+  let head = "", f = "";
+  const base = `<p>窓口が一人に決まるのは、僕にとっても楽ではありませんでした。係長が忙しいときは、僕の仕事も止まる。何より、係長に嫌われたら終わりだと分かっていました。</p>`;
+  if(c === "kakaeru"){
+    head = `<p class="narr">彼から依頼や質問を受ける度に、ため息をつく。数週間後には、彼の口数はだいぶ少なくなっていた。</p>`;
+    f = base + `<p>嫌われないように、質問を減らしました。分からないまま進めた仕事が、いくつかあります。</p>`;
+  } else if(c === "gappa"){
+    head = `<p class="narr">次の雨の日、彼は係員に「すみません、合羽を着せていただけないでしょうか」と頼んでいた。係員は意外にも快く応じている。手出しして良いのか躊躇していただけで、必要なのはきっかけだったのだ。少し心が軽くなった。</p>`;
+    f = base + `<p>雨合羽を誰にでも頼めるようになった日から、朝晩が少し軽くなりました。頼んだ分の負い目を、仕事の場に持ち込まれなかったことも大きかったです。</p>`;
+  } else if(c === "hiraku"){
+    head = `<div class="say"><span class="who">彼</span><span class="line">……向かいの席の方には、聞きやすいです。それから、以前同じ業務を担当されていた方にも色々伺えれば幸いです</span></div>
+    <p class="narr">翌週から、質問は数人に散った。少し心が軽くなった。</p>`;
+    f = base + `<p>誰に聞きやすいかを答えていいのだ、と分かるまで、少し時間がかかりました。</p>`;
+  } else {
+    head = `<div class="say"><span class="who">課長</span><span class="line">そんなことになっていたのか。思いが至らず、二人には申し訳なかった。君ひとりに負担が集中する構造を作った私の責任だ。</span></div>
+    <p class="narr">課長はすぐに彼とも面談をし、三者で話す場も設けてくれた。</p>
+    <div class="say"><span class="who">課長</span><span class="line">二人だけでなく、本来は係の、いや、<b>課の全員が当事者なんだ。</b>その認識をしっかりと課内に共有しておくよ。</span></div>
+    <p class="narr">翌週から、彼の質問は数人に散った。雨の日には、彼は係員に「すみません、合羽を着せていただけないでしょうか」と頼んでいた。係員は意外にも快く応じている。手出しして良いのか躊躇していただけで、必要なのはきっかけだったのだ。<b>だいぶ肩の荷が下りた気がした。</b></p>`;
+    f = `<p>窓口が一人というのは、僕にとっても楽ではありませんでした。問題がこじれる前に係長や課長と率直にお話しできたことは、本当にありがたかったです。</p>`;
+  }
+  render(head + `
+  ${fold(f)}
+  <button class="next" onclick="render(V.b3s3())">同じ頃</button>
+  `);
+}
+
+V.b3s3 = () => `
+  <div class="scenebox"><p class="eyebrow month">6月、同じ頃</p><h2>W3 会議の机</h2>${prog(3,10)}</div>
+  <p class="narr">次の課内会議には彼も出席する。この職場では、内輪の会議でも序列に準じた机の設営や席順の決定が行われてきた。会議室は縦長で、広くはない。</p>
+  ${figure("b3_w3")}
+  <p class="qlabel">どうしますか</p>
+  <button class="choice" onclick="b3s3('joretsu')">「いつも通り、序列で」と当番に言う。彼の席は成り行きで奥になる</button>
+  <button class="choice" onclick="b3s3('dantei')">「車椅子なら入り口の近くだろう」と、聞かずに手前の席だけ空けさせる</button>
+  <button class="choice" onclick="b3s3('kiku')">彼に「課の会議の時、席の位置や設営に関して希望があれば教えて。それが分かれば、なるべく工夫できるかもしれないから」と言う</button>
+  <button class="choice" onclick="b3s3('tomadou')">聞いたら失礼かと思い、当日の成り行きに任せる</button>
+`;
+
+function b3s3(c){
+  B3.s3 = c;
+  let head = "", f = "";
+  const base = `<p>会議室は本当に狭く感じました。奥に着席するのは大変で、位置によってはプロジェクターも見えない。でも僕からは言い出せなかった。席順は序列で決まっていて、内輪の会議でもそれを重視する職場でしたから。</p>`;
+  if(c === "joretsu"){
+    head = `<p class="narr">会議当日。彼は入り口で少し止まり、時間をかけて奥へ入った。プロジェクターの画面は、彼の位置からほとんど見えていない。けれど彼は、何も言わなかった。会議は、いつも通りに進んだ。</p>`;
+    f = base + `<p>他の人はそのことに気付いていない感じでした。</p>`;
+  } else if(c === "dantei"){
+    head = `<p class="narr">彼は手前の席に着けた。ただその日は、プロジェクターを使う回だった。彼の位置からは、画面がほとんど見えなかった。</p>
+    ${figure("b3_w3_aketa")}`;
+    f = base + `<p>手前の席で助かりました。ただ画面のことは言い出せませんでした。</p>`;
+  } else if(c === "kiku"){
+    head = `<div class="say"><span class="who">彼</span><span class="line">入り口の近くだと助かります。画面は……使うんでしたら、見える角度だとありがたいです。</span></div>
+    <p class="narr">机を二つ、斜めにずらした。全員の出入りも、少し楽になった。彼は今までで最も活発に発言し、積極的に議論に加わっていた。</p>
+    ${figure("b3_w3_kiku")}`;
+    f = base + `<p>席の希望を聞いてもらって、初めてまともに会議に参加できました。聞いてくれる人は、この職場では少数派でした。</p>`;
+  } else {
+    head = `<p class="narr">当日。入り口で彼が詰まり、誰かが慌てて椅子を引いた。</p>
+    <div class="say"><span class="who">彼</span><span class="line">すみません、ありがとうございます。ここからで大丈夫です。</span></div>
+    <p class="narr">そこは画面がほとんど見えない位置だった。</p>
+    ${figure("b3_w3_aketa")}`;
+    f = base + `<p>大丈夫ではありませんでした。でも皆さんを待たせる気まずさから逃れたい一心で口をついた言葉でした。</p>`;
+  }
+  render(head + `
+  ${fold(f)}
+  <button class="next" onclick="render(V.b3s4())">夏へ</button>
+  `);
+}
+
+V.b3s4 = () => `
+  <div class="scenebox"><p class="eyebrow month">夏、それから少しして</p><h2>W4 特別扱い、という言葉</h2>${prog(4,10)}</div>
+  <p class="narr">給湯室で、係員がふと言った。</p>
+  <div class="say"><span class="who">係員</span><span class="line">係長、彼の起案、電子決裁で回してるじゃないですか。あれって特別扱いじゃないですか？ 起案は自分でハンコをもらって回るのが、うちの礼儀だったと思うんですけど。</span></div>
+  ${SPL}
+  <div class="say"><span class="who">係員</span><span class="line">いや、彼が悪いって話じゃないですよ。庁舎中を車椅子で回るのが大変なのも分かります。ただ……じゃあ私が足を捻挫したときも電子でいいのか、って話にならないですか。</span></div>
+  <p class="narr">電子決裁の仕組みは、何年も前から庁舎にある。使っているのは、課内では彼だけだ。</p>
+  <p class="qlabel">どうしますか</p>
+  <button class="choice" onclick="b3s4('damaru')">「まあそう思われても仕方ないよね」</button>
+  <button class="choice" onclick="b3s4('modosu')">彼にもハンコを集めに行かせる</button>
+  <button class="choice" onclick="b3s4('sekkei')">「いいんじゃない？決裁の中身は同じだし。何にせよ、あれは私が決めたことだから」</button>
+`;
+
+function b3s4(c){
+  B3.s4 = c;
+  let head = "", f = "";
+  const base = `<p>僕はただ、同じ決裁を通すために、自分に合う既存のシステムを使っただけのつもりでした。それが「特別扱い」という言葉で語られていたのなら、僕は仕事の中身では見られていなかったのだと思います。</p>`;
+  if(c === "damaru"){
+    head = `<p class="narr">係員は「ですよね」と言い、席に戻っていった。「特別扱い」という言葉は、給湯室に残った。</p>`;
+    f = base;
+  } else if(c === "modosu"){
+    head = `<p class="narr">翌週から、彼も起案を持って庁舎を回るようになった。エレベーターの待ち時間と段差で、一件に半日かかった。決裁の中身は、同じだった。給湯室の話題からは、消えた。</p>`;
+    f = base + `<p>回るようになった日から、定型業務以外のことに割く時間が全くなくなりました。自主的に進めていた改善提案や政策企画の殆どは、途中で断念せざるを得ませんでした。</p>`;
+  } else {
+    head = `<div class="say"><span class="who">係員</span><span class="line">……まあ、係長が決めたんなら。</span></div>
+    <div class="say"><span class="who">あなた</span><span class="line">改めて冷静に考えたら、誰も禁止してないことに気付いて。そもそも本当にダメならそんなシステム入れないよね。だから捻挫してなくても、使いたい時は自由に使っていい。その代わり、彼のやり方も尊重してもらえないかな</span></div>
+    <div class="say"><span class="who">係員</span><span class="line">……わかりました。考えが至らず、すみませんでした</span></div>
+    <div class="say"><span class="who">あなた</span><span class="line">ありがとう。かく言う私も初めは認めるか迷ったんだ。彼が常に正しい訳じゃない。でも新人だから、障害者枠だから、常に間違いと決めつけるのも変だと思った。それだけだよ</span></div>`;
+    f = base + `<p>係長が仰った内容を知ったのは、だいぶ後でした。</p>`;
+  }
+  render(head + `
+  ${fold(f)}
+  <button class="next" onclick="render(V.b3s5())">9月へ</button>
+  `);
+}
+
+V.b3s5 = () => `
+  <div class="scenebox"><p class="eyebrow month">9月</p><h2>W5 提案</h2>${prog(5,10)}</div>
+  <p class="narr">彼が「1つご提案をしたく、数分だけお時間いただけないでしょうか。」と言う。</p>
+  <div class="say"><span class="who">彼</span><span class="line">お忙しいところ申し訳ありません。会議の議事録って、どの課も手打ちで起こしていますよね。文字起こしソフトを庁内全体で入れれば、一回の会議にかかる作業時間が数時間は減ると思うんです。少なくとも、財政課に予算要求する価値はあるかと……ご検討いただけないでしょうか。</span></div>
+  ${SPL}
+  <p class="narr">彼が作った資料を読む。筋は通っている。試算の数字もついている。あなたも過去に少なからず議事録の手打ちを経験している。</p>
+  ${B3.s4 === "modosu" ? "" : `<p class="narr">思い当たることがある。配属からの数ヶ月で、彼は担当する会議の資料をタブレット配布に変え、部局とやり取りする様式も一つに揃えていた。電子決裁で浮いた時間の使い道は、それだった。</p>`}
+  <p class="qlabel">どうしますか</p>
+  <button class="choice" onclick="b3s5('azukaru')">「預かっておく」と言って、引き出しに入れる</button>
+  <button class="choice" onclick="b3s5('satosu')">「合理的ではあると思うけど、新人のうちはまず今のやり方を覚えてからかな」</button>
+  <button class="choice" onclick="b3s5('tosu')">「これ、係長の名前で課長に出していい？」——自分の提案として上に通す</button>
+`;
+
+function b3s5(c){
+  B3.s5 = c;
+  let head = "", f = "";
+  const base = `<p>あの提案は、無駄な作業を減らして、市民のための本来業務に時間を回そうという趣旨でした。もちろん「楽をしようとしている」と誤解されるリスクは分かっていました。でもこういう所で自分の存在価値を出さなければマイナスを打ち消せないと強く思っていました。</p>`;
+  if(c === "azukaru"){
+    head = `<p class="narr">提案書は、引き出しの中で年度末まで眠った。彼は、二度と持ってこなかった。</p>`;
+    f = base + `<p>返事は来ませんでした。その後どうなったのかは、怖くて聞けませんでした。</p>`;
+  } else if(c === "satosu"){
+    head = `<div class="say"><span class="who">彼</span><span class="line">……はい。出過ぎたことを申し上げました。</span></div>`;
+    f = base;
+  } else if(c === "tosu"){
+    head = `<div class="say"><span class="who">彼</span><span class="line">……はい。もちろんです。</span></div>
+    <div class="say"><span class="who">課長</span><span class="line">面白いね。係長の名前で、財政課に要求してみる？</span></div>
+    <p class="narr">翌月、課長の決裁がついた提案書が、財政課に回った。誰の案だったかは、あなたが会議で言った。</p>`;
+    f = base + `<p>係長が「自分の名前で出す」と言ったのは、誰が言ったかで潰れない形にしてもらえたのだと、後で分かりました。</p>`;
+  }
+  render(head + `
+  ${fold(f)}
+  <button class="next" onclick="render(V.b3s6())">10月の昼休みへ</button>
+  `);
+}
+
+V.b3s6 = () => `
+  <div class="scenebox"><p class="eyebrow month">10月はじめ、昼休み</p><h2>W6 本人のいない場所</h2>${prog(6,10)}</div>
+  <p class="narr">昼休み。彼は自席でひとり、弁当を食べている。一方、給湯室の隣の休憩スペースでは係員たちが昼食を共にしている。</p>
+  ${SPL}
+  <div class="say"><span class="who">同僚</span><span class="line">係長、あの人、歓迎会も途中で帰ったじゃないですか。何考えてるか分かんないんですよね。</span></div>
+  <div class="say"><span class="who">別の同僚</span><span class="line">正直近寄り難いっていうか……</span></div>
+  ${figure("b3_w6")}
+  <p class="qlabel">どうしますか</p>
+  <button class="choice" onclick="b3s6('damaru')">曖昧に頷きつつ、黙って弁当を食べる</button>
+  <button class="choice" onclick="b3s6('nomikai')">「今度の飲み会、誘ってみて」</button>
+  <button class="choice" onclick="b3s6('hiru')">「来週のどこかで昼に一回、係で集まろう。彼も誘って」</button>
+`;
+
+function b3s6(c){
+  B3.s6 = c;
+  const base = `<p>昼休みはほぼ一人で食べていました。</p>
+    <p>誤解を解いたり事情を説明できれば、印象も変わったかもしれません。ただ当時はその機会が、飲み会の二次会以降に集中していた気がします。もし昼に一つ話せる場があれば、互いに遥かに分かり合えたんじゃないか。そう思うことは多々あります。</p>`;
+  if(c === "hiru"){
+    render(`
+    <div class="say"><span class="who">同僚</span><span class="line">……まあ、別にいいですけど。</span></div>
+    <div class="say"><span class="who">別の同僚</span><span class="line">私、声かけときます。</span></div>
+    <p class="narr">翌週の昼、彼は休憩スペースの輪の中にいた。</p>
+    ${fold(`<p>昼に一つ場ができた週から、話しかけられる頻度がぐっと増えました。それまでより遥かにお互いを理解できるようになった気がします。</p>`)}
+    <button class="next" onclick="render(V.b3s6b())">翌週の昼へ</button>
+    `);
+  } else {
+    let head = "", f = base;
+    if(c === "damaru"){
+      head = `<p class="narr">曖昧に頷いて、黙って食べた。話題はしばらく彼のことだった。</p>`;
+    } else {
+      head = `<div class="say"><span class="who">同僚</span><span class="line">……まあ、一応。</span></div>
+      <p class="narr">彼は飲み会の誘いを丁重に断った。</p>`;
+      f = base + `<p>ありがたいお誘いでしたが、飲み会には行けませんでした。帰りが夜遅くなると所定の時間の居宅介護が受けられず、生活が根本から崩れるからです。こういう特殊な事情というのは、説明する側にとっても受け取る側にとっても、非常に厄介でややこしい問題だと感じます。</p>`;
+    }
+    render(head + fold(f) + `<button class="next" onclick="render(V.b3souji())">年の瀬へ</button>`);
+  }
+}
+
+V.b3s6b = () => `
+  <div class="scenebox"><p class="eyebrow month">翌週の昼</p><h2>W6' 輪の中</h2>${prog(6,10)}</div>
+  <p class="narr">彼は輪の中で楽しそうに話している。</p>
+  <div class="say"><span class="who">同僚Ａ</span><span class="line">仕事には慣れた？</span></div>
+  <div class="say kare"><span class="who">彼</span><span class="line">はい、おかげさまで少しずつ。役割を与えられて皆さんと同じ場所で働けるというのは、本当に嬉しいです。</span></div>
+  <div class="say"><span class="who">同僚Ａ</span><span class="line">それは良かった。学生の時にバイトとかはしてたの？</span></div>
+  <div class="say kare"><span class="who">彼</span><span class="line">はい。球場で少しだけインターンをやったことがあります。</span></div>
+  <div class="say"><span class="who">同僚Ｂ</span><span class="line">へえ、どんな内容だったんですか？</span></div>
+  <div class="say kare"><span class="who">彼</span><span class="line">それがお恥ずかしながら、あまり何もできないまま終わっちゃったんです。チケットのもぎり係になったんですけど、これは左手しか使えない僕には難しくて。</span></div>
+  ${SPL}
+  <div class="say"><span class="who">同僚Ｃ</span><span class="line">そっかあ。募集してた内容とは少し違うなって感じだった？</span></div>
+  <div class="say kare"><span class="who">彼</span><span class="line">はい。もちろん色々企画とか連絡調整とかの責任の大きな仕事に回された人も沢山いました。でもインターン担当の方は、僕との関わりを最小限にしたい感じで、そういう業務には関われなかったです。悪意で隔離したというより、どうしたらいいか戸惑ってる印象でした。</span></div>
+  <div class="say"><span class="who">同僚Ｃ</span><span class="line">それはきついね……</span></div>
+  <div class="say kare"><span class="who">彼</span><span class="line">あ、湿っぽい話ですみません。でも<b>今は隔離されずに一緒に仕事ができて、しかもお昼まで誘って下さって</b>。そのありがたみが分かるのは当時の経験のお陰かもしれません。それに今でも野球は大好きで、年に10回くらいはヘルパーさんと現地で応援してます。</span></div>
+  <div class="say"><span class="who">同僚Ａ</span><span class="line">俺も野球好き！どこのファン？</span></div>
+  <p class="narr">会話は昼休み中続いた。家でどう介護を受けているのかにも話が及び、なぜ門限があるのかも知った。その後も定期的に昼食を共にすることになった。</p>
+  ${fold(`
+    <p>変な空気にしちゃったかと思ったんですけど、最初に本質的な話をできたのは、僕を知ってもらう上で良かったかもしれません。その後は安心して楽しく交流を深めることができました。</p>
+  `)}
+  <button class="next" onclick="render(V.b3souji())">年の瀬へ</button>
+`;
+
+V.b3souji = () => `
+  <div class="scenebox"><p class="eyebrow month">12月末、仕事納め</p><h2>大掃除</h2>${prog(6,10)}</div>
+  <p class="narr">12月の最後の出勤日。午後は課の大掃除だ。ある人は窓を拭き、ある人は大量のバインダーや段ボールをあちらこちらと移動させ、ある人は不用品の山を次々に運び出している。雑巾も脚立も運搬も彼には難しい。</p>
+  <div class="say"><span class="who">彼</span><span class="line">何かできることはありますでしょうか</span></div>
+  <p class="narr">と声をかけて回るも、どこでも「大丈夫、ありがとう」と返されている。彼は自席に戻り、引き出しの中身を全部出して、要るものと要らないものに分け始めた。</p>
+  ${figure("b3_souji")}
+  ${fold(`
+    <p>皆が体を沢山使って物を動かしている日は、ひどく所在ない気持ちになります。心苦しさから何かせねばと試みて、却って足を引っ張った経験も無数にあります（例：文化祭の模擬店の準備の時、球場でインターンをしていた時など）。ですからこの日は内省に振り切ることにしました。今年、<b>自分は役に立てていたんだろうか</b>。机や引き出しを整理しつつ、そればかり考えていました。</p>
+  `)}
+  <button class="next" onclick="render(V.b3s7())">年が明けて</button>
+`;
+
+V.b3s7 = () => `
+  <div class="scenebox"><p class="eyebrow month">1月</p><h2>W7 あの言葉</h2>${prog(7,10)}</div>
+  <p class="narr">打ち合わせで来ていた隣の課の職員が、帰り際にこう切り出した。「そういえば、おたくの新人、提案とか出してるんだって？ 効率化しろって。」</p>
+  <p class="narr">まさにちょうどその時、彼本人がトイレから帰ってきた。しかしその職員はそれを知ってか知らずか、声を落とさず続ける。「正直に言うとな、効率を重んじるなら、そもそも障害者は採用しないほうがいいと思う。単に自分が楽したいだけじゃないのか？」</p>
+  ${SPL}
+  <p class="narr">彼が固まる気配がした。</p>
+  <p class="qlabel">どうしますか</p>
+  <button class="choice" onclick="b3s7('kaesenai')">（何も、返せない）</button>
+  <button class="choice" onclick="b3s7('nagasu')">「まあ……そういう考え方も、ありますよね」</button>
+  <button class="choice" onclick="b3s7('ato')">その場では流し、あとで彼を慰める</button>
+  <button class="choice" onclick="b3s7('betsu')">「採用が正しいかどうかと、あの提案が正しいかどうかは、別の話じゃないですか」</button>
+`;
+
+function b3s7(c){
+  B3.s7 = c;
+  let head = "", f = "";
+  const base = `<p>その場では、何も言えませんでした。うまく言葉にならなかったのです。</p>`;
+  const kaeru = `<p class="narr">彼は何も言わなかった。静かに残務処理と帰り支度をしばらくやった後「お先に失礼します」と言って出ていった。</p>`;
+  if(c === "kaesenai"){
+    head = `<p class="narr">あなたは、何も返せなかった。モニターの光だけが白い。</p>` + kaeru;
+    f = base + `<p>係長も黙ったのが分かりました。その時の内心はもちろん分かりません。</p>`;
+  } else if(c === "nagasu"){
+    head = `<div class="say"><span class="who">隣の課の職員</span><span class="line">だろ。</span></div>` + kaeru;
+    f = base;
+  } else if(c === "ato"){
+    head = kaeru + `<p class="narr">あなたは追いかけて、廊下で言った——「気にしなくていいから」。彼は「はい」と言った。翌朝も、彼は同じ時間に来た。</p>`;
+    f = base + `<p>気にしないのは正直無理です。でも係長が何かを言葉にしようとして下さったのは伝わりました。</p>`;
+  } else {
+    head = `<div class="say"><span class="who">隣の課の職員</span><span class="line">は？</span></div>
+    <div class="say"><span class="who">あなた</span><span class="line">彼の提案は、無駄を削って時間を作って本来業務を充実させる趣旨でした。私も「役所なら業務効率を無視しても良い」とは思いません。</span></div>
+    <p class="narr">隣の課の職員が黙った。</p>
+    <div class="say"><span class="who">あなた</span><span class="line">市民のためっていう仕事の大目的とか、自分から業務改善を提案してみようって意識とかって、やっぱり大事だなと。私も改めて思い出しました。彼はそれを<b>自分なりの切り口</b>で具体に落とし込んだものと理解しております</span></div>
+    <p class="narr">隣の課の職員は、答えなかった。</p>`;
+    f = base + `<p>でも係長が返してくれました。翌朝、いつも通り出勤できました。</p>`;
+  }
+  render(head + `
+  ${fold(f)}
+  ${fold(`
+    <p>今にして思えば、採用の当否と提案の当否は別の問題だ。混ぜると、障害者は「効率を語ってはいけない人」になる。</p>
+    <p>いつかあなたが採用や配属を決める側になった時は、今日の体験を思い出してください。</p>
+  `, "十年目の返答")}
+  <button class="next" onclick="render(V.b3s8())">2月へ</button>
+  `);
+}
+
+V.b3s8 = () => `
+  <div class="scenebox"><p class="eyebrow month">2月</p><h2>W8 評価</h2>${prog(8,10)}</div>
+  <p class="narr">あなたの机に、彼の自己評価票が置かれている。項目は「担当業務の正確性」「協調性」「改善への姿勢」。彼の欄は、どれも控えめに埋まっている。</p>
+  <p class="narr">この一年、彼の起案に差し戻しはなかった。${B3.s5 === "tosu" ? "文字起こしソフトの予算要求も財政課に認められた。" : ""}${(B3.s2 === "gappa" || B3.s2 === "nageru") ? "雨の日は、係の誰かが自然と合羽の着脱を手伝った。" : ""}</p>
+  ${SPL}
+  <p class="narr">係長のあなたがこの票に所見を書く。課長と人事課はそれを読んで彼を見る。どう書くかはあなたの裁量だ。</p>
+  <p class="qlabel">所見に、何を書きますか</p>
+  <button class="choice" onclick="b3s8('hojo')">「補助を要する場面が多く、平均的水準には届いていない」</button>
+  <button class="choice" onclick="b3s8('onaji')">「担当業務は正確。皆と同じ手順でできるよう指導中」</button>
+  <button class="choice" onclick="b3s8('chosho')">「起案は正確で速い。業務改善の視点がある」</button>
+`;
+
+function b3s8(c){
+  B3.s8 = c;
+  let head = "", f = "";
+  if(c === "hojo"){
+    head = `<p class="narr">所見は人事課のファイルに綴じられた。翌年度の彼の配属先は書庫整理係だった。</p>`;
+    f = `<p>翌年度、書庫に移りました。この組織では事実上の隔離部署です。仕事は殆ど与えられませんでした。</p>`;
+  } else if(c === "onaji"){
+    head = `<p class="narr">所見は人事課のファイルに綴じられた。翌年度も、彼は同じ係にいた。</p>`;
+  } else {
+    head = `<div class="say"><span class="who">課長</span><span class="line">${B3.s5 === "tosu" ? "例えばどんなこと？" : "改善の視点、って？"}</span></div>
+    <p class="narr">あなたは、提案書の話をした。課長は「${B3.s5 === "tosu" ? "確かに" : "へえ"}」と言って、所見を人事課に回した。</p>`;
+    f = `<p>評価票に長所が書かれていたことを、僕は知りませんでした。知ったのはずっと後のことです。</p>`;
+  }
+  render(head + `
+  ${f ? fold(f) : ""}
+  <button class="next" onclick="render(V.b3s8b())">引き継ぎ書へ</button>
+  `);
+}
+
+V.b3s8b = () => `
+  <div class="scenebox"><p class="eyebrow month">3月から年度末にかけて</p><h2>W8' 申し送り</h2>${prog(9,10)}</div>
+  <p class="narr">年度末には、もう一つ書くものがある。係の引き継ぎ書だ。所見と違って査定には関わらないが、いつか次にこの席に座る人が読む。</p>
+  <p class="qlabel">どうしますか</p>
+  <button class="choice" onclick="b3s8b('nashi')">申し送りは添えない。引き継ぎ書は例年どおりに出す</button>
+  <button class="choice" onclick="b3s8b('hanasu')">本人と話す。窓口・席・昼の場などについて聞き、申し送りを一枚添える</button>
+`;
+
+function b3s8b(c){
+  B3.s8b = c;
+  let head = "", f = "";
+  if(c === "hanasu"){
+    head = `<div class="say"><span class="who">彼</span><span class="line">はい！喜んで！</span></div>
+    <p class="narr">話は三十分かかった。引き継ぎ書に、申し送りが一枚ついた。窓口を一人にしないこと。席は本人に聞くこと。起案は電子決裁で完結してよいこと。昼に一つ、場を作ってみる価値があること。<b>書いたのは、あなただ</b>。</p>`;
+    f = `<p>僕の経験が職場に知見として蓄積されるのは、ありがたく嬉しいことでした。<b>採用した意義が少なくとも1つはあった</b>と認められた気がしたからです。</p>`;
+  } else {
+    head = `<p class="narr">引き継ぎ書は、例年どおりの様式で綴じられた。</p>`;
+  }
+  render(head + `
+  ${f ? fold(f) : ""}
+  <button class="next" onclick="b3End()">時は流れて</button>
+  `);
+}
+
+function b3Tier(){ const s = b3Score(); return s <= 4 ? "short" : (s >= 10 ? "long" : "mid"); }
+function b3AccLv(){ if(B3.s8b === "hanasu") return "high"; return b3Lines().length ? "some" : "none"; }
+const B3LINE = {
+  hiraku: "質問は誰が受けてもいい",
+  nageru: "手助けや質問や依頼の窓口は、なるべく一人に絞らない",
+  kiku:   "会議の席は、本人に聞いて決める",
+  sekkei: "起案は電子決裁で可",
+  hiru:   "昼に係で集まる場を作れるとよい"
+};
+function b3Lines(){
+  const L = [];
+  if(B3.s2 === "hiraku") L.push(B3LINE.hiraku);
+  if(B3.s2 === "nageru") L.push(B3LINE.nageru);
+  if(B3.s3 === "kiku")   L.push(B3LINE.kiku);
+  if(B3.s4 === "sekkei") L.push(B3LINE.sekkei);
+  if(B3.s6 === "hiru")   L.push(B3LINE.hiru);
+  return L;
+}
+function b3End(){ render(V.b3end(b3Tier(), b3AccLv())); }
+
+V.b3end = (tier, acc) => {
+  tier = tier || b3Tier(); acc = acc || b3AccLv();
+  let h2 = "", his = "";
+  if(tier === "short"){
+    h2 = "一年半";
+    his = `<div class="say"><span class="who">彼</span><span class="line">僕は一年半で退職しました。辞める前の数ヶ月は、${(B3.s2 === "hiraku" || B3.s2 === "nageru") ? "" : "質問を送る先がなく、"}${B3.s5 === "tosu" ? "" : "提案は引き出しの中で、"}とても孤独でした</span></div>`;
+  } else if(tier === "long"){
+    h2 = "十一年目";
+    his = `<div class="say"><span class="who">彼</span><span class="line">今は勤続十一年目です。二度異動しましたが、最初の配属先で得た経験や自信に何度も救われました。</span></div>
+    <div class="say"><span class="who">彼</span><span class="line">そして今年度、障害者枠の新人が同じ課に来ました。もし僕の経験が働きやすい環境に資することがあれば、積極的に共有したいです。</span></div>`;
+  } else {
+    h2 = "三年半";
+    his = `<div class="say"><span class="who">彼</span><span class="line">僕は三年半その職場で働いた後に退職しました。${B3.s2 === "kakaeru" ? "" : "物理的な手助けは頼みやすく、定時で帰れました。"}${B3.s4 === "sekkei" ? "" : "皆と同じにすることが重視されていました。"}自分が最も貢献できると思う方法と慣習の壁との狭間で常に葛藤がありました。</span></div>`;
+  }
+  let next = "";
+  if(acc === "high"){
+    next = `<p class="narr">十年後、次の障害者枠の新人がこの課に来たとき——申し送りには、窓口を一人にしないこと、席は本人に聞くこと、起案は電子決裁で完結してよいこと、昼に一つ場を作ってみる価値があることが書かれていた。次の係長は初日にそれを読んだ。</p>`;
+  } else if(acc === "some"){
+    let L = b3Lines(); if(!L.length) L = [B3LINE.sekkei];
+    next = `<p class="narr">十年後、次の障害者枠の新人がこの課に来たとき、引き継ぎ書にあの一年で決まったやり方が残っていた。${L.map(function(t){ return "「" + t + "」"; }).join("")}。次の係長はそこから始めた。</p>`;
+  } else {
+    next = `<p class="narr">十年後、次の障害者枠の新人がこの課に来たとき、当時のことを覚えている人はもういなかった。次の係長は、またゼロから始めた。</p>`;
+  }
+  return `
+  <div class="scenebox"><p class="eyebrow month">時は流れて</p><h2>${h2}</h2>${prog(10,10)}</div>
+  ${his}
+  ${SPL}
+  ${next}
+  ${walkCard([{ part: "p1", scene: "時は流れて", label: h2 }])}
+  <div class="card"><p class="narr">結末は、この一つではありません。同じ一年を、別の一手で歩き直せます。</p></div>
+  <button class="next" onclick="b3Start()">別の一手で、歩き直す</button>
+  <button class="ghost" onclick="goInfo('bs3')">舞台裏</button>
+  <button class="ghost" onclick="go('home')">ホームへ</button>
+  <button class="ghost" onclick="quitPressed()">終了する</button>
+  `;
+};
+
+let KQ = null;
+
+function kenshuFlag(t){
+  return /[0-9０-９A-Za-zＡ-Ｚａ-ｚ%％#＃*＊→←〜※]/.test(t) || /その方|の方が|開い|開け|行って/.test(t);
+}
+
+function kenshuHarvest(seen, out){
+  ttsParts().forEach(function(t){
+    t = t.replace(/\s+/g, " ").trim();
+    if(t && !seen.has(t)){ seen.add(t); out.push(t); }
+  });
+}
+
+function kenshuCorpus(){
+  const seen = new Set(); const out = [];
+  const origRandom = Math.random;
+  const saveApproach = approachCount; const saveLW = lastWorld; const saveOrder = b1Order;
+  const saveB2 = B2, saveB2p = b2Played, saveP2 = b2p2Played, saveDir = b2Direct;
+  const saveB3 = B3, saveB3p = b3Played; const saveLast = lastBox;
+  const saveSplit = splitOff; splitOff = true;
+  const savePlay = playCount, saveS = S, saveWalk = WALK, saveQuit = quitBack, saveHist = histPushed; histPushed = true;
+  try{
+    go("genkan"); b3OpenFolds(); kenshuHarvest(seen, out);
+    go("home"); kenshuHarvest(seen, out);
+    go("exitlite"); kenshuHarvest(seen, out);
+    start(); kenshuHarvest(seen, out); go("farpass"); kenshuHarvest(seen, out);
+    const plan = [
+      [0.1, "drop",  ["hello","back","front","silent","pass"]],
+      [0.4, "dansa", ["eye","open","push","pass"]],
+      [0.7, "door",  ["respond","hello","ignore"]],
+      [0.8, "taka",  ["hello","open","pass"]],
+      [0.9, "phone", ["hello","open","vague","pass"]]
+    ];
+    for(const w of plan){
+      const rig = function(){ return w[0]; };
+      Math.random = rig; approachCount = b1Pre(w[1]); lastWorld = null;
+      start(); goNear(); kenshuHarvest(seen, out);
+      for(const c of w[2]){
+        Math.random = rig; approachCount = b1Pre(w[1]); lastWorld = null;
+        start(); goNear();
+        if(w[1] === "drop") pick1(c);
+        else if(w[1] === "dansa") pickDansa(c);
+        else if(w[1] === "door") pickDoor(c);
+        else if(w[1] === "taka") pickTaka(c);
+        else pickPhone(c);
+        kenshuHarvest(seen, out);
+      }
+      if(w[1] === "drop"){
+        for(const v of ["open","direct","vague"]){
+          Math.random = rig; approachCount = b1Pre(w[1]); lastWorld = null;
+          start(); goNear(); pick1("front"); pick2(v); kenshuHarvest(seen, out);
+        }
+      }
+      if(w[1] === "phone"){
+        for(const c of ["hello","open","vague"]){
+          Math.random = rig; approachCount = b1Pre(w[1]); lastWorld = null;
+          start(); goNear(); Math.random = function(){ return 0.2; }; pickPhone(c); kenshuHarvest(seen, out);
+        }
+        for(const c of ["hello","open","vague"]){
+          Math.random = rig; approachCount = 10; lastWorld = null;
+          start(); goNear(); pickPhone(c); kenshuHarvest(seen, out);
+        }
+      }
+    }
+    go("b2gate"); kenshuHarvest(seen, out);
+    go("b2bridge"); kenshuHarvest(seen, out);
+    b2p2Start(true); kenshuHarvest(seen, out); b2Direct = false;
+    b2Start(); kenshuHarvest(seen, out);
+    for(const c of ["tsure","tachi","kagamu","kami"]){ b2Start(); b2s1(c); kenshuHarvest(seen, out); }
+    b2Start(); b2s1("kagamu"); b2s1b("return"); kenshuHarvest(seen, out);
+    b2Start(); b2s1("kagamu"); b2s1b("keep"); kenshuHarvest(seen, out);
+    render(V.b2s2()); kenshuHarvest(seen, out);
+    b2s2("sengen"); kenshuHarvest(seen, out);
+    b2s2("yohi"); kenshuHarvest(seen, out);
+    for(const c of ["matte","fukusho","manual"]){ render(V.b2s2()); b2s2("sengen"); b2s2b(c); kenshuHarvest(seen, out); }
+    render(V.b2s3()); kenshuHarvest(seen, out);
+    for(const c of ["marunage","hikitsugi","ikki"]){ render(V.b2s3()); b2s3(c); kenshuHarvest(seen, out); }
+    render(V.b2s4()); kenshuHarvest(seen, out);
+    for(const c of ["sakura","kuukyo","souten"]){ render(V.b2s4()); b2s4(c); kenshuHarvest(seen, out); }
+    const p2sets = [
+      {},
+      {s1:"tsure",  s1b:"return", s2:"yohi",   s2b:"fukusho", s3:"hikitsugi", s4:"souten"},
+      {s1:"kagamu", s1b:"keep",   s2:"sengen", s2b:"matte",   s3:"ikki",      s4:"sakura"},
+      {s1:"tachi",  s1b:"keep",   s2:"sengen", s2b:"manual",  s3:"marunage",  s4:"kuukyo"},
+      {s1:"kami",   s1b:"return", s2:"sengen", s2b:"fukusho", s3:"hikitsugi", s4:"sakura"}
+    ];
+    for(const st of p2sets){
+      B2 = Object.assign({}, st);
+      b2Direct = !Object.keys(st).length;
+      render(V.p2s1()); kenshuHarvest(seen, out);
+      render(V.p2s2()); kenshuHarvest(seen, out);
+      if(B2.s2 === "yohi"){ p2s2go("ok"); kenshuHarvest(seen, out); }
+      else {
+        p2s2go("refuse"); kenshuHarvest(seen, out);
+        render(V.p2s2()); p2s2go("follow"); kenshuHarvest(seen, out);
+      }
+      render(V.p2s3()); kenshuHarvest(seen, out);
+      p2s3("self"); kenshuHarvest(seen, out);
+      render(V.p2s3()); p2s3("makase"); kenshuHarvest(seen, out);
+      render(V.p2s4()); kenshuHarvest(seen, out);
+      render(V.p2s5()); kenshuHarvest(seen, out);
+      render(V.p2s6()); kenshuHarvest(seen, out);
+    }
+    b2Direct = false;
+    const H3 = function(){ b3OpenFolds(); kenshuHarvest(seen, out); };
+    render(V.home()); H3(); go("whatis"); H3(); go("yomiage"); H3();  go("b3gate"); H3();
+    b3Start(); H3();
+    for(const c of ["aisatsu","kiku","sewa","eshaku"]){ b3Start(); b3s1(c); H3(); }
+    render(V.b3s2()); H3(); for(const c of ["kakaeru","gappa","hiraku","nageru"]){ render(V.b3s2()); b3s2(c); H3(); }
+    render(V.b3s3()); H3(); for(const c of ["joretsu","dantei","kiku","tomadou"]){ render(V.b3s3()); b3s3(c); H3(); }
+    render(V.b3s4()); H3(); for(const c of ["damaru","modosu","sekkei"]){ render(V.b3s4()); b3s4(c); H3(); }
+    render(V.b3s5()); H3(); for(const c of ["azukaru","satosu","tosu"]){ render(V.b3s5()); b3s5(c); H3(); }
+    render(V.b3s6()); H3(); for(const c of ["damaru","nomikai","hiru"]){ render(V.b3s6()); b3s6(c); H3(); }
+    render(V.b3s6b()); H3();
+    render(V.b3souji()); H3();
+    render(V.b3s7()); H3(); for(const c of ["kaesenai","nagasu","ato","betsu"]){ render(V.b3s7()); b3s7(c); H3(); }
+    for(const pre of [{s2:"kakaeru",s5:"tosu"},{s2:"gappa",s5:"satosu"}]){
+      B3 = Object.assign({}, pre); render(V.b3s8()); H3();
+      for(const c of ["hojo","onaji","chosho"]){ B3 = Object.assign({}, pre); render(V.b3s8()); b3s8(c); H3(); }
+    }
+    B3 = {}; render(V.b3s8b()); H3(); for(const c of ["nashi","hanasu"]){ render(V.b3s8b()); b3s8b(c); H3(); }
+    B3 = {s2:"nageru", s3:"kiku", s4:"sekkei", s6:"hiru"};
+    for(const t of ["short","mid","long"]){ for(const a of ["none","some","high"]){ render(V.b3end(t, a)); H3(); } }
+    B3 = {s2:"hiraku"}; render(V.b3end("mid", "some")); H3();
+    B3 = {s2:"gappa"}; render(V.b3end("mid", "some")); H3();
+    B3 = {s2:"kakaeru"}; render(V.b3end("mid", "none")); H3();
+    go("debrief"); kenshuHarvest(seen, out);
+    go("bs1"); kenshuHarvest(seen, out); go("bs2"); kenshuHarvest(seen, out); go("bs3"); kenshuHarvest(seen, out);
+    go("backstage"); kenshuHarvest(seen, out);
+  } finally {
+    Math.random = origRandom;
+    approachCount = saveApproach; lastWorld = saveLW; b1Order = saveOrder; lastBox = saveLast;
+    B2 = saveB2; b2Played = saveB2p; b2p2Played = saveP2; b2Direct = saveDir;
+    B3 = saveB3; b3Played = saveB3p; splitOff = saveSplit;
+    playCount = savePlay; S = saveS; WALK = saveWalk; quitBack = saveQuit; histPushed = saveHist;
+  }
+  return out;
+}
+
+function kenshuSpeakLine(t){
+  const chunks = ttsChunks(ttsApplyDict(t));
+  let ci = 0;
+  const g = KQ.gen;
+  function nextChunk(){
+    if(!KQ || !KQ.playing || g !== KQ.gen) return;
+    if(!document.getElementById("kline")){ kenshuHalt(); return; }
+    if(ci >= chunks.length){ kenshuNext(); return; }
+    const piece = chunks[ci++];
+    if(piece === "\u0000"){ KQ.timer = setTimeout(nextChunk, TTS_PAUSE_MS); return; }
+    const u = new SpeechSynthesisUtterance(piece);
+    u.lang = "ja-JP"; if(ttsVoice) u.voice = ttsVoice; u.rate = KQ.rate;
+    u.onend = nextChunk;
+    u.onerror = function(){ if(KQ && g === KQ.gen) KQ.playing = false; };
+    KQ.utter = u;
+    speechSynthesis.speak(u);
+  }
+  nextChunk();
+}
+
+function kenshuHalt(){ if(!KQ) return; KQ.playing = false; KQ.gen++; if(KQ.timer){ clearTimeout(KQ.timer); KQ.timer = null; } }
+function kenshuRangeLabel(){
+  if(!KQ) return "";
+  const last = (KQ.to == null) ? KQ.lines.length - 1 : KQ.to;
+  return (KQ.from + 1) + "〜" + (last + 1);
+}
+
+function kenshuNext(){
+  if(!KQ || !KQ.playing) return;
+  if(!document.getElementById("kline")){ kenshuHalt(); return; }
+  const last = (KQ.to == null) ? KQ.lines.length - 1 : KQ.to;
+  if(KQ.idx < KQ.from - 1) KQ.idx = KQ.from - 1;
+  do { KQ.idx++; } while(KQ.idx <= last && KQ.onlyFlagged && !kenshuFlag(KQ.lines[KQ.idx]));
+  if(KQ.idx > last){
+    KQ.playing = false;
+    if(last >= KQ.lines.length - 1) kenshuStatus("終わりです。");
+    else kenshuStatus(kenshuRangeLabel() + " は終わりです。");
+    return;
+  }
+  const t = KQ.lines[KQ.idx];
+  const line = document.getElementById("kline");
+  const prog = document.getElementById("kprog");
+  if(line) line.textContent = t;
+  if(prog) prog.textContent = (KQ.idx + 1) + " / " + KQ.lines.length + (KQ.to == null ? "" : "（" + kenshuRangeLabel() + "）") + (kenshuFlag(t) ? "　⚑要注意" : "");
+  kenshuSpeakLine(t);
+}
+
+function kenshuPlay(fromTop){
+  if(!KQ) return;
+  if(!TTS_SUPPORTED){ kenshuStatus("この環境は読み上げ非対応です。"); return; }
+  speechSynthesis.cancel(); kenshuHalt();
+  if(fromTop){ KQ.idx = -1; KQ.from = 0; KQ.to = null; }
+  KQ.playing = true;
+  KQ.timer = setTimeout(kenshuNext, 60);
+}
+
+function kenshuPlayBlock(from, to){
+  if(!KQ) return;
+  if(!TTS_SUPPORTED){ kenshuStatus("この環境は読み上げ非対応です。"); return; }
+  speechSynthesis.cancel(); kenshuHalt();
+  KQ.from = Math.max(0, from - 1); KQ.to = Math.min(KQ.lines.length, to) - 1; KQ.idx = KQ.from - 1;
+  kenshuStatus(kenshuRangeLabel() + " を再生します。");
+  KQ.playing = true;
+  KQ.timer = setTimeout(kenshuNext, 60);
+}
+
+function kenshuPause(){
+  if(!KQ) return;
+  if(KQ.playing){
+    kenshuHalt();
+    if(TTS_SUPPORTED) speechSynthesis.cancel();
+    kenshuStatus("一時停止中。");
+  } else {
+    KQ.idx--;
+    kenshuStatus("");
+    kenshuPlay(false);
+  }
+}
+
+function kenshuMark(){
+  if(!KQ || KQ.idx < 0 || KQ.idx >= KQ.lines.length) return;
+  const t = KQ.lines[KQ.idx];
+  if(KQ.marks.indexOf(t) === -1) KQ.marks.push(t);
+  const ta = document.getElementById("kmarks");
+  if(ta) ta.value = KQ.marks.map(function(m, i){ return (i + 1) + ". " + m; }).join("\n");
+  kenshuStatus("旗を立てました（" + KQ.marks.length + "件）。");
+}
+
+function kenshuRate(r){ if(KQ) KQ.rate = r; kenshuStatus("速さ " + r + " に変更。"); }
+
+function kenshuOnly(btn){
+  if(!KQ) return;
+  KQ.onlyFlagged = !KQ.onlyFlagged;
+  if(btn) btn.textContent = "⚑要注意のみ: " + (KQ.onlyFlagged ? "ON" : "OFF");
+}
+
+function kenshuCopy(){
+  const ta = document.getElementById("kmarks");
+  if(!ta) return;
+  ta.focus(); ta.select();
+  try { document.execCommand("copy"); kenshuStatus("コピーしました。"); }
+  catch(e){ kenshuStatus("選択済みです。"); }
+}
+
+function kenshuStatus(m){
+  const el = document.getElementById("kstat");
+  if(el) el.textContent = m;
+}
+
+function kenshuView(){
+  const total = KQ.lines.length;
+  let flagged = 0;
+  for(const t of KQ.lines){ if(kenshuFlag(t)) flagged++; }
+  const b = 'style="width:auto;display:inline-block;min-height:42px;padding:8px 12px;margin:2px 4px 2px 0"';
+  const BLK = 100; const blocks = [];
+  for(let s = 1; s <= total; s += BLK){ const e = Math.min(s + BLK - 1, total); blocks.push(`<button class="ghost" ${b} onclick="kenshuPlayBlock(${s},${e})">${s}〜${e}</button>`); }
+  return `
+  <div class="card">
+    <p class="eyebrow">検収モード（開発用）</p>
+    <p class="sn">全文言 <b>${total}行</b>（うち ⚑要注意 <b>${flagged}行</b>）</p>
+    <p>
+      <button class="ghost" ${b} onclick="kenshuPlay(true)">▶ 最初から再生</button>
+      <button class="ghost" ${b} onclick="kenshuPause()">⏯ 一時停止／再開</button>
+      <button class="ghost" ${b} onclick="kenshuMark()">⚠ この行に旗</button>
+    </p>
+    <p>${blocks.join("")}</p>
+    <p>
+      <button class="ghost" ${b} onclick="kenshuRate(1.0)">速さ1.0</button>
+      <button class="ghost" ${b} onclick="kenshuRate(1.3)">1.3</button>
+      <button class="ghost" ${b} onclick="kenshuRate(1.6)">1.6</button>
+      <button class="ghost" ${b} onclick="kenshuOnly(this)">⚑要注意のみ: OFF</button>
+    </p>
+    <p class="sn" id="kprog">未再生</p>
+    <p class="narr" id="kline" style="min-height:3em">—</p>
+    <p class="sn" id="kstat"></p>
+    <p class="sn">疑義リスト:　<button class="ghost" ${b} onclick="kenshuCopy()">リストをコピー</button></p>
+    <textarea id="kmarks" readonly style="width:100%;min-height:8em;font-size:.9rem;box-sizing:border-box"></textarea>
+  </div>
+  <button class="ghost" onclick="kenshuHalt(); ttsStop(); go('home')">ホームに戻る</button>`;
+}
+
+function kenshuStart(){
+  ttsAuto = false;
+  KQ = { lines: kenshuCorpus(), idx: -1, from: 0, to: null, playing: false, rate: 1.0, onlyFlagged: false, marks: [], gen: 0, timer: null, utter: null };
+  render(kenshuView());
+}
+
+const KENSHU_TAPS = 5;
+const KENSHU_TAP_GAP_MS = 3000;
+let kenshuTapCount = 0, kenshuTapLast = 0;
+(function(){
+  const el = document.getElementById("verstamp");
+  if(!el) return;
+  el.addEventListener("click", function(){
+    const now = Date.now();
+    kenshuTapCount = (now - kenshuTapLast > KENSHU_TAP_GAP_MS) ? 1 : (kenshuTapCount + 1);
+    kenshuTapLast = now;
+    if(kenshuTapCount >= KENSHU_TAPS){
+      kenshuTapCount = 0;
+      kenshuStart();
+    }
+  });
+})();
+
+window.addEventListener("hashchange", function(){ if(location.hash === "#kenshu"){ kenshuStart(); } });
+if(location.hash === "#kenshu"){ kenshuStart(); } else { go("genkan"); }
+</script>
+
+<script>
+window.addEventListener('load', function(){
+  const s = new URLSearchParams(location.search).get('s') || '';
+  const qt = (snip) => { const el = Array.from(document.querySelectorAll('#stage button')).find(b => b.textContent.includes(snip)); if(!el) throw new Error('no button: ' + snip); el.click(); };
+  const next = () => { const el = document.querySelector('#stage button.next'); if(!el) throw new Error('no next'); el.click(); };
+  const openFold = (title) => { const sm = Array.from(document.querySelectorAll('#stage details.fold summary')).find(x => !title || x.textContent.trim() === title); if(sm) sm.click(); };
+  const b3best = (upto) => { splitOff = true; b3Start();
+    const steps = [['やりにくいことがあったら'], ['next'], ['誰が受けてもいい'], ['next'], ['希望があれば教えて'], ['next'], ['私が決めたことだから'], ['next'], ['係長の名前で課長に'], ['next'], ['昼に一回'], ['next'], ['next'], ['next'], ['別の話じゃないですか'], ['next'], ['起案は正確で速い'], ['next'], ['本人と話す'], ['next']];
+    steps.slice(0, upto).forEach(st => st[0] === 'next' ? next() : qt(st[0])); };
+  try {
+    if(s === 'home'){ go('home'); }
+    else if(s === 'genkanopen'){ openFold('もっと詳しく'); }
+    else if(s === 'w1'){ splitOff = true; b3Start(); }
+    else if(s === 'w3'){ b3best(4); }
+    else if(s === 'w3kiku'){ b3best(5); }
+    else if(s === 'w3dantei'){ b3best(4); qt('聞かずに手前の席だけ'); }
+    else if(s === 'souji'){ b3best(13); }
+    else if(s === 'w6b'){ b3best(12); }
+    else if(s === 'soujiopen'){ b3best(13); openFold('彼の側から見る'); }
+    else if(s === 'w2'){ b3best(2); }
+    else if(s === 'w7fold'){ b3best(14); qt('何も、返せない'); openFold('十年目の返答'); }
+    else if(s === 'footer'){ go('backstage'); document.querySelector('footer').scrollIntoView(false); }
+    else if(s === 'b3end'){ b3best(99); }
+    else if(s === 'b3rec'){ b3best(99); document.querySelector('.fig.record').scrollIntoView(true); }
+    else if(s === 'b1rec'){ Math.random = () => 0.1; start(); goNear(); qt('「こんにちは」と声をかける'); next(); document.querySelector('.fig.record').scrollIntoView(true); }
+    else if(s === 'b1near'){ Math.random = () => 0.1; start(); goNear(); }
+    else if(s === 'b1back'){ Math.random = () => 0.1; start(); goNear(); qt('落としましたよ'); }
+    else if(s === 'b1vague'){ Math.random = () => 0.1; start(); goNear(); qt('目が合ってから、声をかける'); qt('「大丈夫ですか？」'); }
+    else if(s === 'b1phhello'){ approachCount = 4; lastWorld = null; Math.random = () => 0.9; start(); goNear(); S.lost = false; pickPhone('hello'); }
+    else if(s === 'b1phopen'){ approachCount = 4; lastWorld = null; Math.random = () => 0.9; start(); goNear(); S.lost = false; pickPhone('open'); }
+    else if(s === 'b2s1k'){ splitOff = true; b2Start(); b2s1('kagamu'); }
+    else if(s === 'b2s2s'){ splitOff = true; b2Start(); b2s1('kagamu'); b2s1b('return'); render(V.b2s2()); b2s2('sengen'); }
+    else if(s === 'p2bento'){ splitOff = true; B2 = {}; b2Direct = false; render(V.p2s2()); p2s2go('follow'); }
+    else if(s === 'p2s3m'){ splitOff = true; B2 = {s3:"marunage"}; b2Direct = false; render(V.p2s3()); }
+    else if(s === 'p2s5ev'){ splitOff = true; B2 = {s1:"kagamu", s1b:"return", s2:"yohi", s2b:"fukusho", s3:"hikitsugi", s4:"kuukyo"}; b2Direct = false; render(V.p2s5()); Array.from(document.querySelectorAll('#stage p.narr')).find(p => p.textContent.includes('車椅子用のエレベーターはなく')).scrollIntoView(false); }
+    else if(s === 'w2nageru'){ splitOff = true; b3Start(); render(V.b3s2()); b3s2('nageru'); }
+    else if(s === 'w6bopen'){ b3best(12); openFold('彼の側から見る'); document.querySelector('#stage details.fold').scrollIntoView(false); }
+    else if(s === 'bs3ketsu'){ go('bs3'); Array.from(document.querySelectorAll('#stage .learn p')).find(p => p.textContent.includes('結末は')).scrollIntoView(true); }
+    else if(s === 'whatisyomi'){ go('home'); goInfo('whatis'); Array.from(document.querySelectorAll('#stage .about h2')).find(h => h.textContent.includes('読み上げについて')).scrollIntoView(true); }
+    else if(s === 'yomiage'){ qt('本作の読み上げボタンの説明'); }
+    else if(s === 'yomiback'){ qt('本作の読み上げボタンの説明'); qt('もどる'); }
+    else if(s === 'whatisend'){ go('home'); goInfo('whatis'); const b = document.querySelector('#stage button.yomilink') || document.querySelector('#stage button'); b.scrollIntoView(false); window.scrollBy(0, 90); }
+    else if(s === 'b2bridge'){ go('b2bridge'); }
+    else if(s === 'b2gate2'){ go('b2gate'); next(); }
+    else if(s === 'b1backinv'){ Math.random = () => 0.1; start(); goNear(); qt('落としましたよ'); invToggle(); const f = document.querySelector('#stage .learn .fig'); if(f) f.scrollIntoView(false); }
+    else if(s === 'yomiwhatis'){ Math.random = () => 0.1; start(); goNear(); goInfo('whatis'); qt('本作の読み上げボタンの説明'); }
+    else if(s === 'p2s2bm'){ splitOff = true; B2 = {s1:"tachi", s1b:"keep", s2:"sengen", s2b:"fukusho"}; b2Direct = false; render(V.p2s2()); p2s2go('follow'); }
+    else if(s === 'p2s2mt'){ splitOff = true; B2 = {s1:"tachi", s1b:"keep", s2:"sengen", s2b:"matte"}; b2Direct = false; render(V.p2s2()); p2s2go('follow'); }
+    else if(s === 'p2s2br'){ splitOff = true; B2 = {s1:"tachi", s1b:"keep", s2:"sengen", s2b:"fukusho"}; b2Direct = false; render(V.p2s2()); p2s2go('refuse'); const n = Array.from(document.querySelectorAll('#stage p.sn')).find(p => p.textContent.includes('復唱')); if(n) n.scrollIntoView(true); }
+    else if(s === 'p2s2mr'){ splitOff = true; B2 = {s1:"tachi", s1b:"keep", s2:"sengen", s2b:"matte"}; b2Direct = false; render(V.p2s2()); p2s2go('refuse'); const n = Array.from(document.querySelectorAll('#stage p.narr')).find(p => p.textContent.includes('あなたは黙って')); if(n) n.scrollIntoView(true); }
+    else if(s === 'w8hojo'){ splitOff = true; b3Start(); B3 = {}; render(V.b3s8()); b3s8('hojo'); openFold('彼の側から見る'); }
+    else if(s === 'b3midk'){ splitOff = true; b3Start(); B3 = {s2:"kakaeru"}; render(V.b3end('mid', 'none')); }
+    else if(s === 'p2s4s'){ splitOff = true; B2 = {s1:"kagamu", s1b:"return", s2:"yohi", s2b:"fukusho", s3:"ikki", s4:"sakura"}; b2Direct = false; render(V.p2s4()); const n = Array.from(document.querySelectorAll('#stage p.sn')).find(p => p.textContent.includes('ごゆっくり')); if(n) n.scrollIntoView(true); }
+    else if(s === 'p2s6d'){ splitOff = true; b2p2Start(true); render(V.p2s6()); }
+    else if(s === 'p2s6m'){ splitOff = true; B2 = {s1:"tsure", s1b:"return", s2:"yohi", s2b:"fukusho", s3:"ikki", s4:"souten"}; b2Direct = false; render(V.p2s6()); }
+    else if(s === 'b3short'){ splitOff = true; b3Start(); B3 = {}; render(V.b3end('short', 'none')); }
+    else if(s === 'w8tosu'){ splitOff = true; b3Start(); B3 = {s5:"tosu"}; render(V.b3s8()); b3s8('chosho'); }
+    else if(s === 'quitinfo'){ Math.random = () => 0.1; start(); goNear(); goInfo('whatis'); quitPressed(); }
+    else if(s === 'b1dansacard'){ Math.random = () => 0.4; start(); goNear(); qt('視界に入って立ち止まり'); next(); const c = Array.from(document.querySelectorAll('#stage .learn')).find(x => x.textContent.includes('人通り')); if(c) c.scrollIntoView(true); }
+    else if(s === 'b1end'){ Math.random = () => 0.1; start(); goNear(); qt('「こんにちは」と声をかける'); next(); }
+    else if(s === 'b1dansa1'){ Math.random = () => 0.4; start(); goNear(); qt('視界に入って立ち止まり'); }
+    else if(s === 'b1dansa2'){ Math.random = () => 0.4; start(); goNear(); qt('視界に入って立ち止まり'); next(); }
+    else if(s === 'b2s1'){ b2Start(); }
+    else if(s === 'p2s1'){ B2 = {}; render(V.p2s1()); }
+    else if(s === 'p2s6'){ B2 = {s1:"kagamu", s1b:"return", s2:"yohi", s3:"hikitsugi", s4:"souten"}; render(V.p2s6()); }
+    else if(s === 'w8b'){ b3best(18); }
+    else if(s === 'bs1'){ go('bs1'); }
+    else if(s === 'bs2'){ go('bs2'); }
+    else if(s === 'p2s4h'){ splitOff = true; B2 = {s1:"kagamu", s1b:"return", s2:"yohi", s2b:"fukusho", s3:"hikitsugi", s4:"souten"}; b2Direct = false; render(V.p2s4()); }
+    else if(s === 'bs3'){ go('bs3'); }
+    else if(s === 'backstage'){ go('backstage'); }
+    else if(s === 'whatis'){ go('home'); goInfo('whatis'); }
+    else if(s === 'inv'){ go('home'); invToggle(); }
+    else if(s === 'kenshu'){ kenshuStart(); }
+    else if(s === 's3'){ render(V.b2s3()); }
+    else if(s === 'p2s3h'){ splitOff = true; B2 = {s1:"kagamu", s1b:"return", s2:"yohi", s2b:"fukusho", s3:"hikitsugi", s4:"souten"}; b2Direct = false; render(V.p2s3()); }
+    document.title = 'SHOT ' + s + ' ' + (document.querySelector('#stage h2') ? document.querySelector('#stage h2').textContent : '');
+  } catch(e){ document.title = 'ERR ' + e.message; document.body.insertAdjacentHTML('afterbegin', '<div style="position:fixed;top:0;left:0;background:#c00;color:#fff;padding:8px;z-index:99">ERR ' + e.message + '</div>'); }
+});
+</script>
+</body>
+</html>
