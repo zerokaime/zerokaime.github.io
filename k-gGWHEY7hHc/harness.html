@@ -7,6 +7,7 @@
 <title>0回目</title>
 <meta name="color-scheme" content="light">
 <meta name="description" content="障害のある人との「はじめて」を練習するための小さなブラウザ作品です。ここでの失敗は誰も傷つけません。何度でもやり直せます。">
+<meta name="author" content="ダブル手帳">
 <meta name="theme-color" content="#EEF1F3">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="0回目">
@@ -20,6 +21,7 @@
 <meta property="og:image:alt" content="青地に白い「０回目」">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2064%2064'%3E%3Crect%20width%3D'64'%20height%3D'64'%20rx%3D'14'%20fill%3D'%231F5FA8'%2F%3E%3Ctext%20x%3D'32'%20y%3D'47'%20text-anchor%3D'middle'%20font-family%3D'sans-serif'%20font-size%3D'42'%20font-weight%3D'700'%20fill%3D'%23FFFFFF'%3E0%3C%2Ftext%3E%3C%2Fsvg%3E">
+<link rel="license" href="https://github.com/zerokaime/zerokaime.github.io/blob/main/LICENSE">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <style>
   :root{
@@ -270,7 +272,7 @@
     </div>
   </header>
   <main id="stage" aria-live="polite"></main>
-  <footer><span id="verstamp">0回目 v0.141</span> ｜ 場面1「歩道で」・場面2「会場の受付・案内」（第一部・第二部）・場面3「職場」<br>あなたの選択は、どこにも送信されません。<br>作者・出どころ・くわしい説明は <a href="https://github.com/zerokaime/zerokaime.github.io#readme" target="_blank" rel="noopener" style="color:var(--blue-deep);text-decoration:underline;text-underline-offset:3px">README（GitHub）</a> に。作り方の経緯と補足は <a href="https://double-techou.hatenablog.com/entry/zerokaime" target="_blank" rel="noopener" style="color:var(--blue-deep);text-decoration:underline;text-underline-offset:3px">ブログの記事</a> に。</footer>
+  <footer><span id="verstamp">0回目 v0.142</span> ｜ 場面1「歩道で」・場面2「会場の受付・案内」（第一部・第二部）・場面3「職場」<br>あなたの選択は、どこにも送信されません。<br>作者・出どころ・くわしい説明は <a href="https://github.com/zerokaime/zerokaime.github.io#readme" target="_blank" rel="noopener" style="color:var(--blue-deep);text-decoration:underline;text-underline-offset:3px">README（GitHub）</a> に。作り方の経緯と補足は <a href="https://double-techou.hatenablog.com/entry/zerokaime" target="_blank" rel="noopener" style="color:var(--blue-deep);text-decoration:underline;text-underline-offset:3px">ブログの記事</a> に。</footer>
 </div>
 
 <script>
@@ -1169,7 +1171,7 @@ const TTS_DICT = [
   ["の側", "のがわ"]  ,
   ["ただ「少々」の長さ", "ただ、「少々」、の長さ"]  ,
   ["まだ約束がある。「帰りの時間帯には、4階にスタッフを」。いま前に", "まだ約束がある。—「帰りの時間帯には、4階にスタッフを」。—いま前に"]  ,
-  ["萎縮", "いしゅく"], ["起案", "きあん"], ["捻挫", "ねんざ"], ["居宅介護", "きょたくかいご"]  ,
+  ["萎縮", "いしゅく"], ["捻挫", "ねんざ"], ["居宅介護", "きょたくかいご"]  ,
   ["持ち帰ってほしい型", "持ち帰ってほしいかた"]  ,
   ["数センチ", "すうセンチ"]  ,
   ["申し出", "もうしで"]  ,
@@ -1215,8 +1217,10 @@ const TTS_DICT = [
   ["介助者の方へ", "介助者のほうへ"]  ,
   ["いつも通り", "いつもどおり"]  ,
   ["両側", "りょうがわ"]  ,
-  ["係長、彼のきあん、", "係長。彼のきあん、"]  ,
+  ["係長、彼の起案、", "係長。彼の起案、"]  ,
   ["（例：", "（例。"]  ,
+  ["会議は、いつもどおり", "会議は。いつもどおり"]  ,
+  ["翌朝、いつもどおり", "翌朝。いつもどおり"]  ,
   ["①", "まるいち"], ["②", "まるに"], ["③", "まるさん"], ["④", "まるよん"], ["⑤", "まるご"], ["⑥", "まるろく"], ["⑦", "まるなな"], ["⑧", "まるはち"]
 ];
 const TTS_PAUSE_MS = 600;
@@ -1584,9 +1588,9 @@ function b2s3(c){
     <p>担当が替わるたび、情報が消え、視線の方向が連れに戻り、本人が同じ説明を繰り返す。原型の記録では、しばしば問題の多くがこの<b>リレー構造</b>から生じていた。</p>
   `)}`;
   } else if(c === "hikitsugi"){
-    head = `<p class="narr">後任は頷いて、男性に言った。「伺っています。特典の受取所を通って、お席までご一緒します」。説明のやり直しは、起きなかった。</p>
+    head = `<p class="narr">後任は頷いて、男性に言った。「伺っております。特典の受取所を通って、お席までご案内します」。説明のやり直しは、起きなかった。</p>
     ${learn("引き継ぎ一文", `
-    <p>行き先と、これからのことを一文で渡すだけで、リセットは起きない。リレーが避けられない日の、確かな次善策。</p>
+    <p>行き先と、これからのことを一文で渡すだけで、リセットは起きない。リレーが避けられない場合の確実な次善策。</p>
   `)}`;
   } else {
     head = `<p class="narr">「いえ、大丈夫です。このままご案内を終えます」。無線の向こうが一瞬黙って、「了解」と返ってきた。共用エレベーターの混雑ぶりからして、職員用エレベーターの方が早そうだ。その旨のご説明と手配を進めながら近道へとご案内していく。</p>
@@ -1761,7 +1765,7 @@ V.p2s3 = () => {
   if(B2.s3 === "hikitsugi"){
     relay = p2mirror("行き先と、これからのことを一文で引き継ぐ") +
       `<p class="narr">通路の途中で、係が入れ替わった。来た人が、あなたに言う。</p>` +
-      sayAs("後任の係","伺っています。特典の受取所を通って、お席までご一緒します。") +
+      sayAs("後任の係","伺っております。特典の受取所を通って、お席までご案内します。") +
       `<p class="narr">さっき言ったことを、もう一度言う必要はなかった。それだけで、通路が短く感じた。</p>`;
   } else if(B2.s3 === "ikki"){
     relay = p2mirror("「このままご案内を終えます」と、一人で通す") +
@@ -1877,7 +1881,7 @@ V.p2s6 = () => {
      d(B2.s2, {yohi:"「ご一緒してもよろしいですか？」と聞いた", sengen:"「ご案内いたします」と歩き出した"}, "要否は聞かれなかった（実際にあった形）"),
      d(B2.s2, {yohi:"言いたいことが、聞かれた瞬間に言えた", sengen:"要望は、背中に向かって言うことになった"}, "要望は、背中に向かって言うことになった")],
     ["引き継ぎ",
-     d(B2.s3, {hikitsugi:"行き先と、これからのことを一文で渡した", ikki:"一人で通した", marunage:"「あと、お願いします」"}, "引き継ぎなしの交代（実際にあった形）"),
+     d(B2.s3, {hikitsugi:"行き先と、これからのことを一文で伝えた", ikki:"一人で通した", marunage:"「あと、お願いします」"}, "引き継ぎなしの交代（実際にあった形）"),
      d(B2.s3, {hikitsugi:"同じ説明を、二度しなくてよかった", ikki:"一度伝えたことが、最後まで消えなかった", marunage:"同じ説明を最初から繰り返した"}, "同じ説明を最初から繰り返した")]
   ].map(r => `<p><span class="sn">${r[0]}</span><br>${b2Direct ? "" : "第一部の選択: "}${r[1]}<br>相手に届いた形: ${r[2]}</p>`).join("");
   return `
